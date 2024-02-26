@@ -1,0 +1,90 @@
+.separator .line {
+    -fx-background-color: #e6eaed;
+    -fx-pref-height: 1;
+    -fx-border-color: null;
+}
+
+#buscar {
+    -fx-background-color: #f1f4f5;
+    -fx-text-fill: #606c74;
+    -fx-min-height: 36.8;
+    -fx-min-width: 96;
+    -fx-max-height: 1;
+}
+
+#buscar:hover {
+    -fx-background-color: #e6eaed;
+}
+
+#alejo {
+    -fx-background-color: #f1f4f5;
+    -fx-min-width: 36.8;
+    -fx-max-width: 36.8;
+    -fx-min-height: 36.8;
+    -fx-max-height: 36.8;
+}
+
+#alejo:hover {
+    -fx-background-color: #e6eaed;
+}
+
+.button {
+    -fx-background-color: #1a80e6;
+    -fx-background-radius: 12;
+    -fx-padding: 10 15 10 15;
+    -fx-text-fill: white;
+    -fx-border-color: null;
+}
+
+.button:hover {
+    -fx-background-color: #3d94ea;
+}
+
+.button:pressed {
+    -fx-background-color: #61a7ee;
+}
+
+.button .text {
+    -fx-font-family: "Arial black";
+    -fx-font-weight: bold;
+    -fx-font-size: 10px;
+}
+
+.title {
+    -fx-font-family: "Arial black";
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.boton-principal {
+    -fx-background-color: null;
+    -fx-background-radius: 12;
+    -fx-padding: 10 15 10 15;
+    -fx-text-fill: black;
+    -fx-border-color: null;
+    -fx-min-width: 90;
+}
+
+.boton-principal .text {
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.boton-principal:hover {
+    -fx-background-color: #f1f4f5;
+}
+
+.boton-principal:pressed {
+    -fx-background-color: #e6eaed;
+}
+
+.boton-perfil {
+    -fx-padding: 5;
+    -fx-background-radius: 5;
+}
+
+.boton-perfil {
+    -fx-padding: 5;
+    -fx-background-radius: 5;
+}
