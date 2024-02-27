@@ -1,8 +1,10 @@
 package co.edu.uniquindio.estructuras.tienda.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,16 +19,22 @@ public class MenuPrincipalController implements Initializable {
 	private SVGPath svg1, svg2;
 
 	@FXML
-	private BorderPane loadingLayer;
+	private BorderPane loadingLayer, mainLayer;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		MenuPrincipalLogicController.getInstance().cargarTransicionCargando(svg1, svg2);
+		MenuPrincipalLogicController.getInstance().cargarMenuCargando(loadingLayer);
 	}
 
 	@FXML
 	void buscarEvent(ActionEvent event) {
 		buscarAction();
+	}
+
+	@FXML
+	void clientesEvent(ActionEvent event) {
+		clientesAction();
 	}
 
 	@FXML
@@ -52,6 +60,17 @@ public class MenuPrincipalController implements Initializable {
 	@FXML
 	void ventasEvent(ActionEvent event) {
 		ventasAction();
+	}
+
+	private void clientesAction() {
+		try {
+			FxmlPerspective perspective = FxmlPerspective.loadPerspective("gestionClientes");
+			MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
+				mainLayer.setCenter(perspective.getPerspective());
+			});
+		} catch (IOException e) {
+		}
+
 	}
 
 	private void buscarAction() {

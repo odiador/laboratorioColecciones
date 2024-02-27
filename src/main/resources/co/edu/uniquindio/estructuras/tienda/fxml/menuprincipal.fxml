@@ -10,10 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-
 <StackPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.MenuPrincipalController">
    <children>
-      <BorderPane prefHeight="492.0" prefWidth="695.0" style="-fx-background-color: white;" stylesheets="@../styles/essentialstyle.css">
+      <BorderPane fx:id="mainLayer" prefHeight="492.0" prefWidth="695.0" style="-fx-background-color: white;" stylesheets="@../styles/essentialstyle.css">
          <top>
             <VBox BorderPane.alignment="CENTER">
                <children>
@@ -28,7 +27,7 @@
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" styleClass="boton-principal" text="Clientes" />
+                              <Button mnemonicParsing="false" onAction="#clientesEvent" styleClass="boton-principal" text="Clientes" />
                               <Button mnemonicParsing="false" onAction="#ventasEvent" styleClass="boton-principal" text="Ventas" />
                            </children>
                         </HBox>
@@ -69,7 +68,7 @@
             </VBox>
          </top>
       </BorderPane>
-      <BorderPane fx:id="loadingLayer" disable="true" opacity="0.0" style="-fx-background-color: #00000060;">
+      <BorderPane fx:id="loadingLayer" disable="true" opacity="0.0" style="-fx-background-color: #00000030;">
          <center>
             <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="35.0" prefWidth="35.0" BorderPane.alignment="CENTER">
                <children>
