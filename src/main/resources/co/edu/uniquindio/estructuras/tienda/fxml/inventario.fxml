@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/essentialstyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.InventarioController">
+   <left>
+      <VBox spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button id="boton-lateral" fx:id="btnOrdenAgregacion" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#mostrarInventarioEvent" styleClass="boton-principal" text="Inventario">
+               <graphic>
+                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" scaleX="0.2" scaleY="0.2">
+                     <children>
+                        <SVGPath content="M118.8,209.6h-59v-59h22.7v18.8h13.5v-18.8h22.7V209.6z M195.9,209.6h-59v-59h22.7v18.8h13.5v-18.8h22.7V209.6z M157.8,132.5h-59v-59h22.7v18.8h13.5V73.5h22.7V132.5z M246.6,78.9l-16.1-7.5v139.9h-18.2V62.6l-84.5-39.9L43.5,62.6v148.5H25.3V71.3L9.2,78.9L1.4,62.4L127.8,2.7l126.7,59.6L246.6,78.9z" scaleX="0.5" scaleY="0.5" />
+                     </children>
+                  </StackPane>
+               </graphic></Button>
+            <Button id="boton-lateral" fx:id="btnOrdenAlfa" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#ordenarAlfabeticoEvent" styleClass="boton-principal" text="Orden A-Z">
+               <graphic>
+                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0">
+                     <children>
+                        <SVGPath content="M42.72,65.596h-8.011V2c0-1.105-0.896-2-2-2h-16.13c-1.104,0-2,0.895-2,2v63.596H6.568c-0.77,0-1.472,0.443-1.804,1.137C4.432,67.428,4.528,68.25,5.01,68.85l18.076,26.955c0.38,0.473,0.953,0.746,1.558,0.746s1.178-0.273,1.558-0.746L44.278,68.85c0.482-0.6,0.578-1.422,0.246-2.117C44.192,66.039,43.49,65.596,42.72,65.596z M92.998,39.315L79.668,1.541c-0.282-0.799-1.038-1.334-1.886-1.334h-3.861c-0.106,0-0.213,0.008-0.317,0.025c-0.104-0.018-0.21-0.025-0.318-0.025h-3.76c-0.85,0-1.605,0.535-1.888,1.336L54.362,39.317c-0.215,0.611-0.12,1.289,0.255,1.818c0.375,0.529,0.982,0.844,1.632,0.844h5.774c0.88,0,1.656-0.574,1.913-1.416l2.535-8.324H80.89l2.536,8.324c0.256,0.842,1.033,1.416,1.913,1.416h5.771c0.648,0,1.258-0.314,1.633-0.844C93.119,40.604,93.213,39.926,92.998,39.315z M68.864,24.283c2.397-7.77,4.02-13.166,4.82-16.041l4.928,16.041H68.864z M87.255,89.838H69.438l18.928-27.205c0.232-0.336,0.357-0.734,0.357-1.143v-3.416c0-1.104-0.896-2-2-2h-26.07c-1.104,0-2,0.896-2,2v3.844c0,1.105,0.896,2,2,2h16.782L58.481,91.094c-0.234,0.336-0.359,0.734-0.359,1.145v3.441c0,1.105,0.896,2,2,2h27.135c1.104,0,2-0.895,2-2v-3.842C89.255,90.732,88.361,89.838,87.255,89.838z" scaleX="0.3" scaleY="0.3" />
+                     </children>
+                  </StackPane>
+               </graphic></Button>
+            <Button id="boton-lateral" fx:id="btnOrdenCantidad" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#ordenarCantidadEvent" styleClass="boton-principal" text="Orden Cantidad">
+               <graphic>
+                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0">
+                     <children>
+                        <SVGPath content="M77,58.48H56.47a1.63,1.63,0,0,0-1.63,1.63h0v1.64a1.65,1.65,0,0,0,1.63,1.64H77a1.65,1.65,0,0,0,1.63-1.64V60.11A1.63,1.63,0,0,0,77,58.48Z M77,70H56.47a1.65,1.65,0,0,0-1.63,1.64v1.64a1.63,1.63,0,0,0,1.63,1.63H77a1.63,1.63,0,0,0,1.63-1.63V71.63A1.64,1.64,0,0,0,77,70Z M43.55,58.48H23a1.65,1.65,0,0,0-1.64,1.63v1.64A1.66,1.66,0,0,0,23,63.39H43.55a1.66,1.66,0,0,0,1.64-1.64V60.11A1.65,1.65,0,0,0,43.55,58.48Z M43.55,70H23a1.66,1.66,0,0,0-1.64,1.64v1.64A1.64,1.64,0,0,0,23,74.9H43.55a1.65,1.65,0,0,0,1.64-1.63V71.63A1.65,1.65,0,0,0,43.55,70Z M66.73,25.14a13,13,0,1,0,13,13A13,13,0,0,0,66.73,25.14ZM73.17,39a.82.82,0,0,1-.82.7H61.11a.78.78,0,0,1-.81-.7,11.3,11.3,0,0,1,0-1.84.82.82,0,0,1,.81-.7H72.35a.82.82,0,0,1,.82.7A11.3,11.3,0,0,1,73.17,39Z M42.51,28.88A13,13,0,0,0,24.08,47.31h0A13,13,0,0,0,42.51,28.88ZM42,39.17a.51.51,0,0,1-.47.55H35.46a.58.58,0,0,0-.54.54v6a.58.58,0,0,1-.54.54H32.21a.5.5,0,0,1-.54-.46V40.26a.51.51,0,0,0-.48-.54H25.12a.52.52,0,0,1-.54-.5V37a.59.59,0,0,1,.54-.55h6a.51.51,0,0,0,.55-.47V30a.58.58,0,0,1,.54-.54h2.17a.54.54,0,0,1,.54.54h0v6a.5.5,0,0,0,.46.54h6.08A.6.6,0,0,1,42,37Z" scaleX="0.5" scaleY="0.5" />
+                     </children>
+                  </StackPane>
+               </graphic></Button>
+         </children>
+         <BorderPane.margin>
+            <Insets right="20.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <top>
+      <Label fx:id="lblTitulo" styleClass="title" text="Inventario" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.estructuras.tienda.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import lombok.AllArgsConstructor;
@@ -16,8 +17,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class Cliente {
+public class Cliente implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@EqualsAndHashCode.Include
 	@NonNull
 	private String identificacion;
