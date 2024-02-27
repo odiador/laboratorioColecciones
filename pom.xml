@@ -21,6 +21,13 @@
 			<artifactId>javafx-fxml</artifactId>
 			<version>20</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-swing -->
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-swing</artifactId>
+			<version>20</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -48,7 +55,8 @@
 						<!-- Usage: mvn clean javafx:run -->
 						<id>default-cli</id>
 						<configuration>
-							<mainClass>co.edu.uniquindio.estructuras.tienda.application.TiendaMain</mainClass>
+							<mainClass>
+								co.edu.uniquindio.estructuras.tienda.application.TiendaMain</mainClass>
 						</configuration>
 					</execution>
 				</executions>

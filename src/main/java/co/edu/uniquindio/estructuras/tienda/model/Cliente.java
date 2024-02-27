@@ -1,8 +1,11 @@
 package co.edu.uniquindio.estructuras.tienda.model;
 
 import java.io.Serializable;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import co.edu.uniquindio.estructuras.tienda.services.Imagenable;
+import javafx.scene.image.Image;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -17,7 +20,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class Cliente implements Serializable{
+
+public class Cliente implements Imagenable ,Serializable{
 
 	/**
 	 * 
@@ -30,4 +34,14 @@ public class Cliente implements Serializable{
 	private String nombre, direccion;
 	@NonNull
 	private ArrayList<Venta> lstVentas;
+	private byte[] imgBytes;
+
+	public void setImagen(Image image) throws IOException {
+		imgBytes = Imagenable.getImageBytes(image);
+	}
+
+	@Override
+	public byte[] getImgBytes() {
+		return imgBytes;
+	}
 }
