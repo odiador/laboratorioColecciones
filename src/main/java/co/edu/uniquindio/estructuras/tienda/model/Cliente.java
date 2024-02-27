@@ -1,7 +1,10 @@
 package co.edu.uniquindio.estructuras.tienda.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import co.edu.uniquindio.estructuras.tienda.services.Imagenable;
+import javafx.scene.image.Image;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -16,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class Cliente {
+public class Cliente implements Imagenable {
 
 	@EqualsAndHashCode.Include
 	@NonNull
@@ -25,4 +28,14 @@ public class Cliente {
 	private String nombre, direccion;
 	@NonNull
 	private ArrayList<Venta> lstVentas;
+	private byte[] imgBytes;
+
+	public void setImagen(Image image) throws IOException {
+		imgBytes = Imagenable.getImageBytes(image);
+	}
+
+	@Override
+	public byte[] getImgBytes() {
+		return imgBytes;
+	}
 }

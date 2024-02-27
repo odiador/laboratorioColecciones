@@ -1,5 +1,9 @@
 package co.edu.uniquindio.estructuras.tienda.model;
 
+import java.io.IOException;
+
+import co.edu.uniquindio.estructuras.tienda.services.Imagenable;
+import javafx.scene.image.Image;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -14,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Producto implements Comparable<Producto> {
+public class Producto implements Comparable<Producto>, Imagenable {
 	@NonNull
 	@EqualsAndHashCode.Include
 	private String codigo;
@@ -22,9 +26,19 @@ public class Producto implements Comparable<Producto> {
 	private String nombre;
 	private double precio;
 	private int cantidad;
+	private byte[] imgBytes;
+
+	public void setImagen(Image image) throws IOException {
+		imgBytes = Imagenable.getImageBytes(image);
+	}
 
 	@Override
 	public int compareTo(Producto o) {
 		return cantidad - o.cantidad;
+	}
+
+	@Override
+	public byte[] getImgBytes() {
+		return imgBytes;
 	}
 }
