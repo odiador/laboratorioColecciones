@@ -4,6 +4,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
@@ -16,6 +17,8 @@ public class MenuPrincipalLogicController {
 	private Interpolator interpolator;
 
 	private ParallelTransition transicionCargando;
+
+	private BorderPane loadingLayer;
 	private static MenuPrincipalLogicController instance;
 
 	public static MenuPrincipalLogicController getInstance() {
@@ -30,6 +33,10 @@ public class MenuPrincipalLogicController {
 
 	public void cargarTransicionCargando(SVGPath svg1, SVGPath svg2) {
 		transicionCargando = new ParallelTransition(createRotateAnim(svg1, 0, 360), createRotateAnim(svg2, 360, 0));
+	}
+
+	public void cargarMenuCargando(BorderPane loadingLayer) {
+		this.loadingLayer = loadingLayer;
 	}
 
 	public Image cropImage(Image img, int radius) {
@@ -65,13 +72,15 @@ public class MenuPrincipalLogicController {
 		return interpolator;
 	}
 
-	public void ejecutarProceso(Runnable runnable, BorderPane loadingLayer) {
+	public void ejecutarProceso(Runnable runnable) {
 		new Thread(() -> {
-			showPane(loadingLayer);
-			transicionCargando.playFromStart();
-			runnable.run();
-			hidePane(loadingLayer);
-			transicionCargando.stop();
+			Platform.runLater(() -> {
+				showPane(loadingLayer);
+				transicionCargando.playFromStart();
+				runnable.run();
+				hidePane(loadingLayer);
+				transicionCargando.stop();
+			});
 		}).start();
 	}
 
