@@ -1,6 +1,7 @@
 package co.edu.uniquindio.estructuras.tienda.model;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import co.edu.uniquindio.estructuras.tienda.services.Imagenable;
 import javafx.scene.image.Image;
@@ -18,7 +19,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Producto implements Comparable<Producto>, Imagenable {
+public class Producto implements Comparable<Producto>, Imagenable,Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@NonNull
 	@EqualsAndHashCode.Include
 	private String codigo;

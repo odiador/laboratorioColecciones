@@ -1,5 +1,6 @@
 package co.edu.uniquindio.estructuras.tienda.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Venta {
+public class Venta implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@NonNull
 	@EqualsAndHashCode.Include
 	private String codigo;
