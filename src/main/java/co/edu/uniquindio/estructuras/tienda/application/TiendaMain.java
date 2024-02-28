@@ -3,8 +3,8 @@ package co.edu.uniquindio.estructuras.tienda.application;
 import java.io.IOException;
 
 import co.edu.uniquindio.estructuras.tienda.model.Producto;
+import co.edu.uniquindio.estructuras.tienda.services.IProductoController;
 import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
-import co.edu.uniquindio.estructurass.tienda.services.IProductoController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;

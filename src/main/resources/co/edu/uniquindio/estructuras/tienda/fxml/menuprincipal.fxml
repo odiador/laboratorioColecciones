@@ -67,6 +67,9 @@
                </children>
             </VBox>
          </top>
+         <center>
+            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
       </BorderPane>
       <BorderPane fx:id="loadingLayer" disable="true" opacity="0.0" style="-fx-background-color: #00000030;">
          <center>

@@ -1,4 +1,4 @@
-package co.edu.uniquindio.estructurass.tienda.services;
+package co.edu.uniquindio.estructuras.tienda.services;
 
 import co.edu.uniquindio.estructuras.tienda.model.Producto;
 

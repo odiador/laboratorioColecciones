@@ -2,6 +2,7 @@ package co.edu.uniquindio.estructuras.tienda.controllers;
 
 import java.io.IOException;
 
+import co.edu.uniquindio.estructuras.tienda.services.IAddClientController;
 import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -23,23 +24,20 @@ public class GestionClientesLogicController {
 		});
 	}
 
-	public void irAAgregar(BorderPane root, Button boton) {
-		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
-			verifyAgregar();
-			boton.setDisable(true);
-			botonSeleccionado.setDisable(false);
-			botonSeleccionado = boton;
-			root.setCenter(perspectivaAgregar.getPerspective());
-		});
-	}
-
-	private void verifyAgregar() {
+	public void irAAgregar(BorderPane root) {
 		try {
 			if (perspectivaAgregar == null)
 				perspectivaAgregar = FxmlPerspective.loadPerspective("agregarCliente");
+			MenuPrincipalLogicController.getInstance().cambiarPerspectiva(perspectivaAgregar);
+			IAddClientController controller = (IAddClientController) perspectivaAgregar.getController();
+			controller.configurarVolver(() -> {
+				MenuPrincipalLogicController.getInstance().cambiarPerspectiva(root);
+			});
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	private void verifyActualizar() {

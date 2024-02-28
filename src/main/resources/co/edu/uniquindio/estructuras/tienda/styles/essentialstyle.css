@@ -11,6 +11,9 @@
     -fx-min-width: 96;
     -fx-max-height: 1;
 }
+#nopadding {
+	-fx-padding: 0;
+}
 
 #buscar:hover {
     -fx-background-color: #e6eaed;
@@ -111,8 +114,26 @@
 	-fx-alignment: center-left;
 }
 
-#boton-lateral:disabled {
+.boton-lateral:disabled {
 	-fx-background-color: #e6eaed;
+}
+.boton-cancelar {
+	-fx-background-color: #ffffff;
+	-fx-text-fill: black;	
+}
+.boton-cancelar:hover {
+	-fx-background-color: #f1f4f5;	
+}
+.boton-gris {
+	-fx-background-color: #f1f4f5;
+	-fx-text-fill: black;	
+}
+.boton-gris:hover {
+	-fx-background-color: #e6eaed;	
+}
+
+.boton-gris:pressed {
+	-fx-background-color: #dbe0e5;	
 }
 
 .text-field {

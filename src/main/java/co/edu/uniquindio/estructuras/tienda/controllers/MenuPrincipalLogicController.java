@@ -1,10 +1,14 @@
 package co.edu.uniquindio.estructuras.tienda.controllers;
 
+import java.io.IOException;
+
+import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
+import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
@@ -12,23 +16,23 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MenuPrincipalLogicController {
 	private Interpolator interpolator;
 
 	private ParallelTransition transicionCargando;
 
-	private BorderPane loadingLayer;
+	private BorderPane loadingLayer, mainLayer;
+
 	private static MenuPrincipalLogicController instance;
 
 	public static MenuPrincipalLogicController getInstance() {
 		if (instance == null)
 			instance = new MenuPrincipalLogicController();
 		return instance;
-	}
-
-	private MenuPrincipalLogicController() {
-
 	}
 
 	public void cargarTransicionCargando(SVGPath svg1, SVGPath svg2) {
@@ -98,6 +102,32 @@ public class MenuPrincipalLogicController {
 		anim.setToValue(0);
 		anim.setOnFinished(e -> pane.setDisable(true));
 		anim.play();
+	}
+
+	public void cargarMenuCentral(BorderPane mainLayer) {
+		this.mainLayer = mainLayer;
+	}
+
+	public void irAClientes() {
+		try {
+			FxmlPerspective perspective = FxmlPerspective.loadPerspective("gestionClientes");
+			cambiarPerspectiva(perspective);
+		} catch (IOException e) {
+		}
+
+	}
+
+	public void cambiarPerspectiva(FxmlPerspective perspective) {
+		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
+			System.out.println("hola");
+			mainLayer.setCenter(perspective.getPerspective());
+		});
+	}
+
+	public void cambiarPerspectiva(Parent parent) {
+		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
+			mainLayer.setCenter(parent);
+		});
 	}
 
 }
