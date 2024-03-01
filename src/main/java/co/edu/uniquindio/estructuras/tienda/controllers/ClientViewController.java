@@ -1,14 +1,18 @@
 package co.edu.uniquindio.estructuras.tienda.controllers;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import co.edu.uniquindio.estructuras.tienda.model.Cliente;
 import co.edu.uniquindio.estructuras.tienda.services.IClientViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
-public class ClientViewController implements IClientViewController {
+public class ClientViewController implements IClientViewController, Initializable {
 
 	@FXML
 	private Button btnPrincipal;
@@ -19,22 +23,36 @@ public class ClientViewController implements IClientViewController {
 	@FXML
 	private BorderPane root;
 
+	private ClientViewLogicController logica;
+
+	private Runnable openMethod;
+
+	public ClientViewController() {
+		this.logica = new ClientViewLogicController();
+	}
+
 	@FXML
 	void clientePresionadoEvent(ActionEvent event) {
 		clientePresionadoAction();
 	}
 
 	private void clientePresionadoAction() {
-		ClientViewLogicController.getInstance().clientePresionadoAction();
+		logica.clientePresionadoAction(openMethod);
 	}
 
 	@Override
 	public void setCliente(Cliente c) {
-		ClientViewLogicController.getInstance().setCliente(c);
+		logica.setCliente(c);
 	}
 
-	public void cargarLogica(Label lblIdentificacion, Label lblNombre) {
-		ClientViewLogicController.getInstance().cargarLogica(lblIdentificacion, lblNombre);
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		logica.cargarLogica(lblIdentificacion, lblNombre, root);
+	}
+
+	@Override
+	public void setOpenMethod(Runnable r) {
+		this.openMethod = r;
 	}
 
 }

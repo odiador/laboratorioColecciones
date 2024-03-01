@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+<BorderPane style="-fx-background-color: white;" stylesheets="@../styles/essentialstyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.ClienteViewDetalleController">
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="invisible">
+         <content>
+            <VBox spacing="10.0">
+               <children>
+                  <ImageView fx:id="imgCliente" fitHeight="150.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label id="textBold" text="Información del Cliente" />
+                  <GridPane vgap="10.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="305.59998779296876" minWidth="-Infinity" prefWidth="160.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="438.3999877929688" minWidth="10.0" prefWidth="438.3999877929688" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+                     <children>
+                        <Separator prefWidth="200.0" GridPane.columnSpan="2" />
+                        <Label text="Nombre" textFill="#a6a6a6" GridPane.rowIndex="1" />
+                        <Label fx:id="lblNombre" text="Pepito Perez" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
+                        <Label text="Número de Identificación" textFill="#a6a6a6" GridPane.rowIndex="3" />
+                        <Label fx:id="lblIdentificacion" text="1234567890" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                        <Label text="Dirección" textFill="#a6a6a6" GridPane.rowIndex="5" />
+                        <Label fx:id="lblDireccion" text="Calle 10 # 12 - 34" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                     </children>
+                  </GridPane>
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#editarEvent" text="Editar">
+                           <graphic>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0">
+                                 <children>
+                                    <SVGPath content="M21.2799 6.40005L11.7399 15.94C10.7899 16.89 7.96987 17.33 7.33987 16.7C6.70987 16.07 7.13987 13.25 8.08987 12.3L17.6399 2.75002C17.8754 2.49308 18.1605 2.28654 18.4781 2.14284C18.7956 1.99914 19.139 1.92124 19.4875 1.9139C19.8359 1.90657 20.1823 1.96991 20.5056 2.10012C20.8289 2.23033 21.1225 2.42473 21.3686 2.67153C21.6147 2.91833 21.8083 3.21243 21.9376 3.53609C22.0669 3.85976 22.1294 4.20626 22.1211 4.55471C22.1128 4.90316 22.0339 5.24635 21.8894 5.5635C21.7448 5.88065 21.5375 6.16524 21.2799 6.40005V6.40005Z M11 4H6C4.93913 4 3.92178 4.42142 3.17163 5.17157C2.42149 5.92172 2 6.93913 2 8V18C2 19.0609 2.42149 20.0783 3.17163 20.8284C3.92178 21.5786 4.93913 22 6 22H17C19.21 22 20 20.2 20 18V13" fill="TRANSPARENT" fillRule="EVEN_ODD" scaleX="0.5" scaleY="0.5" stroke="WHITE" strokeWidth="2.0" />
+                                 </children>
+                              </StackPane>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="0.1" left="0.1" right="0.1" top="0.1" />
+                           </padding>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label id="textBold" layoutX="20.0" layoutY="424.0" text="Carritos de Compras" />
+                  <TableView id="tableVentas" fx:id="tableCarritos" layoutX="20.0" layoutY="458.0" minHeight="200.0" minWidth="20.0" prefHeight="200.0" prefWidth="200.0">
+                     <columns>
+                        <TableColumn id="colCodigo" fx:id="colCodigoCarrito" prefWidth="75.0" text="Codigo" />
+                        <TableColumn id="colFecha" fx:id="colTiposProductoCarrito" prefWidth="75.0" text="Tipos de Productos" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#importarCarritoEvent" text="Importar Carrito" />
+                        <Button mnemonicParsing="false" onAction="#verContenidoEvent" text="Ver Contenido" />
+                        <Button mnemonicParsing="false" onAction="#eliminarCarritoEvent" text="Eliminar Carrito" />
+                     </children>
+                  </HBox>
+                  <Label id="textBold" text="Historial de Ventas" />
+                  <TableView id="tableVentas" fx:id="tableVentas" minHeight="200.0" minWidth="20.0" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                        <TableColumn id="colCodigo" fx:id="colCodigoVentas" prefWidth="75.0" text="Codigo" />
+                      <TableColumn id="colFecha" fx:id="colFechaVentas" prefWidth="75.0" text="Fecha" />
+                      <TableColumn id="colHora" fx:id="colHoraVentas" prefWidth="75.0" text="Hora" />
+                        <TableColumn id="colTotal" fx:id="colTotalVentas" prefWidth="75.0" text="Total" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </content>
+         <stylesheets>
+            <URL value="@../styles/scrollinvis.css" />
+            <URL value="@../styles/tableStyle.css" />
+         </stylesheets>
+      </ScrollPane>
+   </center>
+   <top>
+      <BorderPane BorderPane.alignment="CENTER">
+         <left>
+            <Label id="bigtitle" styleClass="bigtext" text="Detalle de Cliente" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Button id="alejo" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#cerrarEvent" styleClass="boton-principal" BorderPane.alignment="CENTER">
+               <graphic>
+                  <SVGPath content="M20.7457 3.32851C20.3552 2.93798 19.722 2.93798 19.3315 3.32851L12.0371 10.6229L4.74275 3.32851C4.35223 2.93798 3.71906 2.93798 3.32854 3.32851C2.93801 3.71903 2.93801 4.3522 3.32854 4.74272L10.6229 12.0371L3.32856 19.3314C2.93803 19.722 2.93803 20.3551 3.32856 20.7457C3.71908 21.1362 4.35225 21.1362 4.74277 20.7457L12.0371 13.4513L19.3315 20.7457C19.722 21.1362 20.3552 21.1362 20.7457 20.7457C21.1362 20.3551 21.1362 19.722 20.7457 19.3315L13.4513 12.0371L20.7457 4.74272C21.1362 4.3522 21.1362 3.71903 20.7457 3.32851Z" />
+               </graphic>
+            </Button>
+         </right>
+      </BorderPane>
+   </top>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</BorderPane>

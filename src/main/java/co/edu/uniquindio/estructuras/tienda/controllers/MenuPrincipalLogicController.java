@@ -78,13 +78,11 @@ public class MenuPrincipalLogicController {
 
 	public void ejecutarProceso(Runnable runnable) {
 		new Thread(() -> {
-			Platform.runLater(() -> {
-				showPane(loadingLayer);
-				transicionCargando.playFromStart();
-				runnable.run();
-				hidePane(loadingLayer);
-				transicionCargando.stop();
-			});
+			showPane(loadingLayer);
+			transicionCargando.playFromStart();
+			runnable.run();
+			hidePane(loadingLayer);
+			transicionCargando.stop();
 		}).start();
 	}
 
@@ -94,6 +92,7 @@ public class MenuPrincipalLogicController {
 		anim.setFromValue(0);
 		anim.setToValue(1);
 		anim.play();
+
 	}
 
 	private void hidePane(BorderPane pane) {
@@ -109,19 +108,18 @@ public class MenuPrincipalLogicController {
 	}
 
 	public void irAClientes() {
-		try {
-			FxmlPerspective perspective = FxmlPerspective.loadPerspective("gestionClientes");
-			cambiarPerspectiva(perspective);
-		} catch (IOException e) {
-		}
+		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
+			try {
+				cambiarPerspectiva(FxmlPerspective.loadPerspective("gestionClientes"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 
 	}
 
 	public void cambiarPerspectiva(FxmlPerspective perspective) {
-		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
-			System.out.println("hola");
-			mainLayer.setCenter(perspective.getPerspective());
-		});
+		Platform.runLater(() -> mainLayer.setCenter(perspective.getPerspective()));
 	}
 
 	public void cambiarPerspectiva(Parent parent) {
