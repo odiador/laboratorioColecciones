@@ -121,8 +121,6 @@ public class GestionClientesLogicController {
 	public void nuevoClienteAction() {
 		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
 			try {
-
-				System.out.println("GestionClientesLogicController.nuevoClienteAction()");
 				FxmlPerspective perspective = FxmlPerspective.loadPerspective("agregarCliente");
 				IAddClientController controller = (IAddClientController) perspective.getController();
 				final Node nodeCenter = root.getCenter();
