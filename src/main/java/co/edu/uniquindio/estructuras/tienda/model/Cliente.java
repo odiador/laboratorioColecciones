@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-
+@ToString
 public class Cliente implements Imagenable ,Serializable{
 
 	/**
