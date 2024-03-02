@@ -1,5 +1,6 @@
 package co.edu.uniquindio.estructuras.tienda.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -7,7 +8,7 @@ import java.util.TreeSet;
 
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoDuplicadoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNuloException;
-import co.edu.uniquindio.estructuras.tienda.exceptions.ObjetoNoEncontradoException;
+import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNoEncontradoException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +30,9 @@ public class Tienda {
 	private LinkedList<Venta> historicoVentas;
 	@NonNull
 	private HashMap<String, Cliente> mapClientes;
+	
+	//Se declara un tipo de coleccion de seleccion para los carritos (Desicion del profesor)
+	private ArrayList <CarritoCompras> carrito;
 
 	public boolean agregarProducto(Producto producto) throws ElementoNuloException {
 		if(producto!=null) {
@@ -42,7 +46,7 @@ public class Tienda {
 		return treeProductos.add(producto);
 	}
 	
-	public boolean eliminarProducto(Producto producto) throws ElementoNuloException, ObjetoNoEncontradoException {
+	public boolean eliminarProducto(Producto producto) throws ElementoNuloException, ElementoNoEncontradoException {
 		if(producto!=null) {
 			return eliminarProductoAux(producto);
 		}else {
@@ -51,25 +55,25 @@ public class Tienda {
 	}
 	
 	
-	private boolean eliminarProductoAux(Producto producto) throws ObjetoNoEncontradoException {
+	private boolean eliminarProductoAux(Producto producto) throws ElementoNoEncontradoException {
 		if(!treeProductos.remove(producto)) {
-			throw new ObjetoNoEncontradoException("No se ha encontrado la venta");
+			throw new ElementoNoEncontradoException("No se ha encontrado la venta");
 		}
 		return true;
 	}
 	
-	public Producto buscarProducto(String codigo) throws ObjetoNoEncontradoException {
+	public Producto buscarProducto(String codigo) throws ElementoNoEncontradoException {
 		Iterator <Producto> iterador= treeProductos.iterator();
 		while (iterador.hasNext()) {
 				Producto produ= iterador.next();
 				if(produ.getCodigo().equals(codigo));
 				return produ;
 			}
-		throw new ObjetoNoEncontradoException("Producto No Enontrado");	
+		throw new ElementoNoEncontradoException("Producto No Enontrado");	
 	}
 	
 	
-	public void actualizarProducto(Producto producto) throws ElementoNuloException, ObjetoNoEncontradoException {
+	public void actualizarProducto(Producto producto) throws ElementoNuloException, ElementoNoEncontradoException {
 		if(producto!=null) {
 			actualizarProductoAux(producto);
 		}else {
@@ -77,7 +81,7 @@ public class Tienda {
 			
 		}
 	}
-	private void actualizarProductoAux(Producto producto) throws ObjetoNoEncontradoException {
+	private void actualizarProductoAux(Producto producto) throws ElementoNoEncontradoException {
 		Iterator <Producto> iterador= treeProductos.iterator();
 		while(iterador.hasNext()) {
 			Producto product= iterador.next();
@@ -87,7 +91,7 @@ public class Tienda {
 				return;
 			}
 		}
-		throw new ObjetoNoEncontradoException("No se ha encontrado el producto a actualizar");
+		throw new ElementoNoEncontradoException("No se ha encontrado el producto a actualizar");
 	}
 	
 	public String leerProuctos() {
@@ -109,22 +113,22 @@ public class Tienda {
 		}
 	}
 	
-	public boolean eliminarVenta(Venta venta) throws ElementoNuloException, ObjetoNoEncontradoException {
+	public boolean eliminarVenta(Venta venta) throws ElementoNuloException, ElementoNoEncontradoException {
 		if(venta!=null) {
 			return  eliminarVentaAux(venta);
 		}else {
 			throw new ElementoNuloException("La venta es nula");
 		}
 	}
-	private boolean eliminarVentaAux(Venta venta) throws ObjetoNoEncontradoException {
+	private boolean eliminarVentaAux(Venta venta) throws ElementoNoEncontradoException {
 		
 		if(!historicoVentas.remove(venta)) {
-			throw new ObjetoNoEncontradoException("No se ha encontrado la venta");
+			throw new ElementoNoEncontradoException("No se ha encontrado la venta");
 		}
 		return true;
 	}
 	
-	public Venta buscarVenta(String codigo) throws ObjetoNoEncontradoException {
+	public Venta buscarVenta(String codigo) throws ElementoNoEncontradoException {
 		Iterator <Venta> iterador= historicoVentas.iterator();
 		while(iterador.hasNext()) {
 			Venta ventaAux= iterador.next();
@@ -132,7 +136,7 @@ public class Tienda {
 				return ventaAux;
 			}
 		}
-		throw new ObjetoNoEncontradoException("No se ha encontrado la venta");
+		throw new ElementoNoEncontradoException("No se ha encontrado la venta");
 	}
 	
 	public void actualizarVenta(Venta venta) {
@@ -150,6 +154,58 @@ public class Tienda {
 		return historicoVentas.toString();
 	}
 	
+	public boolean agregarCarrito (CarritoCompras carrito) throws ElementoNuloException, ElementoNoEncontradoException {
+		if(carrito!=null) {
+			return agregarCarritoAux(carrito);
+		}
+		throw new ElementoNuloException("El carrito es nulo");
+	}
+	private boolean agregarCarritoAux(CarritoCompras carrito2) throws ElementoNoEncontradoException {
+		if(!carrito.contains(carrito2)) {
+			return carrito.add(carrito2);
+		}else {
+			throw new ElementoNoEncontradoException("El objeto no se ha podido encontrar");
+		}
+		
+	}
+	
+	public boolean borrarCarrito (CarritoCompras carrito) throws ElementoNuloException, ElementoNoEncontradoException {
+		if(carrito!=null) {
+			return borrarCarritoAux(carrito);
+		}
+		throw new ElementoNuloException("Carrito es nulo");
+	}
+	private boolean borrarCarritoAux(CarritoCompras carrito2) throws ElementoNoEncontradoException {
+		if(!carrito.remove(carrito2)) {
+			throw new ElementoNoEncontradoException("No se ha encontrado el carrito");
+		}
+		return true;
+	}
+	
+	public CarritoCompras buscarCarritos(String codigo) throws ElementoNoEncontradoException {
+		Iterator<CarritoCompras> iterador = carrito.iterator();
+		while (iterador.hasNext()) {
+			CarritoCompras carritoAux= iterador.next();
+			if(carritoAux.getCodigo().equals(codigo)) {
+				return carritoAux;
+			}
+		}
+		throw new ElementoNoEncontradoException("No se ha encontrado el carrito con este codigo");
+	}
+	
+	public void actualizarCarrito(CarritoCompras carro) {
+		Iterator <CarritoCompras> iterador = carrito.iterator();
+		while (iterador.hasNext()) {
+			CarritoCompras carroAux= iterador.next();
+			if(carro.equals(carroAux)) {
+				carrito.remove(carroAux);
+				carrito.add(carro);
+			}
+		}
+	}
+	
+	
+	
 	
 	
 	
@@ -158,3 +214,116 @@ public class Tienda {
 	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
