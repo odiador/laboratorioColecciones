@@ -23,7 +23,8 @@ public class AgregarClienteController implements IAddClientController {
 
 	@FXML
 	void agregarEvent(ActionEvent event) {
-
+		AgregarClienteLogicController.getInstance().agregarAction(tfIdentificacion.getText(), tfDireccion.getText(),
+				tfNombre.getText());
 	}
 
 	@FXML

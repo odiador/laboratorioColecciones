@@ -128,4 +128,14 @@ public class MenuPrincipalLogicController {
 		});
 	}
 
+	public void irAProductos() {
+		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
+			try {
+				cambiarPerspectiva(FxmlPerspective.loadPerspective("inventario"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
 }

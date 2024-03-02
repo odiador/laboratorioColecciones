@@ -44,7 +44,7 @@ public class GestionClientesController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		GestionClientesLogicController.getInstance().cargarInfoPaneles(listaClientes, lblVista, barraClientes, root);
 		GestionClientesLogicController.getInstance().regenerarLista();
-		GestionClientesLogicController.getInstance().moverPagina();
+		GestionClientesLogicController.getInstance().actualizarPagina();
 	}
 
 }

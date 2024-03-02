@@ -43,7 +43,7 @@ public class GestionClientesLogicController {
 		this.root = root;
 	}
 
-	public void moverPagina() {
+	public void actualizarPagina() {
 		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
 			Platform.runLater(() -> {
 				listaClientes.getChildren().clear();
@@ -106,7 +106,7 @@ public class GestionClientesLogicController {
 			page++;
 			return;
 		}
-		moverPagina();
+		actualizarPagina();
 	}
 
 	public void moverAdelante() {
@@ -115,7 +115,7 @@ public class GestionClientesLogicController {
 			page--;
 			return;
 		}
-		moverPagina();
+		actualizarPagina();
 	}
 
 	public void nuevoClienteAction() {

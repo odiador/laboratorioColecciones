@@ -5,6 +5,7 @@ import co.edu.uniquindio.estructuras.tienda.utils.ImgUtils;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 
 public class ClientViewLogicController {
@@ -43,8 +44,8 @@ public class ClientViewLogicController {
 			Platform.runLater(() -> {
 				lblIdentificacion.setText(newValue.getIdentificacion());
 				lblNombre.setText(newValue.getNombre());
-				root.setLeft(
-						ImgUtils.createCircleWImage(ImgUtils.cropSquareCenter(newValue.getImage(60, 60, true, true))));
+				Image img = ImgUtils.cropSquareCenter(newValue.getImage(1024, 1024, true, true));
+				root.setLeft(ImgUtils.createCircleWImage(img));
 			});
 		}
 	}

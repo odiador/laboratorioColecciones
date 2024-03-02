@@ -63,7 +63,6 @@ public class MenuPrincipalController implements Initializable {
 
 	private void clientesAction() {
 		MenuPrincipalLogicController.getInstance().irAClientes();
-
 	}
 
 	private void buscarAction() {
@@ -73,6 +72,7 @@ public class MenuPrincipalController implements Initializable {
 	}
 
 	private void productsAction() {
+		MenuPrincipalLogicController.getInstance().irAProductos();
 	}
 
 	private void profileAction() {
@@ -84,15 +84,4 @@ public class MenuPrincipalController implements Initializable {
 
 	private void ventasAction() {
 	}
-
-	private MenuPrincipalController instance;
-
-	public MenuPrincipalController getInstance() {
-		return instance;
-	}
-
-	public MenuPrincipalController() {
-		instance = this;
-	}
-
 }
