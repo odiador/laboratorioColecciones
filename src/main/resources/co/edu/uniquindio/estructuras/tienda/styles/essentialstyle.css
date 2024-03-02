@@ -11,6 +11,9 @@
     -fx-min-width: 96;
     -fx-max-height: 1;
 }
+#nopadding {
+	-fx-padding: 0;
+}
 
 #buscar:hover {
     -fx-background-color: #e6eaed;
@@ -80,13 +83,18 @@
 }
 
 #textBold {
-	-fx-font-weight: bold;
-}
-
-#textBold {
 	-fx-font-family: "Arial black";
 	-fx-font-weight: bold;
 	-fx-font-size: 16px;
+}
+
+#bigtitle {
+	-fx-font-family: "Arial black";
+	-fx-font-weight: bold;
+	-fx-font-size: 25px;
+}
+.bigtext {
+	-fx-font-size: 15px;
 }
 
 .boton-principal:hover {
@@ -102,7 +110,36 @@
     -fx-background-radius: 5;
 }
 
-.boton-perfil {
-    -fx-padding: 5;
-    -fx-background-radius: 5;
+#boton-lateral {
+	-fx-alignment: center-left;
+}
+
+.boton-lateral:disabled {
+	-fx-background-color: #e6eaed;
+}
+.boton-cancelar {
+	-fx-background-color: #ffffff;
+	-fx-text-fill: black;	
+}
+.boton-cancelar:hover {
+	-fx-background-color: #f1f4f5;	
+}
+.boton-gris {
+	-fx-background-color: #f1f4f5;
+	-fx-text-fill: black;	
+}
+.boton-gris:hover {
+	-fx-background-color: #e6eaed;	
+}
+
+.boton-gris:pressed {
+	-fx-background-color: #dbe0e5;	
+}
+
+.text-field {
+	-fx-padding: 12 5 12 5;
+	-fx-background-radius: 10;
+	-fx-background-color: #f1f4f5;
+	-fx-border-color: transparent;
+	-fx-font-size: 15;
 }

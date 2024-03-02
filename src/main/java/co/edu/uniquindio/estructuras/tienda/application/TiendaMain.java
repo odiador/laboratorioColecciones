@@ -2,9 +2,8 @@ package co.edu.uniquindio.estructuras.tienda.application;
 
 import java.io.IOException;
 
+import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -17,7 +16,8 @@ public class TiendaMain extends Application {
 
 	@Override
 	public void start(Stage stage) throws IOException {
-		scene = new Scene(loadFXML("menuprincipal"));
+		FxmlPerspective perspective = FxmlPerspective.loadPerspective("menuprincipal");
+		scene = new Scene(perspective.getPerspective());
 		stage.setMinWidth(720);
 		stage.setMinHeight(405);
 		stage.setScene(scene);
@@ -25,13 +25,7 @@ public class TiendaMain extends Application {
 	}
 
 	static void setRoot(String fxml) throws IOException {
-		scene.setRoot(loadFXML(fxml));
-	}
-
-	private static Parent loadFXML(String fxml) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(
-				TiendaMain.class.getResource("/co/edu/uniquindio/estructuras/tienda/fxml/" + fxml + ".fxml"));
-		return fxmlLoader.load();
+		scene.setRoot(FxmlPerspective.loadPerspective(fxml).getPerspective());
 	}
 
 	public static void main(String[] args) {

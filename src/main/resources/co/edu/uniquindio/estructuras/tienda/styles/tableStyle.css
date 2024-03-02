@@ -1,0 +1,40 @@
+/* Estilos para TableView */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0.5em;
+    -fx-border-radius: 0.5em;
+    -fx-border-color: #eaeaea;
+}
+.table-view .table-cell{
+    -fx-text-fill: black;
+}
+
+/* Estilos para celdas seleccionadas */
+.table-row-cell {
+    -fx-border-width: 1 0 0 0;
+    -fx-background-color: white;
+    -fx-border-color: #eaeaea;
+}
+
+.table-row-cell:selected {
+	-fx-background-color: #eaeaea;
+}
+
+.table-view .column-header .label {
+	-fx-text-fill: black;
+	-fx-border-width: 0;
+	-fx-font-weight: bold;
+}
+
+.table-column {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.table-view .filler {
+	-fx-background-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
