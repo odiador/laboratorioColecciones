@@ -1,5 +1,6 @@
 package co.edu.uniquindio.estructuras.tienda.controllers;
 
+import co.edu.uniquindio.estructuras.tienda.logicviewcontrollers.ProductViewLogicController;
 import co.edu.uniquindio.estructuras.tienda.model.Producto;
 import co.edu.uniquindio.estructuras.tienda.services.IProductoController;
 import javafx.event.ActionEvent;

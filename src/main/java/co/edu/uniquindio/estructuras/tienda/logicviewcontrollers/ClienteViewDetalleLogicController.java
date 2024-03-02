@@ -1,4 +1,4 @@
-package co.edu.uniquindio.estructuras.tienda.controllers;
+package co.edu.uniquindio.estructuras.tienda.logicviewcontrollers;
 
 import java.time.format.DateTimeFormatter;
 

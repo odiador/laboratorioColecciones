@@ -1,4 +1,4 @@
-package co.edu.uniquindio.estructuras.tienda.controllers;
+package co.edu.uniquindio.estructuras.tienda.logiccontrollers;
 
 import java.io.IOException;
 import java.util.ArrayList;

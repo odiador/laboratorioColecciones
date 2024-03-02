@@ -1,5 +1,6 @@
 package co.edu.uniquindio.estructuras.tienda.controllers;
 
+import co.edu.uniquindio.estructuras.tienda.logicviewcontrollers.AgregarClienteLogicController;
 import co.edu.uniquindio.estructuras.tienda.services.IAddClientController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

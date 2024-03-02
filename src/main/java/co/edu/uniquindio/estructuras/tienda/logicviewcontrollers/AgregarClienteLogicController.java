@@ -1,6 +1,7 @@
-package co.edu.uniquindio.estructuras.tienda.controllers;
+package co.edu.uniquindio.estructuras.tienda.logicviewcontrollers;
 
 import co.edu.uniquindio.estructuras.tienda.exceptions.CampoVacioException;
+import co.edu.uniquindio.estructuras.tienda.logiccontrollers.ModelFactoryController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
