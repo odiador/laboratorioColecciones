@@ -3,6 +3,7 @@ package co.edu.uniquindio.estructuras.tienda.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import co.edu.uniquindio.estructuras.tienda.logicviewcontrollers.MenuPrincipalLogicController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,7 +64,6 @@ public class MenuPrincipalController implements Initializable {
 
 	private void clientesAction() {
 		MenuPrincipalLogicController.getInstance().irAClientes();
-
 	}
 
 	private void buscarAction() {
@@ -73,6 +73,7 @@ public class MenuPrincipalController implements Initializable {
 	}
 
 	private void productsAction() {
+		MenuPrincipalLogicController.getInstance().irAProductos();
 	}
 
 	private void profileAction() {
@@ -84,15 +85,4 @@ public class MenuPrincipalController implements Initializable {
 
 	private void ventasAction() {
 	}
-
-	private MenuPrincipalController instance;
-
-	public MenuPrincipalController getInstance() {
-		return instance;
-	}
-
-	public MenuPrincipalController() {
-		instance = this;
-	}
-
 }

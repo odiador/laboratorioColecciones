@@ -1,10 +1,11 @@
-package co.edu.uniquindio.estructuras.tienda.controllers;
+package co.edu.uniquindio.estructuras.tienda.logicviewcontrollers;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import co.edu.uniquindio.estructuras.tienda.logiccontrollers.ModelFactoryController;
 import co.edu.uniquindio.estructuras.tienda.model.Cliente;
 import co.edu.uniquindio.estructuras.tienda.services.IAddClientController;
 import co.edu.uniquindio.estructuras.tienda.services.IClientViewController;
@@ -43,7 +44,7 @@ public class GestionClientesLogicController {
 		this.root = root;
 	}
 
-	public void moverPagina() {
+	public void actualizarPagina() {
 		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
 			Platform.runLater(() -> {
 				listaClientes.getChildren().clear();
@@ -106,7 +107,7 @@ public class GestionClientesLogicController {
 			page++;
 			return;
 		}
-		moverPagina();
+		actualizarPagina();
 	}
 
 	public void moverAdelante() {
@@ -115,7 +116,7 @@ public class GestionClientesLogicController {
 			page--;
 			return;
 		}
-		moverPagina();
+		actualizarPagina();
 	}
 
 	public void nuevoClienteAction() {

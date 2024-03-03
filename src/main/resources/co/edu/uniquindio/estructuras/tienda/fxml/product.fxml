@@ -1,32 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.SVGPath?>
 
-<BorderPane fx:id="root" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../styles/essentialstyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.ProductViewController">
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label id="textBold" fx:id="lblNombre" text="Empanadas Con Ají" />
-            <Label fx:id="lblStock" text="5 disponibles" />
-            <Label fx:id="lblPrecio" text="\$1500.00 C/U" />
-         </children>
-         <BorderPane.margin>
-            <Insets left="10.0" right="10.0" />
-         </BorderPane.margin>
-      </VBox>
-   </center>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="15.0" top="10.0" />
-   </padding>
-   <right>
-      <Button fx:id="btnOrdenar" mnemonicParsing="false" onAction="#ordenarEvent" text="Ordenar" BorderPane.alignment="CENTER" />
-   </right>
-   <left>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="150.0" BorderPane.alignment="CENTER" />
-   </left>
-</BorderPane>
+<StackPane fx:id="mainRoot" onMouseClicked="#mouseClickedEvent" onMouseEntered="#mouseEnteredEvent" onMouseExited="#mouseExitedEvent" style="-fx-background-color: white; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.ProductViewController">
+   <children>
+      <BorderPane fx:id="grayLayer" layoutX="10.0" layoutY="10.0" opacity="0.0" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #f1f4f5; -fx-background-radius: 10;" stylesheets="@../styles/essentialstyle.css">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="15.0" top="10.0" />
+         </padding>
+      </BorderPane>
+      <BorderPane fx:id="root" prefHeight="100.0" prefWidth="600.0" stylesheets="@../styles/essentialstyle.css" StackPane.alignment="CENTER">
+         <center>
+            <StackPane BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0">
+                     <children>
+                        <Label id="textBold" fx:id="lblNombre" text="Empanadas Con Ají" />
+                        <Label fx:id="lblStock" text="5 disponibles" />
+                        <Label fx:id="lblPrecio" text="\$1500.00 C/U" />
+                     </children>
+                     <StackPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </StackPane.margin>
+                  </VBox>
+                  <BorderPane fx:id="layerAgregar" opacity="0.0" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #f1f4f5; -fx-background-radius: 10;">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="15.0" top="10.0" />
+                     </padding>
+                     <center>
+                        <HBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <SVGPath content="M5.60464 11.4417C5.79269 13.1343 5.88672 13.9805 6.45624 14.4903C7.02576 15 7.87723 15 9.58017 15H9.70588H13.4706H14.827C16.0002 15 16.5867 15 17.0627 14.7134C17.5387 14.4268 17.8132 13.9084 18.3621 12.8716L20.8303 8.20947C21.361 7.207 20.6343 6 19.5 6V6H9.70588H9.46906C7.38336 6 6.34051 6 5.74427 6.66616C5.14803 7.33231 5.2632 8.36878 5.49353 10.4417L5.60464 11.4417Z M3 3H3.5V3C4.1642 3 4.72218 3.49942 4.79553 4.15955L5.55558 11 M9 19.5C9 20.3284 8.32843 21 7.5 21C6.67157 21 6 20.3284 6 19.5C6 18.6716 6.67157 18 7.5 18C8.32843 18 9 18.6716 9 19.5Z M18 19.5C18 20.3284 17.3284 21 16.5 21C15.6716 21 15 20.3284 15 19.5C15 18.6716 15.6716 18 16.5 18C17.3284 18 18 18.6716 18 19.5Z" fill="TRANSPARENT" fillRule="EVEN_ODD" scaleX="2.0" scaleY="2.0" stroke="BLACK" strokeWidth="1.5" />
+                              <Label id="textBold" styleClass="title" text="Agregar al Carrito" />
+                           </children>
+                        </HBox>
+                     </center>
+                  </BorderPane>
+               </children>
+            </StackPane>
+         </center>
+         <left>
+            <BorderPane fx:id="imagePane" BorderPane.alignment="CENTER" />
+         </left>
+         <StackPane.margin>
+            <Insets left="10.0" />
+         </StackPane.margin>
+      </BorderPane>
+   </children>
+</StackPane>

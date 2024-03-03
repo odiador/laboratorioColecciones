@@ -1,36 +1,37 @@
 package co.edu.uniquindio.estructuras.tienda.controllers;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import co.edu.uniquindio.estructuras.tienda.logicviewcontrollers.InventarioLogicController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.VBox;
 
-public class InventarioController {
+public class InventarioController implements Initializable {
 
-    @FXML
-    private Button btnOrdenAgregacion;
+	@FXML
+	private VBox vboxInventario;
 
-    @FXML
-    private Button btnOrdenAlfa;
+	@FXML
+	void mostrarInventarioEvent(ActionEvent event) {
+		InventarioLogicController.getInstance().mostrarInventarioAction();
+	}
 
-    @FXML
-    private Button btnOrdenCantidad;
+	@FXML
+	void ordenarAlfabeticoEvent(ActionEvent event) {
+		InventarioLogicController.getInstance().ordenarAlfabeticoAction();
+	}
 
-    @FXML
-    private Label lblTitulo;
+	@FXML
+	void ordenarCantidadEvent(ActionEvent event) {
+		InventarioLogicController.getInstance().ordenarCantidadAction();
+	}
 
-    @FXML
-    void mostrarInventarioEvent(ActionEvent event) {
-
-    }
-
-    @FXML
-    void ordenarAlfabeticoEvent(ActionEvent event) {
-
-    }
-
-    @FXML
-    void ordenarCantidadEvent(ActionEvent event) {
-
-    }
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		InventarioLogicController.getInstance().configLista(vboxInventario);
+		InventarioLogicController.getInstance().cargarDatos();
+	}
 }

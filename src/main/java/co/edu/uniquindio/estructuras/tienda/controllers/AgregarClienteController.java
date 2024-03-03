@@ -1,5 +1,6 @@
 package co.edu.uniquindio.estructuras.tienda.controllers;
 
+import co.edu.uniquindio.estructuras.tienda.logicviewcontrollers.AgregarClienteLogicController;
 import co.edu.uniquindio.estructuras.tienda.services.IAddClientController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +24,8 @@ public class AgregarClienteController implements IAddClientController {
 
 	@FXML
 	void agregarEvent(ActionEvent event) {
-
+		AgregarClienteLogicController.getInstance().agregarAction(tfIdentificacion.getText(), tfDireccion.getText(),
+				tfNombre.getText());
 	}
 
 	@FXML

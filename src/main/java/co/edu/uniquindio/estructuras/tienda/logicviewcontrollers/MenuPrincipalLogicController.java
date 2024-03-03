@@ -1,4 +1,4 @@
-package co.edu.uniquindio.estructuras.tienda.controllers;
+package co.edu.uniquindio.estructuras.tienda.logicviewcontrollers;
 
 import java.io.IOException;
 
@@ -78,11 +78,11 @@ public class MenuPrincipalLogicController {
 
 	public void ejecutarProceso(Runnable runnable) {
 		new Thread(() -> {
-			showPane(loadingLayer);
-			transicionCargando.playFromStart();
+//			showPane(loadingLayer);
+//			transicionCargando.playFromStart();
 			runnable.run();
-			hidePane(loadingLayer);
-			transicionCargando.stop();
+//			hidePane(loadingLayer);
+//			transicionCargando.stop();
 		}).start();
 	}
 
@@ -125,6 +125,16 @@ public class MenuPrincipalLogicController {
 	public void cambiarPerspectiva(Parent parent) {
 		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
 			mainLayer.setCenter(parent);
+		});
+	}
+
+	public void irAProductos() {
+		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
+			try {
+				cambiarPerspectiva(FxmlPerspective.loadPerspective("inventario"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		});
 	}
 

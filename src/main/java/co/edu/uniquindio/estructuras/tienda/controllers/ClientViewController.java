@@ -3,6 +3,7 @@ package co.edu.uniquindio.estructuras.tienda.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import co.edu.uniquindio.estructuras.tienda.logicviewcontrollers.ClientViewLogicController;
 import co.edu.uniquindio.estructuras.tienda.model.Cliente;
 import co.edu.uniquindio.estructuras.tienda.services.IClientViewController;
 import javafx.event.ActionEvent;
