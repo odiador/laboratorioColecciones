@@ -6,8 +6,9 @@ import co.edu.uniquindio.estructuras.tienda.services.IProductoController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 
 public class ProductViewController implements IProductoController {
 	private ProductViewLogicController logicController;
@@ -16,7 +17,27 @@ public class ProductViewController implements IProductoController {
 	private Label lblNombre, lblPrecio, lblStock;
 
 	@FXML
-	private TextField tfCantidad;
+	private BorderPane layerAgregar, grayLayer, imagePane;
+
+	@FXML
+	private StackPane mainRoot;
+
+	@FXML
+	void mouseClickedEvent(MouseEvent event) {
+		logicController.ordenarAction();
+	}
+
+	@FXML
+	void mouseEnteredEvent(MouseEvent event) {
+		logicController.hoverAction(layerAgregar);
+		logicController.hoverAction(grayLayer);
+	}
+
+	@FXML
+	void mouseExitedEvent(MouseEvent event) {
+		logicController.unhoverAction(layerAgregar);
+		logicController.unhoverAction(grayLayer);
+	}
 
 	@FXML
 	void masEvent(ActionEvent event) {
@@ -31,11 +52,6 @@ public class ProductViewController implements IProductoController {
 	@FXML
 	private BorderPane root;
 
-	@FXML
-	void ordenarEvent(ActionEvent event) {
-		ordenarAction();
-	}
-
 	@Override
 	public void setProducto(Producto p) {
 		if (logicController == null)
@@ -43,12 +59,9 @@ public class ProductViewController implements IProductoController {
 		logicController.setProducto(p);
 	}
 
-	private void ordenarAction() {
-	}
-
 	public void cargarLogica() {
 		logicController = new ProductViewLogicController();
-		logicController.cargarLabels(lblNombre, lblPrecio, lblStock, root, tfCantidad);
+		logicController.cargarLabels(lblNombre, lblPrecio, lblStock, imagePane);
 	}
 
 }

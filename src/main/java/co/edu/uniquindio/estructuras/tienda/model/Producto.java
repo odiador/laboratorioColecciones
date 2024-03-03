@@ -21,7 +21,7 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class Producto implements Comparable<Producto>, Imagenable,Serializable {
+public class Producto implements Comparable<Producto>, Imagenable, Serializable {
 	/**
 	 * 
 	 */
@@ -29,10 +29,10 @@ public class Producto implements Comparable<Producto>, Imagenable,Serializable {
 	@NonNull
 	@EqualsAndHashCode.Include
 	private String codigo;
-	@NonNull
 	private String nombre;
 	private double precio;
 	private int cantidad;
+	@ToString.Exclude
 	private byte[] imgBytes;
 
 	public void setImagen(Image image) throws IOException {
@@ -41,7 +41,7 @@ public class Producto implements Comparable<Producto>, Imagenable,Serializable {
 
 	@Override
 	public int compareTo(Producto o) {
-		return cantidad - o.cantidad;
+		return o.cantidad - cantidad; // mayor a menor
 	}
 
 	@Override

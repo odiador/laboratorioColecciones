@@ -78,11 +78,11 @@ public class MenuPrincipalLogicController {
 
 	public void ejecutarProceso(Runnable runnable) {
 		new Thread(() -> {
-			showPane(loadingLayer);
-			transicionCargando.playFromStart();
+//			showPane(loadingLayer);
+//			transicionCargando.playFromStart();
 			runnable.run();
-			hidePane(loadingLayer);
-			transicionCargando.stop();
+//			hidePane(loadingLayer);
+//			transicionCargando.stop();
 		}).start();
 	}
 

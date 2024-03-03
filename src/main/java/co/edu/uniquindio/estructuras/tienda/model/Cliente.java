@@ -35,6 +35,7 @@ public class Cliente implements Imagenable ,Serializable{
 	private String nombre, direccion;
 	@NonNull
 	private ArrayList<Venta> lstVentas;
+	@ToString.Exclude
 	private byte[] imgBytes;
 
 	public void setImagen(Image image) throws IOException {
