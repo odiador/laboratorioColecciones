@@ -123,9 +123,7 @@ public class MenuPrincipalLogicController {
 	}
 
 	public void cambiarPerspectiva(Parent parent) {
-		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
-			mainLayer.setCenter(parent);
-		});
+		Platform.runLater(() -> mainLayer.setCenter(parent));
 	}
 
 	public void irAProductos() {

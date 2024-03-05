@@ -7,9 +7,13 @@ import co.edu.uniquindio.estructuras.tienda.logicviewcontrollers.InventarioLogic
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class InventarioController implements Initializable {
+
+	@FXML
+	private BorderPane root;
 
 	@FXML
 	private VBox vboxInventario;
@@ -31,7 +35,7 @@ public class InventarioController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		InventarioLogicController.getInstance().configLista(vboxInventario);
+		InventarioLogicController.getInstance().configLista(vboxInventario, root);
 		InventarioLogicController.getInstance().cargarDatos();
 	}
 }

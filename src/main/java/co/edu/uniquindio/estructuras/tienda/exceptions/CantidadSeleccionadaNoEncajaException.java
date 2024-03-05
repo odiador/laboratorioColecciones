@@ -1,13 +1,13 @@
 package co.edu.uniquindio.estructuras.tienda.exceptions;
 
-public class NoCantidadException extends Exception {
+public class CantidadSeleccionadaNoEncajaException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public NoCantidadException(String msg) {
+	public CantidadSeleccionadaNoEncajaException(String msg) {
 		super(msg);
 	}
 }

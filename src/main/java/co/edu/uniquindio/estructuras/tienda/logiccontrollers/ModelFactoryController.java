@@ -9,7 +9,7 @@ import java.util.TreeSet;
 import java.util.UUID;
 
 import co.edu.uniquindio.estructuras.tienda.exceptions.CampoVacioException;
-import co.edu.uniquindio.estructuras.tienda.exceptions.NoCantidadException;
+import co.edu.uniquindio.estructuras.tienda.exceptions.CantidadSeleccionadaNoEncajaException;
 import co.edu.uniquindio.estructuras.tienda.model.CarritoCompras;
 import co.edu.uniquindio.estructuras.tienda.model.Cliente;
 import co.edu.uniquindio.estructuras.tienda.model.DetalleCarrito;
@@ -79,7 +79,7 @@ public class ModelFactoryController {
 			throw new CampoVacioException("Rellena todos los campos");
 	}
 
-	public void agregarCarrito(int cant, @NonNull Producto producto) throws NoCantidadException {
+	public void agregarCarrito(int cant, @NonNull Producto producto) throws CantidadSeleccionadaNoEncajaException {
 		cargarCarrito();
 		DetalleCarrito detalleCarrito = DetalleCarrito.builder().cantSeleccionada(cant).producto(producto).build();
 		carritoCompras.agregarDetalleCarrito(detalleCarrito);

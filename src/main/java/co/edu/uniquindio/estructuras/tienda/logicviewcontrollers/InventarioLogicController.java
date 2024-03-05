@@ -10,6 +10,7 @@ import co.edu.uniquindio.estructuras.tienda.model.Producto;
 import co.edu.uniquindio.estructuras.tienda.services.IProductoController;
 import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
 import javafx.application.Platform;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class InventarioLogicController {
@@ -22,9 +23,11 @@ public class InventarioLogicController {
 	}
 
 	private VBox vboxInventario;
+	private BorderPane root;
 
-	public void configLista(VBox vboxInventario) {
+	public void configLista(VBox vboxInventario, BorderPane root) {
 		this.vboxInventario = vboxInventario;
+		this.root = root;
 	}
 
 	public void cargarDatos() {
@@ -72,5 +75,9 @@ public class InventarioLogicController {
 
 	public void mostrarInventarioAction() {
 		cargarDatos();
+	}
+
+	public void irAInventario() {
+		MenuPrincipalLogicController.getInstance().cambiarPerspectiva(root);
 	}
 }

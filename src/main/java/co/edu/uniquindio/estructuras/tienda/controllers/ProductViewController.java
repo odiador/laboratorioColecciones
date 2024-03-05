@@ -3,7 +3,6 @@ package co.edu.uniquindio.estructuras.tienda.controllers;
 import co.edu.uniquindio.estructuras.tienda.logicviewcontrollers.ProductViewLogicController;
 import co.edu.uniquindio.estructuras.tienda.model.Producto;
 import co.edu.uniquindio.estructuras.tienda.services.IProductoController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -24,7 +23,7 @@ public class ProductViewController implements IProductoController {
 
 	@FXML
 	void mouseClickedEvent(MouseEvent event) {
-		logicController.ordenarAction();
+		logicController.irAAgregarAction();
 	}
 
 	@FXML
@@ -37,16 +36,6 @@ public class ProductViewController implements IProductoController {
 	void mouseExitedEvent(MouseEvent event) {
 		logicController.unhoverAction(layerAgregar);
 		logicController.unhoverAction(grayLayer);
-	}
-
-	@FXML
-	void masEvent(ActionEvent event) {
-		logicController.masAction();
-	}
-
-	@FXML
-	void menosEvent(ActionEvent event) {
-		logicController.menosAction();
 	}
 
 	@FXML
