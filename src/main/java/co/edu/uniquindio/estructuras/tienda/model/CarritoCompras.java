@@ -3,6 +3,7 @@ package co.edu.uniquindio.estructuras.tienda.model;
 import java.util.HashSet;
 
 import co.edu.uniquindio.estructuras.tienda.exceptions.CantidadSeleccionadaNoEncajaException;
+import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNoEncontradoException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -39,6 +40,14 @@ public class CarritoCompras {
 				lstDetalleCarritos.add(newDetalle);
 				return;
 			}
+		}
+	}
+	
+	public void eliminarDetalleCarrito(DetalleCarrito detallerCarrito) throws ElementoNoEncontradoException {
+		if(lstDetalleCarritos.remove(detallerCarrito)) {
+			return;
+		}else {
+			throw new ElementoNoEncontradoException("No se ha encontrado el detalle a eliminar");
 		}
 	}
 }

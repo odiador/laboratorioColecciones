@@ -16,7 +16,7 @@ public class VentaDao {
 	
 	public static VentaDao instance;
 	@Getter
-	private static final String RUTA= "src/main/resources/co/edu/uniquindio/estructuras/tienda/data/clientes.dat";
+	private static final String RUTA= "src/main/resources/co/edu/uniquindio/estructuras/tienda/data/ventas.dat";
 	
 	public static VentaDao getInstance() {
 		if(instance==null)

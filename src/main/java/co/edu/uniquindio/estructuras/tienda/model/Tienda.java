@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import java.util.TreeSet;
 
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoDuplicadoException;
-import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNuloException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNoEncontradoException;
+import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNuloException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,15 +31,14 @@ public class Tienda {
 	@NonNull
 	private HashMap<String, Cliente> mapClientes;
 	
-	//Se declara un tipo de coleccion de seleccion para los carritos (Desicion del profesor)
-	private ArrayList <CarritoCompras> carrito;
+
 
 	public boolean agregarProducto(Producto producto) throws ElementoNuloException {
 		if(producto!=null) {
 			return agregarProductoAux(producto);
 			
 		}else {
-			throw new ElementoNuloException("EL producto es nulo");
+			throw new ElementoNuloException("El producto es nulo");
 		}
 	}
 	private boolean agregarProductoAux(Producto producto) {
@@ -154,176 +153,76 @@ public class Tienda {
 		return historicoVentas.toString();
 	}
 	
-	public boolean agregarCarrito (CarritoCompras carrito) throws ElementoNuloException, ElementoNoEncontradoException {
-		if(carrito!=null) {
-			return agregarCarritoAux(carrito);
+	
+	public void agregarCliente(Cliente cliente) throws ElementoNuloException, ElementoDuplicadoException {
+		if(cliente !=null) {
+			agregarClienteAux(cliente);
 		}
-		throw new ElementoNuloException("El carrito es nulo");
+		throw new ElementoNuloException("El cliente es nulo");
 	}
-	private boolean agregarCarritoAux(CarritoCompras carrito2) throws ElementoNoEncontradoException {
-		if(!carrito.contains(carrito2)) {
-			return carrito.add(carrito2);
-		}else {
-			throw new ElementoNoEncontradoException("El objeto no se ha podido encontrar");
+	private void agregarClienteAux(Cliente cliente) throws ElementoDuplicadoException {
+		if(!mapClientes.containsKey(cliente.getIdentificacion())) {
+			mapClientes.put(cliente.getIdentificacion(), cliente);
+			return;
+		}
+		throw new ElementoDuplicadoException("El cliente ya existe en la tienda");
+		
+	}
+	
+	public void eliminarCliente (Cliente cliente) throws ElementoNuloException, ElementoNoEncontradoException {
+		if(cliente!=null) {
+			eliminarClienteAux(cliente);
+		}
+		throw new ElementoNuloException("El cliente a eliminar es nulo");
+	}
+	private void eliminarClienteAux(Cliente cliente) throws ElementoNoEncontradoException {
+		if(mapClientes.containsKey(cliente.getIdentificacion())) {
+			mapClientes.remove(cliente.getIdentificacion());
+			return;
+		}
+		throw new ElementoNoEncontradoException("No se ha encontrado el cliente a eliminar");
+		
+	}
+	
+	public Cliente buscarCliente (Cliente cliente) throws ElementoNoEncontradoException {
+		if(cliente!=null) {
+			buscarClienteAux(cliente);
+		}
+		return null;
+	}
+	private void buscarClienteAux(Cliente cliente) throws ElementoNoEncontradoException {
+		if(mapClientes.get(cliente.getIdentificacion())==null) {
+			throw new ElementoNoEncontradoException("El cliente no a sido encontrado");
 		}
 		
 	}
 	
-	public boolean borrarCarrito (CarritoCompras carrito) throws ElementoNuloException, ElementoNoEncontradoException {
-		if(carrito!=null) {
-			return borrarCarritoAux(carrito);
+	public void actualizarCliente (Cliente cliente) throws ElementoNuloException, ElementoNoEncontradoException {
+		if(cliente !=null) {
+			actualizarClienteAux (cliente);
 		}
-		throw new ElementoNuloException("Carrito es nulo");
+		throw new ElementoNuloException("El cliente a actualizar es nulo");
 	}
-	private boolean borrarCarritoAux(CarritoCompras carrito2) throws ElementoNoEncontradoException {
-		if(!carrito.remove(carrito2)) {
-			throw new ElementoNoEncontradoException("No se ha encontrado el carrito");
+	private void actualizarClienteAux(Cliente cliente) throws ElementoNoEncontradoException {
+		Cliente clienteAux= mapClientes.get(cliente.getIdentificacion());
+		if(clienteAux!=null) {
+			mapClientes.remove(clienteAux.getIdentificacion());
+			mapClientes.put(cliente.getIdentificacion(), cliente);
+			return;
 		}
-		return true;
-	}
-	
-	public CarritoCompras buscarCarritos(String codigo) throws ElementoNoEncontradoException {
-		Iterator<CarritoCompras> iterador = carrito.iterator();
-		while (iterador.hasNext()) {
-			CarritoCompras carritoAux= iterador.next();
-			if(carritoAux.getCodigo().equals(codigo)) {
-				return carritoAux;
-			}
-		}
-		throw new ElementoNoEncontradoException("No se ha encontrado el carrito con este codigo");
+		throw new ElementoNoEncontradoException("No se ha encontrado el cliente a actualizar");
+		
 	}
 	
-	public void actualizarCarrito(CarritoCompras carro) {
-		Iterator <CarritoCompras> iterador = carrito.iterator();
-		while (iterador.hasNext()) {
-			CarritoCompras carroAux= iterador.next();
-			if(carro.equals(carroAux)) {
-				carrito.remove(carroAux);
-				carrito.add(carro);
-			}
-		}
+	public String leerClientes () {
+		return mapClientes.toString();
 	}
-	
-	
 	
 	
 	
 	
 	
 
-	
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
