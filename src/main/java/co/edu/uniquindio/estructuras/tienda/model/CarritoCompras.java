@@ -42,12 +42,15 @@ public class CarritoCompras {
 			}
 		}
 	}
-	
+
 	public void eliminarDetalleCarrito(DetalleCarrito detallerCarrito) throws ElementoNoEncontradoException {
 		if(lstDetalleCarritos.remove(detallerCarrito)) {
 			return;
 		}else {
 			throw new ElementoNoEncontradoException("No se ha encontrado el detalle a eliminar");
 		}
+
+	public boolean estaVacio() {
+		return lstDetalleCarritos.isEmpty();
 	}
 }

@@ -2,6 +2,8 @@ package co.edu.uniquindio.estructuras.tienda.logicviewcontrollers;
 
 import java.io.IOException;
 
+import co.edu.uniquindio.estructuras.tienda.logiccontrollers.RAMController;
+import co.edu.uniquindio.estructuras.tienda.services.ICloseableController;
 import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
@@ -14,6 +16,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
 import lombok.AccessLevel;
@@ -28,6 +31,10 @@ public class MenuPrincipalLogicController {
 	private BorderPane loadingLayer, mainLayer;
 
 	private static MenuPrincipalLogicController instance;
+
+	private SVGPath svgShoppingCard;
+
+	private FxmlPerspective perspective;
 
 	public static MenuPrincipalLogicController getInstance() {
 		if (instance == null)
@@ -107,6 +114,18 @@ public class MenuPrincipalLogicController {
 		this.mainLayer = mainLayer;
 	}
 
+	public void mostrarCarrito() {
+		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
+			Platform.runLater(() -> {
+				mainLayer.setRight(perspective.getPerspective());
+			});
+		});
+	}
+
+	private void cerrarCarrito() {
+		mainLayer.setRight(null);
+	}
+
 	public void irAClientes() {
 		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
 			try {
@@ -134,6 +153,25 @@ public class MenuPrincipalLogicController {
 				e.printStackTrace();
 			}
 		});
+	}
+
+	public void inicializarListeners(SVGPath svgShoppingCard) {
+		RAMController.getInstance().addCarritoListener(carrito -> {
+			if (carrito != null)
+				svgShoppingCard.setFill(Color.BLACK);
+			else
+				svgShoppingCard.setFill(Color.TRANSPARENT);
+		});
+
+	}
+
+	public void inicializarPerspectivas() {
+		try {
+			perspective = FxmlPerspective.loadPerspective("carritoCompras");
+			ICloseableController controller = (ICloseableController) perspective.getController();
+			controller.setCloseMethod(this::cerrarCarrito);
+		} catch (IOException e) {
+		}
 	}
 
 }
