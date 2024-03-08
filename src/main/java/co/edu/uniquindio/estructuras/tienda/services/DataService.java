@@ -1,5 +1,9 @@
 package co.edu.uniquindio.estructuras.tienda.services;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.TreeSet;
+
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoDuplicadoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNoEncontradoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNuloException;
@@ -10,10 +14,10 @@ import co.edu.uniquindio.estructuras.tienda.model.Venta;
 
 public class DataService {
 
-	private DataService instance;
+	private static DataService instance;
 	private Tienda tienda;
 
-	public DataService getInstance() {
+	public static DataService getInstance() {
 		if (instance == null)
 			return instance = new DataService();
 		return instance;
@@ -102,15 +106,32 @@ public class DataService {
 		return productoEncontrado;
 
 	}
+
 	public Venta buscarVenta(String codigo) throws ElementoNoEncontradoException {
 		leerHistoricoVentas();
-		Venta ventaEncontrada= tienda.buscarVenta(codigo);
+		Venta ventaEncontrada = tienda.buscarVenta(codigo);
 		return ventaEncontrada;
 	}
+
 	public Cliente buscarCliente(String cedula) throws ElementoNoEncontradoException {
 		leerMapClientes();
-		Cliente clienteEncontrado= tienda.buscarCliente(cedula);
+		Cliente clienteEncontrado = tienda.buscarCliente(cedula);
 		return clienteEncontrado;
+	}
+
+	public TreeSet<Producto> listarProductos() {
+		leerProductos();
+		return tienda.getTreeProductos();
+	}
+
+	public LinkedList<Venta> listarVentas() {
+		leerHistoricoVentas();
+		return tienda.getHistoricoVentas();
+	}
+
+	public HashMap<String, Cliente> listarClientes() {
+		leerMapClientes();
+		return tienda.getMapClientes();
 	}
 
 }

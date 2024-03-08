@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeSet;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import co.edu.uniquindio.estructuras.tienda.model.Cliente;
 import co.edu.uniquindio.estructuras.tienda.model.DetalleCarrito;
 import co.edu.uniquindio.estructuras.tienda.model.Producto;
 import co.edu.uniquindio.estructuras.tienda.model.Venta;
+import co.edu.uniquindio.estructuras.tienda.services.DataService;
 import co.edu.uniquindio.estructuras.tienda.services.Imagenable;
 import javafx.scene.image.Image;
 import lombok.AccessLevel;
@@ -25,44 +27,15 @@ import lombok.NonNull;
 public class ModelFactoryController {
 
 	public TreeSet<Producto> getProductos() {
-		if (treeSet != null)
-			return treeSet;
-		treeSet = new TreeSet<Producto>();
-
-		try {
-			treeSet.add(new Producto("1234", "Empanada", 1000d, 5, Imagenable.getImageBytes(new Image("imagen.jpg"))));
-			treeSet.add(new Producto("1235", "Fresas con Crema", 7000d, 100,
-					Imagenable.getImageBytes(new Image("imagen.jpg"))));
-			treeSet.add(new Producto("1236", "Jugo Hit", 2900d, 2, Imagenable.getImageBytes(new Image("imagen.jpg"))));
-			treeSet.add(new Producto("1237", "Gaseosa Manzana", 2000d, 5,
-					Imagenable.getImageBytes(new Image("imagen.jpg"))));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return treeSet;
+		return DataService.getInstance().listarProductos();
 	}
 
-	public Map<String, Cliente> getClientes() {
-		HashMap<String, Cliente> map = new HashMap<String, Cliente>();
+	public HashMap<String, Cliente> getClientes() {
+		return DataService.getInstance().listarClientes();
+	}
 
-		try {
-			map.put("1234", Cliente.builder().identificacion("1234").nombre("Juan Odiador").direccion("Calle 13")
-					.imgBytes(Imagenable.getImageBytes(new Image("imagen.jpg"))).build());
-			map.put("1235", Cliente.builder().identificacion("1235").nombre("Alejito Sanchez").direccion("Calle 13")
-					.imgBytes(Imagenable.getImageBytes(new Image("imagen.jpg"))).build());
-			map.put("1236", Cliente.builder().identificacion("1236").nombre("Santiago Quintas").direccion("Calle 13")
-					.imgBytes(Imagenable.getImageBytes(new Image("imagen.jpg"))).build());
-			map.put("1237", Cliente.builder().identificacion("1237").nombre("Pepe Cardenas").direccion("Calle 13")
-					.imgBytes(Imagenable.getImageBytes(new Image("imagen.jpg"))).build());
-			map.put("1238", Cliente.builder().identificacion("1238").nombre("Harby").direccion("Calle 13")
-					.imgBytes(Imagenable.getImageBytes(new Image("imagen.jpg"))).build());
-			map.put("1239", Cliente.builder().identificacion("1239").nombre("Jacobo Bocas").direccion("Calle 13")
-					.imgBytes(Imagenable.getImageBytes(new Image("imagen.jpg"))).build());
-	
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return map;
+	public LinkedList<Venta> getVentas() {
+		return DataService.getInstance().listarVentas();
 	}
 
 	private static ModelFactoryController instance;
@@ -95,6 +68,43 @@ public class ModelFactoryController {
 		carritoCompras = CarritoCompras.builder().codigo(UUID.randomUUID().toString()).lstDetalleCarritos(setDetalles)
 				.build();
 		return carritoCompras;
+	}
+
+	public void agregarProducto(@NonNull String codigo, @NonNull String nombre, @NonNull double precio,
+			@NonNull String cantidad, @NonNull Image imagen) {
+		StringBuilder sb = new StringBuilder();
+		requerirCampoString(sb, codigo, "El codigo no puede estar vacio");
+		requerirCampoString(sb, nombre, "El nombre no puede estar vacio");
+		requerirCampoInt(sb, cantidad, "La cantidad no puede estar vacia");
+	}
+
+	public void requerirCampoString(StringBuilder sb, String cadena, String msg) {
+		if (cadena == null || cadena.isBlank()) {
+			sb.append(msg);
+			sb.append("\n");
+		}
+	}
+
+	public Integer requerirCampoInt(StringBuilder sb, String numero, String msg) {
+		if (numero == null || numero.isBlank()) {
+			sb.append(msg);
+			sb.append("\n");
+			return null;
+		}
+		Integer numeroAux = null;
+		try {
+			numeroAux = Integer.parseInt(numero);
+		} catch (Exception e) {
+			sb.append(msg);
+			sb.append("\n");
+			return null;
+		}
+		if (numeroAux < 0) {
+			sb.append(msg);
+			sb.append("\n");
+		}
+		return numeroAux;
+
 	}
 
 }
