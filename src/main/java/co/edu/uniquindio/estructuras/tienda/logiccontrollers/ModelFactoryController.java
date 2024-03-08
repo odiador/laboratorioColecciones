@@ -46,18 +46,19 @@ public class ModelFactoryController {
 		HashMap<String, Cliente> map = new HashMap<String, Cliente>();
 
 		try {
-			map.put("1234", new Cliente("1234", "Juan Odiador", "Calle 13", new ArrayList<Venta>(),
-					Imagenable.getImageBytes(new Image("imagen.jpg"))));
-			map.put("1235", new Cliente("1235", "Alejito Sanchez", "Calle 13", new ArrayList<Venta>(),
-					Imagenable.getImageBytes(new Image("imagen.jpg"))));
-			map.put("1236", new Cliente("1236", "Santaigo Quintas", "Calle 13", new ArrayList<Venta>(),
-					Imagenable.getImageBytes(new Image("imagen.jpg"))));
-			map.put("1237", new Cliente("1237", "Pepe Cardenas", "Calle 13", new ArrayList<Venta>(),
-					Imagenable.getImageBytes(new Image("imagen.jpg"))));
-			map.put("1238", new Cliente("1237", "Harbyyyyyy", "Calle 13", new ArrayList<Venta>(),
-					Imagenable.getImageBytes(new Image("imagen.jpg"))));
-			map.put("1239", new Cliente("1237", "Jacobo Bocas", "Calle 13", new ArrayList<Venta>(),
-					Imagenable.getImageBytes(new Image("imagen.jpg"))));
+			map.put("1234", Cliente.builder().identificacion("1234").nombre("Juan Odiador").direccion("Calle 13")
+					.imgBytes(Imagenable.getImageBytes(new Image("imagen.jpg"))).build());
+			map.put("1235", Cliente.builder().identificacion("1235").nombre("Alejito Sanchez").direccion("Calle 13")
+					.imgBytes(Imagenable.getImageBytes(new Image("imagen.jpg"))).build());
+			map.put("1236", Cliente.builder().identificacion("1236").nombre("Santiago Quintas").direccion("Calle 13")
+					.imgBytes(Imagenable.getImageBytes(new Image("imagen.jpg"))).build());
+			map.put("1237", Cliente.builder().identificacion("1237").nombre("Pepe Cardenas").direccion("Calle 13")
+					.imgBytes(Imagenable.getImageBytes(new Image("imagen.jpg"))).build());
+			map.put("1238", Cliente.builder().identificacion("1238").nombre("Harby").direccion("Calle 13")
+					.imgBytes(Imagenable.getImageBytes(new Image("imagen.jpg"))).build());
+			map.put("1239", Cliente.builder().identificacion("1239").nombre("Jacobo Bocas").direccion("Calle 13")
+					.imgBytes(Imagenable.getImageBytes(new Image("imagen.jpg"))).build());
+	
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

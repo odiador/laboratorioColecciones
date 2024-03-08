@@ -1,7 +1,7 @@
 package co.edu.uniquindio.estructuras.tienda.model;
 
-import java.io.Serializable;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -38,11 +38,13 @@ public class Cliente implements Imagenable ,Serializable{
 	@NonNull
 	private String nombre, direccion;
 	@NonNull
-	private ArrayList<Venta> lstVentas;
+	@Builder.Default
+	private ArrayList<Venta> lstVentas= new ArrayList<Venta>();
 	@ToString.Exclude
 	private byte[] imgBytes;
 	@NonNull
-	private ArrayList<CarritoCompras> carrito;
+	@Builder.Default 
+	private ArrayList<CarritoCompras> carrito= new ArrayList<CarritoCompras>() ;
 
 	public void setImagen(Image image) throws IOException {
 		imgBytes = Imagenable.getImageBytes(image);
@@ -114,4 +116,5 @@ public class Cliente implements Imagenable ,Serializable{
 			lstVentas.add(venta);
 		}
 	}
+
 }
