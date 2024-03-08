@@ -83,6 +83,7 @@ public class ModelFactoryController {
 		cargarCarrito();
 		DetalleCarrito detalleCarrito = DetalleCarrito.builder().cantSeleccionada(cant).producto(producto).build();
 		carritoCompras.agregarDetalleCarrito(detalleCarrito);
+		RAMController.getInstance().setCarrito(carritoCompras);
 		System.out.println(carritoCompras.getLstDetalleCarritos().toString());
 	}
 

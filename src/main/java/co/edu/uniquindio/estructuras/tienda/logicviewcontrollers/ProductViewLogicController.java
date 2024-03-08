@@ -2,9 +2,11 @@ package co.edu.uniquindio.estructuras.tienda.logicviewcontrollers;
 
 import java.io.IOException;
 
+import co.edu.uniquindio.estructuras.tienda.model.DetalleCarrito;
 import co.edu.uniquindio.estructuras.tienda.model.Producto;
 import co.edu.uniquindio.estructuras.tienda.services.ICloseableController;
 import co.edu.uniquindio.estructuras.tienda.services.IProductoController;
+import co.edu.uniquindio.estructuras.tienda.utils.Constants;
 import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
 import co.edu.uniquindio.estructuras.tienda.utils.ImgUtils;
 import javafx.animation.FadeTransition;
@@ -14,31 +16,71 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
 
 public class ProductViewLogicController {
 
 	private SimpleObjectProperty<Producto> productoProperty;
+	private SimpleObjectProperty<DetalleCarrito> detalleCarritoProperty;
+	/**
+	 * El uso normal es el uso del producto, si se da clic agregaría el producto al
+	 * carrito, si no es normal se usa un detalle y cuando se de clic se elimina un
+	 * detalle del carrito
+	 */
+	private boolean normalUse = true;
 
 	public ProductViewLogicController() {
 		productoProperty = new SimpleObjectProperty<Producto>();
+		detalleCarritoProperty = new SimpleObjectProperty<DetalleCarrito>();
 	}
 
 	public void setProducto(Producto p) {
+		String s = "hol.a";
 		Platform.runLater(() -> productoProperty.setValue(p));
 	}
 
-	public void cargarLabels(Label lblNombre, Label lblPrecio, Label lblStock, BorderPane root) {
-		productoProperty.addListener((observable, oldValue, newValue) -> {
-			if (newValue != null)
-				setValues(lblNombre, lblPrecio, lblStock, newValue, root);
-		});
-
-		if (productoProperty.getValue() != null)
-			setValues(lblNombre, lblPrecio, lblStock, productoProperty.getValue(), root);
+	public void setDetalleCarrito(DetalleCarrito d) {
+		Platform.runLater(() -> detalleCarritoProperty.setValue(d));
 	}
 
-	private void setValues(Label lblNombre, Label lblPrecio, Label lblStock, Producto producto, BorderPane root) {
+	public void cargarProductoLabels(Label lblNombre, Label lblPrecio, Label lblStock, BorderPane root, Label lblHover,
+			SVGPath svgHover) {
+		normalUse = true;
+		lblHover.setText("Agregar al Carrito");
+		svgHover.setContent(Constants.SHOPPING_CARD_CONTENT);
+		productoProperty.addListener((observable, oldValue, newValue) -> {
+			if (newValue != null)
+				setProductValues(lblNombre, lblPrecio, lblStock, newValue, root);
+		});
+		if (productoProperty.getValue() != null)
+			setProductValues(lblNombre, lblPrecio, lblStock, productoProperty.getValue(), root);
+	}
+
+	public void cargarDetailLabels(Label lblNombre, Label lblPrecio, Label lblStock, BorderPane root, Label lblHover,
+			SVGPath svgHover) {
+		normalUse = false;
+		lblHover.setText("Eliminr del Carrito");
+		svgHover.setContent(Constants.RECYCLE_BIN_CONTENT);
+		detalleCarritoProperty.addListener((observable, oldValue, newValue) -> {
+			if (newValue != null)
+				setDetailValues(lblNombre, lblPrecio, lblStock, newValue, root);
+		});
+		if (detalleCarritoProperty.getValue() != null)
+			setProductValues(lblNombre, lblPrecio, lblStock, productoProperty.getValue(), root);
+	}
+
+	private void setDetailValues(Label lblNombre, Label lblPrecio, Label lblInfo, DetalleCarrito newValue,
+			BorderPane root) {
+		lblNombre.setText(newValue.getProducto().getNombre());
+		lblPrecio.setText(String.format("$%.2f C/U", newValue.getProducto().getPrecio()));
+		lblInfo.setText(String.format("%d seleccionados de %d", newValue.getCantSeleccionada(),
+				newValue.getProducto().getCantidad()));
+		root.setCenter(new ImageView(ImgUtils.cropNormal(newValue.getProducto().getImage(0, 80, true, true), 20)));
+	}
+
+	private void setProductValues(Label lblNombre, Label lblPrecio, Label lblStock, Producto producto,
+			BorderPane root) {
 		lblNombre.setText(producto.getNombre());
 		lblPrecio.setText(String.format("$%.2f C/U", producto.getPrecio()));
 		lblStock.setText(String.format("%d disponibles", producto.getCantidad()));
@@ -61,12 +103,15 @@ public class ProductViewLogicController {
 
 	public void irAAgregarAction() {
 		try {
-			FxmlPerspective perspective = FxmlPerspective.loadPerspective("addCarritoCant");
-			((IProductoController) perspective.getController()).setProducto(productoProperty.getValue());
-			((ICloseableController) perspective.getController()).setCloseMethod(() -> {
-				InventarioLogicController.getInstance().irAInventario();
-			});
-			MenuPrincipalLogicController.getInstance().cambiarPerspectiva(perspective);
+			if (normalUse) {
+				FxmlPerspective perspective = FxmlPerspective.loadPerspective("addCarritoCant");
+				((IProductoController) perspective.getController()).setProducto(productoProperty.getValue());
+				((ICloseableController) perspective.getController()).setCloseMethod(() -> {
+					InventarioLogicController.getInstance().irAInventario();
+				});
+				MenuPrincipalLogicController.getInstance().cambiarPerspectiva(perspective);
+			} else {
+			}
 		} catch (IOException e) {
 		}
 	}

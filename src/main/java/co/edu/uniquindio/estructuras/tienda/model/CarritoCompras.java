@@ -41,4 +41,8 @@ public class CarritoCompras {
 			}
 		}
 	}
+
+	public boolean estaVacio() {
+		return lstDetalleCarritos.isEmpty();
+	}
 }

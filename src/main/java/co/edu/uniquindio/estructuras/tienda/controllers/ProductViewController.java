@@ -1,19 +1,25 @@
 package co.edu.uniquindio.estructuras.tienda.controllers;
 
 import co.edu.uniquindio.estructuras.tienda.logicviewcontrollers.ProductViewLogicController;
+import co.edu.uniquindio.estructuras.tienda.model.DetalleCarrito;
 import co.edu.uniquindio.estructuras.tienda.model.Producto;
+import co.edu.uniquindio.estructuras.tienda.services.IDetalleCarritoController;
 import co.edu.uniquindio.estructuras.tienda.services.IProductoController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.SVGPath;
 
-public class ProductViewController implements IProductoController {
+public class ProductViewController implements IProductoController, IDetalleCarritoController {
 	private ProductViewLogicController logicController;
 
 	@FXML
-	private Label lblNombre, lblPrecio, lblStock;
+	private Label lblNombre, lblPrecio, lblStock, lblHover;
+
+	@FXML
+	private SVGPath svgHover;
 
 	@FXML
 	private BorderPane layerAgregar, grayLayer, imagePane;
@@ -44,13 +50,17 @@ public class ProductViewController implements IProductoController {
 	@Override
 	public void setProducto(Producto p) {
 		if (logicController == null)
-			cargarLogica();
+			logicController = new ProductViewLogicController();
+		logicController.cargarProductoLabels(lblNombre, lblPrecio, lblStock, imagePane, lblHover, svgHover);
 		logicController.setProducto(p);
 	}
 
-	public void cargarLogica() {
-		logicController = new ProductViewLogicController();
-		logicController.cargarLabels(lblNombre, lblPrecio, lblStock, imagePane);
+	@Override
+	public void setDetalleCarrito(DetalleCarrito d) {
+		if (logicController == null)
+			logicController = new ProductViewLogicController();
+		logicController.cargarDetailLabels(lblNombre, lblPrecio, lblStock, root, lblHover, svgHover);
+		logicController.setDetalleCarrito(d);
 	}
 
 }
