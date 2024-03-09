@@ -55,7 +55,7 @@ public class InventarioLogicController {
 
 	public void ordenarCantidadAction() {
 		ArrayList<Producto> lista = obtenerListaProductos();
-		lista.sort((o1, o2) -> o1.compareTo(o2));
+		lista.sort((o1, o2) -> o2.getCantidad() - o1.getCantidad());
 		cargarDatos(lista);
 	}
 

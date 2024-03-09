@@ -48,6 +48,10 @@ public class GestionClientesLogicController {
 		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
 			Platform.runLater(() -> {
 				listaClientes.getChildren().clear();
+				if (listaClientesModel.size() == 0) {
+					Platform.runLater(() -> lblVista.setText("0 - 0 de 0"));
+					return;
+				}
 				for (int i = 5 * page; i < 5 + 5 * page && i < listaClientesModel.size(); i++) {
 					try {
 						FxmlPerspective persp = FxmlPerspective.loadPerspective("cliente");

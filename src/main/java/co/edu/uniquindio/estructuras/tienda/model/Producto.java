@@ -41,7 +41,7 @@ public class Producto implements Comparable<Producto>, Imagenable, Serializable 
 
 	@Override
 	public int compareTo(Producto o) {
-		return o.cantidad - cantidad; // mayor a menor
+		return codigo.compareTo(o.codigo);
 	}
 
 	@Override

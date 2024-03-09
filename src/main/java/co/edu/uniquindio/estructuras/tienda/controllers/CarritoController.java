@@ -35,6 +35,26 @@ public class CarritoController implements ICloseableController, Initializable {
 		cerrarAction();
 	}
 
+	@FXML
+	void almacenarCarritoEvent(ActionEvent event) {
+
+	}
+
+	@FXML
+	void comprarEvent(ActionEvent event) {
+
+	}
+
+	@FXML
+	void vaciarCarritoEvent(ActionEvent event) {
+		vaciarCarritoAction();
+	}
+
+	private void vaciarCarritoAction() {
+		lblCarritoVacio.setDisable(true);
+		lblCarritoVacio.setOpacity(0);
+	}
+
 	private void cerrarAction() {
 		r.run();
 	}
@@ -50,8 +70,7 @@ public class CarritoController implements ICloseableController, Initializable {
 			MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
 				Platform.runLater(() -> vboxCarrito.getChildren().clear());
 				if (carrito != null && !carrito.estaVacio()) {
-					lblCarritoVacio.setDisable(true);
-					lblCarritoVacio.setOpacity(0);
+					vaciarCarritoAction();
 					agregarDetalles(carrito);
 				} else {
 					lblCarritoVacio.setDisable(false);
