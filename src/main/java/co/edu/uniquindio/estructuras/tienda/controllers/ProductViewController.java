@@ -59,7 +59,7 @@ public class ProductViewController implements IProductoController, IDetalleCarri
 	public void setDetalleCarrito(DetalleCarrito d) {
 		if (logicController == null)
 			logicController = new ProductViewLogicController();
-		logicController.cargarDetailLabels(lblNombre, lblPrecio, lblStock, root, lblHover, svgHover);
+		logicController.cargarDetailLabels(lblNombre, lblPrecio, lblStock, imagePane, lblHover, svgHover);
 		logicController.setDetalleCarrito(d);
 	}
 

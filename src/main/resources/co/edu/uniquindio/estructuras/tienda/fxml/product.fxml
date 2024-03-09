@@ -22,9 +22,9 @@
                   <Insets />
                </BorderPane.margin>
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0">
+                  <VBox minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="2.0">
                      <children>
-                        <Label id="textBold" fx:id="lblNombre" text="Empanadas Con Ají" />
+                        <Label id="textBold" fx:id="lblNombre" text="Empanadas Con Ají" wrapText="true" />
                         <Label fx:id="lblStock" text="5 disponibles" />
                         <Label fx:id="lblPrecio" text="\$1500.00 C/U" />
                      </children>

@@ -117,7 +117,7 @@ public class MenuPrincipalLogicController {
 	public void mostrarCarrito() {
 		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
 			Platform.runLater(() -> {
-				mainLayer.setRight(perspective.getPerspective());
+				mainLayer.setRight(mainLayer.getRight() == null ? perspective.getPerspective() : null);
 			});
 		});
 	}
@@ -171,6 +171,7 @@ public class MenuPrincipalLogicController {
 			ICloseableController controller = (ICloseableController) perspective.getController();
 			controller.setCloseMethod(this::cerrarCarrito);
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

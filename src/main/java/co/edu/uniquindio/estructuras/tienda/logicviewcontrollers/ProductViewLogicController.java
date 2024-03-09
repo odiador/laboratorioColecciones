@@ -36,7 +36,6 @@ public class ProductViewLogicController {
 	}
 
 	public void setProducto(Producto p) {
-		String s = "hol.a";
 		Platform.runLater(() -> productoProperty.setValue(p));
 	}
 
@@ -60,18 +59,19 @@ public class ProductViewLogicController {
 	public void cargarDetailLabels(Label lblNombre, Label lblPrecio, Label lblStock, BorderPane root, Label lblHover,
 			SVGPath svgHover) {
 		normalUse = false;
-		lblHover.setText("Eliminr del Carrito");
+		lblHover.setText("Eliminar del Carrito");
 		svgHover.setContent(Constants.RECYCLE_BIN_CONTENT);
 		detalleCarritoProperty.addListener((observable, oldValue, newValue) -> {
 			if (newValue != null)
 				setDetailValues(lblNombre, lblPrecio, lblStock, newValue, root);
 		});
 		if (detalleCarritoProperty.getValue() != null)
-			setProductValues(lblNombre, lblPrecio, lblStock, productoProperty.getValue(), root);
+			setDetailValues(lblNombre, lblPrecio, lblStock, detalleCarritoProperty.getValue(), root);
 	}
 
 	private void setDetailValues(Label lblNombre, Label lblPrecio, Label lblInfo, DetalleCarrito newValue,
 			BorderPane root) {
+		System.out.println("Producto" + newValue.getProducto().getNombre());
 		lblNombre.setText(newValue.getProducto().getNombre());
 		lblPrecio.setText(String.format("$%.2f C/U", newValue.getProducto().getPrecio()));
 		lblInfo.setText(String.format("%d seleccionados de %d", newValue.getCantSeleccionada(),

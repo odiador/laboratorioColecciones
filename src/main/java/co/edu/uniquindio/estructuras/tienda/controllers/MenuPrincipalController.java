@@ -22,11 +22,12 @@ public class MenuPrincipalController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		MenuPrincipalLogicController.getInstance().inicializarPerspectivas();
 		MenuPrincipalLogicController.getInstance().cargarTransicionCargando(svg1, svg2);
 		MenuPrincipalLogicController.getInstance().cargarMenuCargando(loadingLayer);
 		MenuPrincipalLogicController.getInstance().cargarMenuCentral(mainLayer);
 		MenuPrincipalLogicController.getInstance().inicializarListeners(svgShoppingCard);
-		MenuPrincipalLogicController.getInstance().inicializarPerspectivas();
+		
 	}
 
 	@FXML
