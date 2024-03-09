@@ -42,9 +42,9 @@ public class ClienteDao {
 			return (HashMap<String, Cliente>) objeto;
 
 		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
-			HashMap<String, Cliente> mapa = new HashMap<String, Cliente>();
-			return mapa;
+			HashMap<String, Cliente> hashMap = new HashMap<String, Cliente>();
+			saveData(hashMap);
+			return hashMap;
 		}
 	}
 

@@ -37,8 +37,8 @@ public class CarritoDao {
 			ois.close();
 			return (CarritoCompras) objeto;
 		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
 			CarritoCompras carrito = new CarritoCompras();
+			saveData(carrito);
 			return carrito;
 		}
 	}
