@@ -2,9 +2,11 @@ package co.edu.uniquindio.estructuras.tienda.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -42,10 +44,13 @@ public class Venta implements Serializable {
 	}
 
 	@Builder
-	public Venta(String codigo, Cliente cliente, List<DetalleVenta> lstDetalleVentas) {
-		this.codigo = codigo;
+	public Venta(Cliente cliente, CarritoCompras carrito) {
+		this.codigo = carrito.getCodigo();
 		this.cliente = cliente;
-		this.lstDetalleVentas = lstDetalleVentas;
 		this.fechaVenta = LocalDateTime.now();
+		this.lstDetalleVentas = carrito.getLstDetalleCarritos().stream()
+				.map(detalleCarrito -> DetalleVenta.builder().cantVendida(detalleCarrito.getCantSeleccionada())
+						.producto(detalleCarrito.getProducto()).build())
+				.collect(Collectors.toCollection(ArrayList::new));
 	}
 }

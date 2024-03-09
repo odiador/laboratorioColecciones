@@ -1,6 +1,5 @@
 package co.edu.uniquindio.estructuras.tienda.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -211,6 +210,11 @@ public class Tienda {
 		}
 		throw new ElementoNoEncontradoException("No se ha encontrado el cliente a actualizar");
 
+	}
+
+	public void agregarCarritoCliente(String cedula, CarritoCompras carrito)
+			throws ElementoNuloException, ElementoNoEncontradoException {
+		buscarCliente(cedula).agregarCarrito(carrito);
 	}
 
 	public String leerClientes() {
