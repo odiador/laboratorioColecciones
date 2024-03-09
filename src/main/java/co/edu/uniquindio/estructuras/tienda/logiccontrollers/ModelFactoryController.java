@@ -9,8 +9,10 @@ import java.util.Map;
 import java.util.TreeSet;
 import java.util.UUID;
 
+import co.edu.uniquindio.estructuras.tienda.exceptions.CampoInvalidoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.CampoVacioException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.CantidadSeleccionadaNoEncajaException;
+import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNuloException;
 import co.edu.uniquindio.estructuras.tienda.model.CarritoCompras;
 import co.edu.uniquindio.estructuras.tienda.model.Cliente;
 import co.edu.uniquindio.estructuras.tienda.model.DetalleCarrito;
@@ -26,6 +28,10 @@ import lombok.NonNull;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ModelFactoryController {
 
+	private static ModelFactoryController instance;
+	private TreeSet<Producto> treeSet;
+	private CarritoCompras carritoCompras;
+
 	public TreeSet<Producto> getProductos() {
 		return DataService.getInstance().listarProductos();
 	}
@@ -37,10 +43,6 @@ public class ModelFactoryController {
 	public LinkedList<Venta> getVentas() {
 		return DataService.getInstance().listarVentas();
 	}
-
-	private static ModelFactoryController instance;
-	private TreeSet<Producto> treeSet;
-	private CarritoCompras carritoCompras;
 
 	public static ModelFactoryController getInstance() {
 		if (instance == null)
@@ -105,6 +107,21 @@ public class ModelFactoryController {
 		}
 		return numeroAux;
 
+	}
+	
+	public void lanzarCamposInvalidosException(StringBuilder sb) throws CampoInvalidoException {
+		if(!sb.isEmpty()) {
+			sb.deleteCharAt(sb.length()-1);
+			throw new CampoInvalidoException(sb.toString());
+		}
+	}
+
+	public CarritoCompras agregarDetalleCarrito(@NonNull Producto producto, @NonNull String cantidad) throws CantidadSeleccionadaNoEncajaException, ElementoNuloException, CampoInvalidoException {
+		StringBuilder sb = new StringBuilder();
+		int cantidadAux =requerirCampoInt(sb, cantidad, "La cantidad no es valida");
+		lanzarCamposInvalidosException(sb);
+		DetalleCarrito detalle= DetalleCarrito.builder().producto(producto).cantSeleccionada(cantidadAux).build();
+		return DataService.getInstance().agregarDetalleCarrito(detalle);
 	}
 
 }

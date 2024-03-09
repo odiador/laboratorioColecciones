@@ -4,18 +4,24 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
+import co.edu.uniquindio.estructuras.tienda.exceptions.CantidadSeleccionadaNoEncajaException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoDuplicadoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNoEncontradoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNuloException;
+import co.edu.uniquindio.estructuras.tienda.model.CarritoCompras;
 import co.edu.uniquindio.estructuras.tienda.model.Cliente;
+import co.edu.uniquindio.estructuras.tienda.model.DetalleCarrito;
 import co.edu.uniquindio.estructuras.tienda.model.Producto;
 import co.edu.uniquindio.estructuras.tienda.model.Tienda;
 import co.edu.uniquindio.estructuras.tienda.model.Venta;
+import lombok.Getter;
+import lombok.Setter;
 
 public class DataService {
 
 	private static DataService instance;
 	private Tienda tienda;
+	private CarritoCompras carrito;
 
 	public static DataService getInstance() {
 		if (instance == null)
@@ -83,7 +89,6 @@ public class DataService {
 			tienda.actualizarProducto(producto);
 			ProductoDao.getInstance().saveData(tienda.getTreeProductos());
 		} catch (ElementoNuloException | ElementoNoEncontradoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -133,5 +138,22 @@ public class DataService {
 		leerMapClientes();
 		return tienda.getMapClientes();
 	}
+	
+	//TODO Agregar detalle a carrito, eliminar detalle (Aca y en dataservice)
+	
+	public void leerCarrito() {
+		carrito= CarritoDao.getInstance().loadData();
+	}
+	
+	public CarritoCompras agregarDetalleCarrito(DetalleCarrito detalleCarrito) throws CantidadSeleccionadaNoEncajaException, ElementoNuloException {
+		leerCarrito();
+		if(detalleCarrito!=null) {
+			carrito.agregarDetalleCarrito(detalleCarrito);
+			CarritoDao.getInstance().saveData(carrito);
+			return carrito;
+		}
+		throw new ElementoNuloException("El detalle carrito es nulo");
+	}
+	
 
 }

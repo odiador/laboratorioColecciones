@@ -1,17 +1,14 @@
 package co.edu.uniquindio.estructuras.tienda.exceptions;
 
-public class ElementoDuplicadoException extends Exception {
+public class CampoInvalidoException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ElementoDuplicadoException(String message) {
+	public CampoInvalidoException(String message) {
 		super(message);
-		
 	}
 	
-	
-
 }
