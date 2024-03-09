@@ -80,7 +80,6 @@
                   <HBox spacing="10.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#importarCarritoEvent" text="Importar Carrito" />
-                        <Button mnemonicParsing="false" onAction="#verContenidoEvent" text="Ver Contenido" />
                         <Button mnemonicParsing="false" onAction="#eliminarCarritoEvent" text="Eliminar Carrito" />
                      </children>
                   </HBox>
