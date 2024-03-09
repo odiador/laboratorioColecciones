@@ -53,4 +53,12 @@ public class Venta implements Serializable {
 						.producto(detalleCarrito.getProducto()).build())
 				.collect(Collectors.toCollection(ArrayList::new));
 	}
+
+	public double getTotal() {
+		double total = 0;
+		for (DetalleVenta detalleVenta : lstDetalleVentas)
+			total += detalleVenta.calcPrecioParcial();
+
+		return total;
+	}
 }

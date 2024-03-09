@@ -20,6 +20,7 @@ public class ClienteViewDetalleController implements IClienteViewDetalle, Initia
 
 	@FXML
 	private ImageView imgCliente;
+
 	@FXML
 	private TableColumn<CarritoCompras, String> colCodigoCarrito, colTiposProductoCarrito;
 
@@ -65,11 +66,6 @@ public class ClienteViewDetalleController implements IClienteViewDetalle, Initia
 
 	@FXML
 	void importarCarritoEvent(ActionEvent event) {
-
-	}
-
-	@FXML
-	void verContenidoEvent(ActionEvent event) {
 
 	}
 

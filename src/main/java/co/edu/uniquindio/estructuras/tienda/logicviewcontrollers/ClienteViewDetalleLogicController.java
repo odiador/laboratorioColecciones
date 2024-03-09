@@ -36,10 +36,18 @@ public class ClienteViewDetalleLogicController {
 			TableView<CarritoCompras> tableCarritos, ImageView imgCliente) {
 		configCliente(lblIdentificacion, lblNombre, lblDireccion, imgCliente);
 		configColCarrito(colCodigoCarrito, colTiposProductoCarrito);
+		configColVentas(colCodigoVentas, colFechaVentas, colHoraVentas, colTotalVentas);
+
+	}
+
+	private void configColVentas(TableColumn<Venta, String> colCodigoVentas, TableColumn<Venta, String> colFechaVentas,
+			TableColumn<Venta, String> colHoraVentas, TableColumn<Venta, String> colTotalVentas) {
 		colCodigoVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getCodigo()));
 		colFechaVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(
 				e.getValue().getFechaVenta().toLocalDate().format(DateTimeFormatter.ISO_LOCAL_DATE)));
-
+		colHoraVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(
+				e.getValue().getFechaVenta().toLocalTime().format(DateTimeFormatter.ISO_TIME)));
+		colTotalVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getTotal() + ""));
 	}
 
 	private void configColCarrito(TableColumn<CarritoCompras, String> colCodigoCarrito,
