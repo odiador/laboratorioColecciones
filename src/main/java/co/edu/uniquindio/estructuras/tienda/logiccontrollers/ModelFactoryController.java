@@ -12,6 +12,8 @@ import java.util.UUID;
 import co.edu.uniquindio.estructuras.tienda.exceptions.CampoInvalidoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.CampoVacioException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.CantidadSeleccionadaNoEncajaException;
+import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoDuplicadoException;
+import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNoEncontradoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNuloException;
 import co.edu.uniquindio.estructuras.tienda.model.CarritoCompras;
 import co.edu.uniquindio.estructuras.tienda.model.Cliente;
@@ -72,12 +74,45 @@ public class ModelFactoryController {
 		return carritoCompras;
 	}
 
-	public void agregarProducto(@NonNull String codigo, @NonNull String nombre, @NonNull double precio,
-			@NonNull String cantidad, @NonNull Image imagen) {
+	public void agregarProducto(@NonNull String codigo, @NonNull String nombre, @NonNull String precio,
+			@NonNull String cantidad, @NonNull Image imagen) throws CampoInvalidoException, IOException, ElementoNuloException {
 		StringBuilder sb = new StringBuilder();
 		requerirCampoString(sb, codigo, "El codigo no puede estar vacio");
 		requerirCampoString(sb, nombre, "El nombre no puede estar vacio");
-		requerirCampoInt(sb, cantidad, "La cantidad no puede estar vacia");
+		int cantidadAux=requerirCampoInt(sb, cantidad, "La cantidad no puede estar vacia");
+		double precioAux= requerirCampoDouble(sb, precio, "El precio no puede estar vacio");
+		lanzarCamposInvalidosException(sb);
+		Producto producto= Producto.builder().codigo(codigo).nombre(nombre).precio(precioAux)
+				.cantidad(cantidadAux).imgBytes(Imagenable.getImageBytes(imagen)).build();
+		DataService.getInstance().agregarProducto(producto);
+	}
+	
+	public void agregarCliente (@NonNull String identificacion, @NonNull String nombre,
+			@NonNull String direccion, @NonNull Image image) throws CampoInvalidoException, IOException, ElementoNuloException, ElementoDuplicadoException {
+		StringBuilder sb= new StringBuilder();
+		requerirCampoString(sb, identificacion, "La identificacion no puede estar vacia");
+		requerirCampoString(sb, nombre, "El nombre no puede estar vacio");
+		requerirCampoString(sb, direccion, "La direccion no puede estar vacia");
+		lanzarCamposInvalidosException(sb);
+		Cliente cliente= Cliente.builder().identificacion(identificacion).nombre(nombre).direccion(direccion).imgBytes(Imagenable.getImageBytes(image)).build();
+		DataService.getInstance().agregarCliente(cliente);
+	}
+	
+	public void agregarVenta(@NonNull CarritoCompras carrito, @NonNull Cliente cliente) throws ElementoNuloException, ElementoDuplicadoException {
+		Venta venta= Venta.builder().carrito(carrito).cliente(cliente).build();
+		DataService.getInstance().agregarVenta(venta);
+		
+	}
+	
+	public void eliminarProducto(Producto producto) throws ElementoNuloException, ElementoNoEncontradoException {
+		DataService.getInstance().eliminarProducto(producto);
+	}
+	
+	public void eliminarCliente (Cliente cliente) throws ElementoNuloException, ElementoNoEncontradoException {
+		DataService.getInstance().eliminarCliente(cliente);
+	}
+	public void eliminarVenta (Venta venta) throws ElementoNuloException, ElementoNoEncontradoException {
+		DataService.getInstance().eliminarVenta(venta);
 	}
 
 	public void requerirCampoString(StringBuilder sb, String cadena, String msg) {
@@ -85,6 +120,23 @@ public class ModelFactoryController {
 			sb.append(msg);
 			sb.append("\n");
 		}
+	}
+	
+	public void actualizarProducto(Producto producto) throws ElementoNuloException, ElementoNoEncontradoException {
+		DataService.getInstance().actualizarProducto(producto);
+	}
+	public void actualizarCliente(Cliente cliente) throws ElementoNuloException, ElementoNoEncontradoException {
+		DataService.getInstance().actualizarCliente(cliente);
+	}
+	public void actualizarVenta (Venta venta) {
+		DataService.getInstance().actualizarVenta(venta);
+	}
+	
+	public Producto buscarProducto(String codigo) throws ElementoNoEncontradoException {
+		return DataService.getInstance().buscarProducto(codigo);
+	}
+	public Cliente buscarCliente(String cedula) throws ElementoNoEncontradoException {
+		return DataService.getInstance().buscarCliente(cedula);
 	}
 
 	public Integer requerirCampoInt(StringBuilder sb, String numero, String msg) {
@@ -108,19 +160,41 @@ public class ModelFactoryController {
 		return numeroAux;
 
 	}
-	
+	public Double requerirCampoDouble(StringBuilder sb, String numero, String msg) {
+		if(numero==null||numero.isBlank()) {
+			sb.append(msg);
+			sb.append("\n");
+			return null;
+		}
+		Double numeroAux= null; 
+				
+		try {
+			numeroAux= Double.parseDouble(numero);
+		}catch (Exception e) {
+			sb.append(msg);
+			sb.append("\n");
+			return null;
+		}
+		if(numeroAux<0.0) {
+			sb.append(msg);
+			sb.append("\n");
+		}
+		return numeroAux;
+	}
+
 	public void lanzarCamposInvalidosException(StringBuilder sb) throws CampoInvalidoException {
-		if(!sb.isEmpty()) {
-			sb.deleteCharAt(sb.length()-1);
+		if (!sb.isEmpty()) {
+			sb.deleteCharAt(sb.length() - 1);
 			throw new CampoInvalidoException(sb.toString());
 		}
 	}
 
-	public CarritoCompras agregarDetalleCarrito(@NonNull Producto producto, @NonNull String cantidad) throws CantidadSeleccionadaNoEncajaException, ElementoNuloException, CampoInvalidoException {
+	public CarritoCompras agregarDetalleCarrito(@NonNull Producto producto, @NonNull String cantidad)
+			throws CantidadSeleccionadaNoEncajaException, ElementoNuloException, CampoInvalidoException {
 		StringBuilder sb = new StringBuilder();
-		int cantidadAux =requerirCampoInt(sb, cantidad, "La cantidad no es valida");
+		int cantidadAux = requerirCampoInt(sb, cantidad, "La cantidad no es valida");
 		lanzarCamposInvalidosException(sb);
-		DetalleCarrito detalle= DetalleCarrito.builder().producto(producto).cantSeleccionada(cantidadAux).build();
+		DetalleCarrito detalle = DetalleCarrito.builder().producto(producto).cantSeleccionada(cantidadAux).build();
 		return DataService.getInstance().agregarDetalleCarrito(detalle);
 	}
 

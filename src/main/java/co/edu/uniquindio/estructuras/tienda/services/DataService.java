@@ -83,14 +83,10 @@ public class DataService {
 		ClienteDao.getIntance().saveData(tienda.getMapClientes());
 	}
 
-	public void actualizarProducto(Producto producto) {
+	public void actualizarProducto(Producto producto) throws ElementoNuloException, ElementoNoEncontradoException {
 		leerProductos();
-		try {
 			tienda.actualizarProducto(producto);
 			ProductoDao.getInstance().saveData(tienda.getTreeProductos());
-		} catch (ElementoNuloException | ElementoNoEncontradoException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void actualizarVenta(Venta venta) {
