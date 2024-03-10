@@ -22,7 +22,7 @@ public class ClienteViewDetalleController implements IClienteViewDetalle, Initia
 	private ImageView imgCliente;
 
 	@FXML
-	private TableColumn<CarritoCompras, String> colCodigoCarrito, colTiposProductoCarrito;
+	private TableColumn<CarritoCompras, String> colProductosCarrito, colSubtotalProductoCarrito;
 
 	@FXML
 	private Label lblDireccion, lblIdentificacion, lblNombre;
@@ -31,7 +31,7 @@ public class ClienteViewDetalleController implements IClienteViewDetalle, Initia
 	private TableView<CarritoCompras> tableCarritos;
 
 	@FXML
-	private TableColumn<Venta, String> colCodigoVentas, colFechaVentas, colHoraVentas, colTotalVentas;
+	private TableColumn<Venta, String> colProductosVentas, colFechaVentas, colHoraVentas, colTotalVentas;
 
 	@FXML
 	private TableView<Venta> tableVentas;
@@ -76,7 +76,7 @@ public class ClienteViewDetalleController implements IClienteViewDetalle, Initia
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ClienteViewDetalleLogicController.getInstance().configValues(lblDireccion, lblIdentificacion, lblNombre,
-				colCodigoCarrito, colTiposProductoCarrito, colCodigoVentas, colFechaVentas, colHoraVentas,
+				colProductosCarrito, colSubtotalProductoCarrito, colProductosVentas, colFechaVentas, colHoraVentas,
 				colTotalVentas, tableVentas, tableCarritos, imgCliente);
 	}
 

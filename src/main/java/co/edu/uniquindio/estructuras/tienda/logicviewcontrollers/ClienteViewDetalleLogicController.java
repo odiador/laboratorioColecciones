@@ -36,20 +36,20 @@ public class ClienteViewDetalleLogicController {
 	}
 
 	public void configValues(Label lblDireccion, Label lblIdentificacion, Label lblNombre,
-			TableColumn<CarritoCompras, String> colCodigoCarrito,
-			TableColumn<CarritoCompras, String> colTiposProductoCarrito, TableColumn<Venta, String> colCodigoVentas,
+			TableColumn<CarritoCompras, String> colProductosCarrito,
+			TableColumn<CarritoCompras, String> colSubtotalProductoCarrito, TableColumn<Venta, String> colProductosVentas,
 			TableColumn<Venta, String> colFechaVentas, TableColumn<Venta, String> colHoraVentas,
 			TableColumn<Venta, String> colTotalVentas, TableView<Venta> tableVentas,
 			TableView<CarritoCompras> tableCarritos, ImageView imgCliente) {
 		configCliente(lblIdentificacion, lblNombre, lblDireccion, imgCliente, tableCarritos, tableVentas);
-		configColCarrito(colCodigoCarrito, colTiposProductoCarrito);
-		configColVentas(colCodigoVentas, colFechaVentas, colHoraVentas, colTotalVentas);
+		configColCarrito(colProductosCarrito, colSubtotalProductoCarrito);
+		configColVentas(colProductosVentas, colFechaVentas, colHoraVentas, colTotalVentas);
 
 	}
 
-	private void configColVentas(TableColumn<Venta, String> colCodigoVentas, TableColumn<Venta, String> colFechaVentas,
+	private void configColVentas(TableColumn<Venta, String> colProductosVentas, TableColumn<Venta, String> colFechaVentas,
 			TableColumn<Venta, String> colHoraVentas, TableColumn<Venta, String> colTotalVentas) {
-		colCodigoVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getCodigo()));
+		colProductosVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().obtenerProductosVendidosString()));
 		colFechaVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(
 				e.getValue().getFechaVenta().toLocalDate().format(DateTimeFormatter.ISO_LOCAL_DATE)));
 		colHoraVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(
@@ -57,10 +57,10 @@ public class ClienteViewDetalleLogicController {
 		colTotalVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getTotal() + ""));
 	}
 
-	private void configColCarrito(TableColumn<CarritoCompras, String> colCodigoCarrito,
-			TableColumn<CarritoCompras, String> colTiposProductoCarrito) {
-		colCodigoCarrito.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getCodigo()));
-		colTiposProductoCarrito.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getCodigo()));
+	private void configColCarrito(TableColumn<CarritoCompras, String> colProductosCarrito,
+			TableColumn<CarritoCompras, String> colSubtotalProductoCarrito) {
+		colProductosCarrito.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().obtenerProductosString()));
+		colSubtotalProductoCarrito.setCellValueFactory(e -> new ReadOnlyStringWrapper((e.getValue().obtenerSubtotal()+"")));
 	}
 
 	private void configCliente(Label lblIdentificacion, Label lblNombre, Label lblDireccion, ImageView imgCliente,

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -61,5 +62,19 @@ public class Venta implements Serializable {
 			total += detalleVenta.calcPrecioParcial();
 
 		return total;
+	}
+	
+	public String obtenerProductosVendidosString () {
+		StringBuilder sb = new StringBuilder(); 
+		Iterator<DetalleVenta> iterator = lstDetalleVentas.iterator();
+		while(iterator.hasNext()) {
+			DetalleVenta detalleAux= iterator.next();
+			sb.append(detalleAux.getProducto().getNombre());
+			if(iterator.hasNext()) {
+				sb.append(", ");
+			}
+			
+		}
+		return sb.toString();
 	}
 }
