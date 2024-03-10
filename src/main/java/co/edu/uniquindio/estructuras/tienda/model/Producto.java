@@ -48,4 +48,12 @@ public class Producto implements Comparable<Producto>, Imagenable, Serializable 
 	public byte[] getImgBytes() {
 		return imgBytes;
 	}
+
+	public boolean verificarCantidad(int cantSeleccionada) {
+		return this.cantidad >= cantSeleccionada;
+	}
+
+	public void venderCantidad(int cant) {
+		this.cantidad -= cant;
+	}
 }

@@ -4,8 +4,30 @@
     -fx-border-color: null;
 }
 
+#btn-seleccion {
+    -fx-background-color: #f1f4f5;
+}
+
+
+#btn-seleccion:hover {
+    -fx-background-color: #b9d8f7;
+}
+
+#btn-seleccion:pressed {
+    -fx-background-color: #96c5f4;
+}
+
 #btn-seleccion:disabled {
-    -fx-background-color: #84bbf2;
+    -fx-background-color: #1a80e6;
+    -fx-opacity: 1;
+}
+
+#btn-seleccion:disabled .label {
+    -fx-text-fill: white;
+}
+
+#btn-seleccion:disabled .label:disabled {
+    -fx-text-fill: white;
     -fx-opacity: 1;
 }
 

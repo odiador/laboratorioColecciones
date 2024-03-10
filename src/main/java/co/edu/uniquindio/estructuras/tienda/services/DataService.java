@@ -6,9 +6,11 @@ import java.util.TreeSet;
 import java.util.UUID;
 
 import co.edu.uniquindio.estructuras.tienda.exceptions.CantidadSeleccionadaNoEncajaException;
+import co.edu.uniquindio.estructuras.tienda.exceptions.CarritoNoFuncionaException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoDuplicadoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNoEncontradoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNuloException;
+import co.edu.uniquindio.estructuras.tienda.exceptions.VentaNoFuncionaException;
 import co.edu.uniquindio.estructuras.tienda.model.CarritoCompras;
 import co.edu.uniquindio.estructuras.tienda.model.Cliente;
 import co.edu.uniquindio.estructuras.tienda.model.DetalleCarrito;
@@ -51,10 +53,12 @@ public class DataService {
 
 	}
 
-	public void agregarVenta(Venta venta) throws ElementoNuloException, ElementoDuplicadoException {
+	public void agregarVenta(Venta venta) throws ElementoNuloException, ElementoDuplicadoException,
+			VentaNoFuncionaException, ElementoNoEncontradoException {
 		leerHistoricoVentas();
 		tienda.agregarVenta(venta);
 		VentaDao.getInstance().saveData(tienda.getHistoricoVentas());
+		ProductoDao.getInstance().saveData(tienda.getTreeProductos());
 	}
 
 	public void agregarCliente(Cliente cliente) throws ElementoNuloException, ElementoDuplicadoException {
@@ -158,6 +162,15 @@ public class DataService {
 		carrito.eliminarDetalleCarrito(detalleCarrito);
 		CarritoDao.getInstance().saveData(carrito);
 		return carrito;
+	}
+
+	public void actualizarCarrito(CarritoCompras carrito) {
+		CarritoDao.getInstance().saveData(carrito);
+	}
+
+	public void verificarCarrito(CarritoCompras carrito) throws CarritoNoFuncionaException {
+		leerProductos();
+		tienda.verificarCarrito(carrito);
 	}
 
 }

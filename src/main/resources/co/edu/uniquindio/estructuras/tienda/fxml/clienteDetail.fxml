@@ -70,8 +70,8 @@
                   <Label id="textBold" layoutX="20.0" layoutY="424.0" text="Carritos de Compras" />
                   <TableView id="tableVentas" fx:id="tableCarritos" layoutX="20.0" layoutY="458.0" minHeight="200.0" minWidth="20.0" prefHeight="200.0" prefWidth="200.0">
                      <columns>
-                        <TableColumn id="colCodigo" fx:id="colCodigoCarrito" prefWidth="75.0" text="Codigo" />
-                        <TableColumn id="colFecha" fx:id="colTiposProductoCarrito" prefWidth="75.0" text="Tipos de Productos" />
+                        <TableColumn fx:id="colCodigoCarrito" prefWidth="75.0" text="Codigo" />
+                        <TableColumn fx:id="colTiposProductoCarrito" prefWidth="75.0" text="Tipos de Productos" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -86,10 +86,10 @@
                   <Label id="textBold" text="Historial de Ventas" />
                   <TableView id="tableVentas" fx:id="tableVentas" minHeight="200.0" minWidth="20.0" prefHeight="200.0" prefWidth="200.0">
                     <columns>
-                        <TableColumn id="colCodigo" fx:id="colCodigoVentas" prefWidth="75.0" text="Codigo" />
-                      <TableColumn id="colFecha" fx:id="colFechaVentas" prefWidth="75.0" text="Fecha" />
-                      <TableColumn id="colHora" fx:id="colHoraVentas" prefWidth="75.0" text="Hora" />
-                        <TableColumn id="colTotal" fx:id="colTotalVentas" prefWidth="75.0" text="Total" />
+                        <TableColumn fx:id="colCodigoVentas" prefWidth="75.0" text="Codigo" />
+                      <TableColumn fx:id="colFechaVentas" prefWidth="75.0" text="Fecha" />
+                      <TableColumn fx:id="colHoraVentas" prefWidth="75.0" text="Hora" />
+                        <TableColumn fx:id="colTotalVentas" prefWidth="75.0" text="Total" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

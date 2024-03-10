@@ -16,6 +16,7 @@ public class FxmlPerspective {
 	private Parent perspective;
 
 	public static FxmlPerspective loadPerspective(String fxml) throws IOException {
+		System.out.println(fxml);
 		FXMLLoader fxmlLoader = new FXMLLoader(
 				TiendaMain.class.getResource("/co/edu/uniquindio/estructuras/tienda/fxml/" + fxml + ".fxml"));
 		Parent load = fxmlLoader.load();

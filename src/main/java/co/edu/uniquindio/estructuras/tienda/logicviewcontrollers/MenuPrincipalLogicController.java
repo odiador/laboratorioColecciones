@@ -34,8 +34,6 @@ public class MenuPrincipalLogicController {
 
 	private static MenuPrincipalLogicController instance;
 
-	private SVGPath svgShoppingCard;
-
 	private FxmlPerspective perspectiveCarrito;
 
 	public static MenuPrincipalLogicController getInstance() {
@@ -87,11 +85,11 @@ public class MenuPrincipalLogicController {
 
 	public void ejecutarProceso(Runnable runnable) {
 		new Thread(() -> {
-//			showPane(loadingLayer);
-//			transicionCargando.playFromStart();
+			showPane(loadingLayer);
+			transicionCargando.playFromStart();
 			runnable.run();
-//			hidePane(loadingLayer);
-//			transicionCargando.stop();
+			hidePane(loadingLayer);
+			transicionCargando.stop();
 		}).start();
 	}
 
@@ -116,10 +114,19 @@ public class MenuPrincipalLogicController {
 		this.mainLayer = mainLayer;
 	}
 
-	public void mostrarCarrito() {
+	public void mostrarOcultarCarrito() {
 		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
 			Platform.runLater(() -> {
 				mainLayer.setRight(mainLayer.getRight() == null ? perspectiveCarrito.getPerspective() : null);
+			});
+		});
+	}
+
+	public void mostrarCarrito() {
+		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
+			Platform.runLater(() -> {
+				if (mainLayer.getRight() == null)
+					mainLayer.setRight(perspectiveCarrito.getPerspective());
 			});
 		});
 	}
@@ -180,6 +187,17 @@ public class MenuPrincipalLogicController {
 	public void mostrarInfo() {
 		new Alert(AlertType.INFORMATION, "Laboratorio de Colecciones creado por Juan Manuel Amador y Santiago Quintero")
 				.show();
+	}
+
+	public void limpiarCentro() {
+		mainLayer.setCenter(null);
+	}
+
+	public void irAVentas() {
+		try {
+			cambiarPerspectiva(FxmlPerspective.loadPerspective("tblVentas"));
+		} catch (IOException e) {
+		}
 	}
 
 }

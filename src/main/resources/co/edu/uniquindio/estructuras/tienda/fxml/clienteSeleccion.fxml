@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<Button id="btn-seleccion" fx:id="btnPrincipal" contentDisplay="GRAPHIC_ONLY" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#clientePresionadoEvent" prefHeight="80.0" prefWidth="190.0" stylesheets="@../styles/essentialstyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.SingleClientSelecionController">
+   <graphic>
+      <BorderPane fx:id="root" prefHeight="80.0">
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label id="textBold" fx:id="lblNombre" text="Pepe Cardenas del perpetuo socorro" textOverrun="CLIP" wrapText="true" />
+                  <Label fx:id="lblIdentificacion" text="1092772483" textFill="#65727e" />
+               </children>
+               <BorderPane.margin>
+                  <Insets left="10.0" />
+               </BorderPane.margin>
+            </VBox>
+         </center>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <left>
+            <Circle fill="WHITE" radius="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" BorderPane.alignment="CENTER" />
+         </left>
+      </BorderPane>
+   </graphic>
+   <padding>
+      <Insets bottom="0.01" left="0.01" right="0.01" top="0.01" />
+   </padding>
+</Button>

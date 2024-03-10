@@ -31,12 +31,12 @@ public class CarritoController implements ICloseableController, Initializable {
 
 	@FXML
 	void almacenarCarritoEvent(ActionEvent event) {
-
+		CarritoLogicController.getInstance().almacenarCarritoAction();
 	}
 
 	@FXML
 	void comprarEvent(ActionEvent event) {
-
+		CarritoLogicController.getInstance().comprarAction();
 	}
 
 	@FXML

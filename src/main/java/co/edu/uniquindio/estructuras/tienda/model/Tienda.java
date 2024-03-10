@@ -5,9 +5,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
+import co.edu.uniquindio.estructuras.tienda.exceptions.CarritoNoFuncionaException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoDuplicadoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNoEncontradoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNuloException;
+import co.edu.uniquindio.estructuras.tienda.exceptions.VentaNoFuncionaException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,30 +33,20 @@ public class Tienda {
 	private HashMap<String, Cliente> mapClientes;
 
 	public boolean agregarProducto(Producto producto) throws ElementoNuloException {
-		if (producto != null) {
-			return agregarProductoAux(producto);
-
-		} else {
-			throw new ElementoNuloException("El producto es nulo");
-		}
-	}
-
-	private boolean agregarProductoAux(Producto producto) {
-		return treeProductos.add(producto);
+		if (producto != null)
+			return treeProductos.add(producto);
+		throw new ElementoNuloException("El producto es nulo");
 	}
 
 	public boolean eliminarProducto(Producto producto) throws ElementoNuloException, ElementoNoEncontradoException {
-		if (producto != null) {
+		if (producto != null)
 			return eliminarProductoAux(producto);
-		} else {
-			throw new ElementoNuloException("El producto es nulo");
-		}
+		throw new ElementoNuloException("El producto es nulo");
 	}
 
 	private boolean eliminarProductoAux(Producto producto) throws ElementoNoEncontradoException {
-		if (!treeProductos.remove(producto)) {
+		if (!treeProductos.remove(producto))
 			throw new ElementoNoEncontradoException("No se ha encontrado la venta");
-		}
 		return true;
 	}
 
@@ -63,19 +55,15 @@ public class Tienda {
 		while (iterador.hasNext()) {
 			Producto produ = iterador.next();
 			if (produ.getCodigo().equals(codigo))
-				;
-			return produ;
+				return produ;
 		}
 		throw new ElementoNoEncontradoException("Producto No Enontrado");
 	}
 
 	public void actualizarProducto(Producto producto) throws ElementoNuloException, ElementoNoEncontradoException {
-		if (producto != null) {
-			actualizarProductoAux(producto);
-		} else {
+		if (producto == null)
 			throw new ElementoNuloException("EL producto no existe");
-
-		}
+		actualizarProductoAux(producto);
 	}
 
 	private void actualizarProductoAux(Producto producto) throws ElementoNoEncontradoException {
@@ -91,39 +79,34 @@ public class Tienda {
 		throw new ElementoNoEncontradoException("No se ha encontrado el producto a actualizar");
 	}
 
-	public String leerProuctos() {
-		return treeProductos.toString();
-	}
-
-	public boolean agregarVenta(Venta venta) throws ElementoNuloException, ElementoDuplicadoException {
-		if (venta != null) {
-			return agregarVentaAux(venta);
-		} else {
+	public void agregarVenta(Venta venta) throws ElementoNuloException, ElementoDuplicadoException,
+			VentaNoFuncionaException, ElementoNoEncontradoException {
+		if (venta == null)
 			throw new ElementoNuloException("La venta es nula");
-		}
+		if (historicoVentas.contains(venta))
+			new ElementoDuplicadoException("La venta ya se encuentra registrada");
+		verificarVenta(venta);
+		for (DetalleVenta detalleVenta : venta.getLstDetalleVentas())
+			venderProductoAux(detalleVenta.getProducto(), detalleVenta.getCantVendida());
+		historicoVentas.add(venta);
+
 	}
 
-	private boolean agregarVentaAux(Venta venta) throws ElementoDuplicadoException {
-		if (!historicoVentas.contains(venta)) {
-			return historicoVentas.add(venta);
-		} else {
-			throw new ElementoDuplicadoException("La venta ya se encuentra registrada");
-		}
+	private void venderProductoAux(@NonNull Producto producto, int cantVendida)
+			throws ElementoNuloException, ElementoNoEncontradoException {
+		producto.venderCantidad(cantVendida);
+		actualizarProducto(producto);
 	}
 
 	public boolean eliminarVenta(Venta venta) throws ElementoNuloException, ElementoNoEncontradoException {
-		if (venta != null) {
+		if (venta != null)
 			return eliminarVentaAux(venta);
-		} else {
-			throw new ElementoNuloException("La venta es nula");
-		}
+		throw new ElementoNuloException("La venta es nula");
 	}
 
 	private boolean eliminarVentaAux(Venta venta) throws ElementoNoEncontradoException {
-
-		if (!historicoVentas.remove(venta)) {
+		if (!historicoVentas.remove(venta))
 			throw new ElementoNoEncontradoException("No se ha encontrado la venta");
-		}
 		return true;
 	}
 
@@ -147,10 +130,6 @@ public class Tienda {
 				historicoVentas.add(venta);
 			}
 		}
-	}
-
-	public String leerVenta() {
-		return historicoVentas.toString();
 	}
 
 	public void agregarCliente(Cliente cliente) throws ElementoNuloException, ElementoDuplicadoException {
@@ -186,25 +165,22 @@ public class Tienda {
 	}
 
 	public Cliente buscarCliente(String cedula) throws ElementoNoEncontradoException {
-
 		Cliente cliente = mapClientes.get(cedula);
-		if (cliente == null) {
-			throw new ElementoNoEncontradoException("El cliente no a sido encontrado");
-		}
+		if (cliente == null)
+			throw new ElementoNoEncontradoException("El cliente no ha sido encontrado");
 		return cliente;
 	}
 
 	public void actualizarCliente(Cliente cliente) throws ElementoNuloException, ElementoNoEncontradoException {
-		if (cliente != null) {
-			actualizarClienteAux(cliente);
-		}
-		throw new ElementoNuloException("El cliente a actualizar es nulo");
+		if (cliente == null)
+			throw new ElementoNuloException("El cliente a actualizar es nulo");
+		actualizarClienteAux(cliente);
+
 	}
 
 	private void actualizarClienteAux(Cliente cliente) throws ElementoNoEncontradoException {
 		Cliente clienteAux = mapClientes.get(cliente.getIdentificacion());
 		if (clienteAux != null) {
-			mapClientes.remove(clienteAux.getIdentificacion());
 			mapClientes.put(cliente.getIdentificacion(), cliente);
 			return;
 		}
@@ -219,6 +195,36 @@ public class Tienda {
 
 	public String leerClientes() {
 		return mapClientes.toString();
+	}
+
+	public void verificarCarrito(CarritoCompras carrito) throws CarritoNoFuncionaException {
+		for (DetalleCarrito detalle : carrito.getLstDetalleCarritos())
+			if (!verificarDetalle(detalle))
+				throw new CarritoNoFuncionaException("El carrito contiene productos que no tienen stock");
+	}
+
+	private boolean verificarDetalle(DetalleCarrito detalle) {
+		Producto productoBuscar = detalle.getProducto();
+		for (Producto producto : treeProductos) {
+			if (producto.equals(productoBuscar)) {
+				return producto.verificarCantidad(detalle.getCantSeleccionada());
+			}
+		}
+		return false;
+	}
+
+	public void verificarVenta(Venta venta) throws VentaNoFuncionaException {
+		for (DetalleVenta detalle : venta.getLstDetalleVentas())
+			if (!verificarDetalleVenta(detalle))
+				throw new VentaNoFuncionaException("La venta contiene productos que no tienen stock");
+	}
+
+	private boolean verificarDetalleVenta(DetalleVenta detalle) {
+		Producto productoBuscar = detalle.getProducto();
+		for (Producto producto : treeProductos)
+			if (producto.equals(productoBuscar))
+				return producto.verificarCantidad(detalle.getCantVendida());
+		return false;
 	}
 
 }

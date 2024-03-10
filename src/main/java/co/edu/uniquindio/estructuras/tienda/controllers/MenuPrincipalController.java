@@ -23,12 +23,12 @@ public class MenuPrincipalController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		MenuPrincipalLogicController.getInstance().inicializarPerspectivas();
-		MenuPrincipalLogicController.getInstance().inicializarListeners(svgShoppingCard);
-		ModelFactoryController.getInstance().cargarCarrito();
 		MenuPrincipalLogicController.getInstance().cargarTransicionCargando(svg1, svg2);
 		MenuPrincipalLogicController.getInstance().cargarMenuCargando(loadingLayer);
 		MenuPrincipalLogicController.getInstance().cargarMenuCentral(mainLayer);
+		MenuPrincipalLogicController.getInstance().inicializarPerspectivas();
+		MenuPrincipalLogicController.getInstance().inicializarListeners(svgShoppingCard);
+		ModelFactoryController.getInstance().cargarCarrito();
 
 	}
 
@@ -86,9 +86,10 @@ public class MenuPrincipalController implements Initializable {
 	}
 
 	private void shoppingCardAction() {
-		MenuPrincipalLogicController.getInstance().mostrarCarrito();
+		MenuPrincipalLogicController.getInstance().mostrarOcultarCarrito();
 	}
 
 	private void ventasAction() {
+		MenuPrincipalLogicController.getInstance().irAVentas();
 	}
 }

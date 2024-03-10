@@ -61,12 +61,12 @@ public class ClienteViewDetalleController implements IClienteViewDetalle, Initia
 
 	@FXML
 	void eliminarCarritoEvent(ActionEvent event) {
-
+		ClienteViewDetalleLogicController.getInstance().eliminarCarritoAction(tableCarritos);
 	}
 
 	@FXML
 	void importarCarritoEvent(ActionEvent event) {
-
+		ClienteViewDetalleLogicController.getInstance().importarCarritoAction(tableCarritos);
 	}
 
 	private void cerrarAction() {

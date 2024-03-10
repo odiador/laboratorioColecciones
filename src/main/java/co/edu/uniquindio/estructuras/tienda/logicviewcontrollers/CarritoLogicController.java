@@ -5,9 +5,14 @@ import java.io.IOException;
 import co.edu.uniquindio.estructuras.tienda.logiccontrollers.ModelFactoryController;
 import co.edu.uniquindio.estructuras.tienda.logiccontrollers.RAMController;
 import co.edu.uniquindio.estructuras.tienda.model.CarritoCompras;
+import co.edu.uniquindio.estructuras.tienda.services.ICloseableController;
 import co.edu.uniquindio.estructuras.tienda.services.IDetalleCarritoController;
+import co.edu.uniquindio.estructuras.tienda.services.ISeleccionClientesController;
+import co.edu.uniquindio.estructuras.tienda.services.ISeleccionClientesController.TipoMetodo;
 import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -53,5 +58,45 @@ public class CarritoLogicController {
 
 	public void vaciarCarrito() {
 		ModelFactoryController.getInstance().vaciarCarrito();
+	}
+
+	public void comprarAction() {
+		try {
+			if (ModelFactoryController.getInstance().carritoEstaVacio()) {
+				new Alert(AlertType.WARNING, "El carrito esta vacío").show();
+				return;
+			}
+			FxmlPerspective perspective = FxmlPerspective.loadPerspective("seleccionCliente");
+			ISeleccionClientesController iSeleccionClientesController = (ISeleccionClientesController) perspective
+					.getController();
+			ICloseableController iCloseableController = (ICloseableController) perspective.getController();
+			iSeleccionClientesController.setTipoMetodo(TipoMetodo.COMPRAR);
+			iCloseableController.setCloseMethod(() -> {
+				MenuPrincipalLogicController.getInstance().limpiarCentro();
+			});
+			MenuPrincipalLogicController.getInstance().cambiarPerspectiva(perspective);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void almacenarCarritoAction() {
+		try {
+			if (ModelFactoryController.getInstance().carritoEstaVacio()) {
+				new Alert(AlertType.WARNING, "El carrito esta vacío").show();
+				return;
+			}
+			FxmlPerspective perspective = FxmlPerspective.loadPerspective("seleccionCliente");
+			ISeleccionClientesController iSeleccionClientesController = (ISeleccionClientesController) perspective
+					.getController();
+			ICloseableController iCloseableController = (ICloseableController) perspective.getController();
+			iSeleccionClientesController.setTipoMetodo(TipoMetodo.GUARDAR_CARRITO);
+			iCloseableController.setCloseMethod(() -> {
+				MenuPrincipalLogicController.getInstance().limpiarCentro();
+			});
+			MenuPrincipalLogicController.getInstance().cambiarPerspectiva(perspective);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

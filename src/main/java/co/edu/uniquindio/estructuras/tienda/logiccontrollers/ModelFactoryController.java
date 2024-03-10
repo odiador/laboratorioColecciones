@@ -1,16 +1,20 @@
 package co.edu.uniquindio.estructuras.tienda.logiccontrollers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import co.edu.uniquindio.estructuras.tienda.exceptions.CampoInvalidoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.CampoVacioException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.CantidadSeleccionadaNoEncajaException;
+import co.edu.uniquindio.estructuras.tienda.exceptions.CarritoNoFuncionaException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoDuplicadoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNoEncontradoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNuloException;
+import co.edu.uniquindio.estructuras.tienda.exceptions.VentaNoFuncionaException;
 import co.edu.uniquindio.estructuras.tienda.model.CarritoCompras;
 import co.edu.uniquindio.estructuras.tienda.model.Cliente;
 import co.edu.uniquindio.estructuras.tienda.model.DetalleCarrito;
@@ -34,6 +38,10 @@ public class ModelFactoryController {
 
 	public HashMap<String, Cliente> getClientes() {
 		return DataService.getInstance().listarClientes();
+	}
+
+	public ArrayList<Cliente> getListClientes() {
+		return getClientes().values().stream().collect(Collectors.toCollection(ArrayList::new));
 	}
 
 	public LinkedList<Venta> getVentas() {
@@ -95,10 +103,15 @@ public class ModelFactoryController {
 	}
 
 	public void agregarVenta(@NonNull CarritoCompras carrito, @NonNull Cliente cliente)
-			throws ElementoNuloException, ElementoDuplicadoException {
+			throws ElementoNuloException, ElementoDuplicadoException, ElementoNoEncontradoException,
+			CarritoNoFuncionaException, VentaNoFuncionaException {
+		Cliente clienteBuscado = buscarCliente(cliente.getIdentificacion());
+		DataService.getInstance().verificarCarrito(carrito);
 		Venta venta = Venta.builder().carrito(carrito).cliente(cliente).build();
 		DataService.getInstance().agregarVenta(venta);
-
+		clienteBuscado.agregarVenta(venta);
+		actualizarCliente(clienteBuscado);
+		vaciarCarrito();
 	}
 
 	public void eliminarProducto(Producto producto) throws ElementoNuloException, ElementoNoEncontradoException {
@@ -189,6 +202,35 @@ public class ModelFactoryController {
 			sb.deleteCharAt(sb.length() - 1);
 			throw new CampoInvalidoException(sb.toString());
 		}
+	}
+
+	public CarritoCompras getCarrito() {
+		return DataService.getInstance().leerCarrito();
+	}
+
+	public void agregarCarritoCliente(@NonNull CarritoCompras carrito, @NonNull Cliente cliente)
+			throws ElementoNuloException, ElementoNoEncontradoException {
+		Cliente clienteBuscado = buscarCliente(cliente.getIdentificacion());
+		clienteBuscado.agregarCarrito(carrito);
+		actualizarCliente(clienteBuscado);
+		vaciarCarrito();
+	}
+
+	public void setCarrito(CarritoCompras carritoCompras) {
+		DataService.getInstance().actualizarCarrito(carritoCompras);
+		RAMController.getInstance().actualizarCarrito(carritoCompras);
+	}
+
+	public Cliente eliminarCarritoCliente(Cliente cliente, CarritoCompras carrito)
+			throws ElementoNuloException, ElementoNoEncontradoException {
+		Cliente buscarCliente = buscarCliente(cliente.getIdentificacion());
+		buscarCliente.borrarCarrito(carrito);
+		actualizarCliente(buscarCliente);
+		return buscarCliente;
+	}
+
+	public boolean carritoEstaVacio() {
+		return DataService.getInstance().leerCarrito().estaVacio();
 	}
 
 }

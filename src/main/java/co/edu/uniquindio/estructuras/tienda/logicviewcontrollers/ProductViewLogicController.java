@@ -16,6 +16,7 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -75,7 +76,6 @@ public class ProductViewLogicController {
 
 	private void setDetailValues(Label lblNombre, Label lblPrecio, Label lblInfo, DetalleCarrito newValue,
 			BorderPane root) {
-		System.out.println("Producto" + newValue.getProducto().getNombre());
 		lblNombre.setText(newValue.getProducto().getNombre());
 		lblPrecio.setText(String.format("$%.2f C/U", newValue.getProducto().getPrecio()));
 		lblInfo.setText(String.format("%d seleccionados de %d", newValue.getCantSeleccionada(),
@@ -106,22 +106,37 @@ public class ProductViewLogicController {
 	}
 
 	public void irAAgregarAction() {
+		if (normalUse)
+			irASeleccionarCantidad();
+		else
+			eliminarElementoCarrito();
+	}
+
+	private void eliminarElementoCarrito() {
 		try {
-			if (normalUse) {
-				FxmlPerspective perspective = FxmlPerspective.loadPerspective("addCarritoCant");
-				((IProductoController) perspective.getController()).setProducto(productoProperty.getValue());
-				((ICloseableController) perspective.getController()).setCloseMethod(() -> {
-					InventarioLogicController.getInstance().irAInventario();
-				});
-				MenuPrincipalLogicController.getInstance().cambiarPerspectiva(perspective);
-			} else {
-				try {
-					ModelFactoryController.getInstance().eliminarDetalleCarrito(detalleCarritoProperty.getValue());
-				} catch (ElementoNoEncontradoException e) {
-					new Alert(AlertType.WARNING, e.getMessage()).show();
-				}
-			}
+			if (new Alert(AlertType.INFORMATION, "¿Deseas eliminar este producto del carrito?", ButtonType.YES,
+					ButtonType.NO).showAndWait().orElse(null) != ButtonType.YES)
+				return;
+			ModelFactoryController.getInstance().eliminarDetalleCarrito(detalleCarritoProperty.getValue());
+		} catch (ElementoNoEncontradoException e) {
+			new Alert(AlertType.WARNING, e.getMessage()).show();
+		}
+	}
+
+	private void irASeleccionarCantidad() {
+		if (productoProperty.getValue().getCantidad() <= 0) {
+			new Alert(AlertType.WARNING, "El producto no tiene existencias selecciona otro producto").show();
+			return;
+		}
+		try {
+			FxmlPerspective perspective = FxmlPerspective.loadPerspective("addCarritoCant");
+			((IProductoController) perspective.getController()).setProducto(productoProperty.getValue());
+			((ICloseableController) perspective.getController()).setCloseMethod(() -> {
+				InventarioLogicController.getInstance().irAInventario();
+			});
+			MenuPrincipalLogicController.getInstance().cambiarPerspectiva(perspective);
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

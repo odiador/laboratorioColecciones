@@ -4,10 +4,10 @@ import co.edu.uniquindio.estructuras.tienda.exceptions.CantidadSeleccionadaNoEnc
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNuloException;
 import co.edu.uniquindio.estructuras.tienda.logiccontrollers.ModelFactoryController;
 import co.edu.uniquindio.estructuras.tienda.model.Producto;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import co.edu.uniquindio.estructuras.tienda.utils.InputConfigurations;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -17,7 +17,6 @@ public class AdicionCarritoLogicController {
 	private static AdicionCarritoLogicController instance;
 	private Producto producto;
 	private TextField tf;
-	private static ChangeListener<String> listener;
 
 	public static AdicionCarritoLogicController getInstance() {
 		if (instance == null)
@@ -55,7 +54,12 @@ public class AdicionCarritoLogicController {
 		} catch (NumberFormatException e) {
 		}
 		try {
+			ButtonType resultado = new Alert(AlertType.INFORMATION, "¿Deseas agregar el producto al carrito?",
+					ButtonType.YES, ButtonType.CANCEL).showAndWait().orElse(null);
+			if (resultado != ButtonType.YES)
+				return;
 			ModelFactoryController.getInstance().agregarDetalleCarrito(num, producto);
+			MenuPrincipalLogicController.getInstance().mostrarCarrito();
 		} catch (CantidadSeleccionadaNoEncajaException | ElementoNuloException e) {
 			new Alert(AlertType.WARNING, e.getMessage()).show();
 		}
@@ -65,41 +69,11 @@ public class AdicionCarritoLogicController {
 	public void cargarInfo(Producto p, Label lblNombre, Label lblPrecio, Label lblStock, ImageView imgProducto) {
 		this.producto = p;
 		this.cantMax = p.getCantidad();
-		setAsIntegerTextfield(tf, cantMax);
+		InputConfigurations.setAsIntegerTextfield(tf, cantMax);
 		lblNombre.setText(p.getNombre());
 		lblPrecio.setText(String.format("$%.2f C/U", p.getPrecio()));
 		lblStock.setText(String.format("%d disponibles", p.getCantidad()));
 		imgProducto.setImage(p.getImage(1000, 0, true, true));
-	}
-
-	private static void setAsIntegerTextfield(TextField tf, int value) {
-		if (listener != null)
-			tf.textProperty().removeListener(listener);
-		listener = new ChangeListener<String>() {
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (newValue.isEmpty())
-					return;
-				try {
-					int num = Integer.parseInt(tf.getText());
-					if (num > value) {
-						observable.removeListener(this);
-						tf.setText(value + "");
-						observable.addListener(this);
-					} else if (num < 0) {
-						throw new Exception();
-					} else {
-						observable.removeListener(this);
-						tf.setText(num + "");
-						observable.addListener(this);
-					}
-				} catch (Exception e) {
-					observable.removeListener(this);
-					tf.setText(oldValue);
-					observable.addListener(this);
-				}
-			}
-		};
-		tf.textProperty().addListener(listener);
 	}
 
 }

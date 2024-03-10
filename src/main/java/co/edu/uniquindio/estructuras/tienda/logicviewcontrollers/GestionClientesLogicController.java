@@ -1,9 +1,7 @@
 package co.edu.uniquindio.estructuras.tienda.logicviewcontrollers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import co.edu.uniquindio.estructuras.tienda.logiccontrollers.ModelFactoryController;
 import co.edu.uniquindio.estructuras.tienda.model.Cliente;
@@ -28,8 +26,9 @@ public class GestionClientesLogicController {
 	private VBox listaClientes;
 	private Label lblVista;
 	private VBox barraClientes;
-	private List<Cliente> listaClientesModel;
 	private BorderPane root;
+
+	private List<Cliente> listaClientesModel;
 
 	public static GestionClientesLogicController getInstance() {
 		if (instance == null)
@@ -98,8 +97,7 @@ public class GestionClientesLogicController {
 	}
 
 	public void regenerarLista() {
-		listaClientesModel = ModelFactoryController.getInstance().getClientes().values().stream()
-				.collect(Collectors.toCollection(ArrayList::new));
+		listaClientesModel = ModelFactoryController.getInstance().getListClientes();
 		listaClientesModel.sort((c1, c2) -> c1.getNombre().compareTo(c2.getNombre()));
 	}
 

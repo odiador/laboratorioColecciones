@@ -2,11 +2,18 @@ package co.edu.uniquindio.estructuras.tienda.logicviewcontrollers;
 
 import java.time.format.DateTimeFormatter;
 
+import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNoEncontradoException;
+import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNuloException;
+import co.edu.uniquindio.estructuras.tienda.logiccontrollers.ModelFactoryController;
 import co.edu.uniquindio.estructuras.tienda.model.CarritoCompras;
 import co.edu.uniquindio.estructuras.tienda.model.Cliente;
 import co.edu.uniquindio.estructuras.tienda.model.Venta;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -34,7 +41,7 @@ public class ClienteViewDetalleLogicController {
 			TableColumn<Venta, String> colFechaVentas, TableColumn<Venta, String> colHoraVentas,
 			TableColumn<Venta, String> colTotalVentas, TableView<Venta> tableVentas,
 			TableView<CarritoCompras> tableCarritos, ImageView imgCliente) {
-		configCliente(lblIdentificacion, lblNombre, lblDireccion, imgCliente);
+		configCliente(lblIdentificacion, lblNombre, lblDireccion, imgCliente, tableCarritos, tableVentas);
 		configColCarrito(colCodigoCarrito, colTiposProductoCarrito);
 		configColVentas(colCodigoVentas, colFechaVentas, colHoraVentas, colTotalVentas);
 
@@ -56,20 +63,62 @@ public class ClienteViewDetalleLogicController {
 		colTiposProductoCarrito.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getCodigo()));
 	}
 
-	private void configCliente(Label lblIdentificacion, Label lblNombre, Label lblDireccion, ImageView imgCliente) {
+	private void configCliente(Label lblIdentificacion, Label lblNombre, Label lblDireccion, ImageView imgCliente,
+			TableView<CarritoCompras> tableCarritos, TableView<Venta> tableVentas) {
 		clientProperty.addListener((observableValue, oldValue, newValue) -> {
-			actualizarInfo(lblIdentificacion, lblNombre, newValue, lblDireccion, imgCliente);
+			actualizarInfo(lblIdentificacion, lblNombre, newValue, lblDireccion, imgCliente, tableCarritos,
+					tableVentas);
 		});
-		actualizarInfo(lblIdentificacion, lblNombre, clientProperty.getValue(), lblDireccion, imgCliente);
+		actualizarInfo(lblIdentificacion, lblNombre, clientProperty.getValue(), lblDireccion, imgCliente, tableCarritos,
+				tableVentas);
 	}
 
 	private void actualizarInfo(Label lblIdentificacion, Label lblNombre, Cliente newValue, Label lblDireccion,
-			ImageView imgCliente) {
+			ImageView imgCliente, TableView<CarritoCompras> tableCarritos, TableView<Venta> tableVentas) {
 		if (newValue != null) {
 			lblDireccion.setText(newValue.getDireccion());
 			lblIdentificacion.setText(newValue.getIdentificacion());
 			lblNombre.setText(newValue.getNombre());
 			imgCliente.setImage(newValue.getImage());
+			tableCarritos.setItems(FXCollections.observableArrayList(newValue.getCarrito()));
+			tableVentas.setItems(FXCollections.observableArrayList(newValue.getLstVentas()));
+		}
+	}
+
+	public void importarCarritoAction(TableView<CarritoCompras> tableCarritos) {
+		CarritoCompras item = tableCarritos.getSelectionModel().getSelectedItem();
+		if (item == null) {
+			new Alert(AlertType.WARNING, "Selecciona un carrito de compras").show();
+			return;
+		}
+		CarritoCompras carritoActual = ModelFactoryController.getInstance().getCarrito();
+		if (!carritoActual.estaVacio()) {
+			ButtonType resultado = new Alert(AlertType.WARNING, "¿Deseas sobreescribir el carrito actual?",
+					ButtonType.YES, ButtonType.NO).showAndWait().orElse(null);
+			if (resultado != ButtonType.YES)
+				return;
+		}
+		ModelFactoryController.getInstance().setCarrito(item);
+		MenuPrincipalLogicController.getInstance().mostrarCarrito();
+	}
+
+	public void eliminarCarritoAction(TableView<CarritoCompras> tableCarritos) {
+		CarritoCompras item = tableCarritos.getSelectionModel().getSelectedItem();
+		if (item == null) {
+			new Alert(AlertType.WARNING, "Selecciona un carrito de compras").show();
+			return;
+		}
+		ButtonType resultado = new Alert(AlertType.WARNING, "¿Deseas eliminar el carrito seleccionado?", ButtonType.YES,
+				ButtonType.NO).showAndWait().orElse(null);
+		if (resultado != ButtonType.YES)
+			return;
+		try {
+			Cliente nuevoCliente = ModelFactoryController.getInstance()
+					.eliminarCarritoCliente(clientProperty.getValue(), item);
+			clientProperty.setValue(null);
+			clientProperty.setValue(nuevoCliente);
+		} catch (ElementoNuloException | ElementoNoEncontradoException e) {
+			new Alert(AlertType.WARNING, e.getMessage()).show();
 		}
 	}
 }
