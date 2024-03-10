@@ -8,6 +8,7 @@ import co.edu.uniquindio.estructuras.tienda.logicviewcontrollers.MenuPrincipalLo
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.SVGPath;
@@ -26,10 +27,13 @@ public class MenuPrincipalController implements Initializable {
 	@FXML
 	private TextField tfBusqueda;
 
+	@FXML
+	private ScrollPane scrollLoading;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		MenuPrincipalLogicController.getInstance().cargarTransicionCargando(svg1, svg2);
-		MenuPrincipalLogicController.getInstance().cargarMenuCargando(loadingLayer);
+		MenuPrincipalLogicController.getInstance().cargarAnimacionCargando(scrollLoading);
 		MenuPrincipalLogicController.getInstance().cargarMenuCentral(mainLayer);
 		MenuPrincipalLogicController.getInstance().inicializarPerspectivas();
 		MenuPrincipalLogicController.getInstance().inicializarListeners(svgShoppingCard);

@@ -55,7 +55,7 @@ public class ClienteViewDetalleLogicController {
 		colFechaVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(
 				e.getValue().getFechaVenta().toLocalDate().format(DateTimeFormatter.ISO_LOCAL_DATE)));
 		colHoraVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(
-				e.getValue().getFechaVenta().toLocalTime().format(DateTimeFormatter.ISO_TIME)));
+				e.getValue().getFechaVenta().toLocalTime().format(DateTimeFormatter.ofPattern("hh:mm:ss"))));
 		colTotalVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getTotal() + ""));
 	}
 

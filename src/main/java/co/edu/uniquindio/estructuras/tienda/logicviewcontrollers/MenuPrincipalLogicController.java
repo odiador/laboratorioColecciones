@@ -8,14 +8,18 @@ import co.edu.uniquindio.estructuras.tienda.services.ICloseableController;
 import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
@@ -32,11 +36,13 @@ public class MenuPrincipalLogicController {
 
 	private ParallelTransition transicionCargando;
 
-	private BorderPane loadingLayer, mainLayer;
+	private BorderPane mainLayer;
 
 	private static MenuPrincipalLogicController instance;
 
 	private FxmlPerspective perspectiveCarrito;
+
+	private Timeline timelineCargando;
 
 	public static MenuPrincipalLogicController getInstance() {
 		if (instance == null)
@@ -46,10 +52,6 @@ public class MenuPrincipalLogicController {
 
 	public void cargarTransicionCargando(SVGPath svg1, SVGPath svg2) {
 		transicionCargando = new ParallelTransition(createRotateAnim(svg1, 0, 360), createRotateAnim(svg2, 360, 0));
-	}
-
-	public void cargarMenuCargando(BorderPane loadingLayer) {
-		this.loadingLayer = loadingLayer;
 	}
 
 	public Image cropImage(Image img, int radius) {
@@ -87,12 +89,21 @@ public class MenuPrincipalLogicController {
 
 	public void ejecutarProceso(Runnable runnable) {
 		new Thread(() -> {
-			showPane(loadingLayer);
+			timelineCargando.playFromStart();
 			transicionCargando.playFromStart();
 			runnable.run();
-			hidePane(loadingLayer);
+//			hidePane(loadingLayer);
+			timelineCargando.stop();
+			timelineCargando.setRate(-1);
+			timelineCargando.play();
 			transicionCargando.stop();
 		}).start();
+	}
+
+	public void cargarAnimacionCargando(ScrollPane scrollLoading) {
+		timelineCargando = new Timeline(
+				new KeyFrame(Duration.millis(0), new KeyValue(scrollLoading.prefHeightProperty(), 0)),
+				new KeyFrame(Duration.millis(100), new KeyValue(scrollLoading.prefHeightProperty(), 29)));
 	}
 
 	private void showPane(BorderPane pane) {
@@ -198,10 +209,13 @@ public class MenuPrincipalLogicController {
 	}
 
 	public void irAVentas() {
-		try {
-			cambiarPerspectiva(FxmlPerspective.loadPerspective("tblVentas"));
-		} catch (IOException e) {
-		}
+		ejecutarProceso(() -> {
+			try {
+				cambiarPerspectiva(FxmlPerspective.loadPerspective("tblVentas"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	public void mostrarCapaBuscar(BorderPane searchLayer, TextField tfBusqueda) {

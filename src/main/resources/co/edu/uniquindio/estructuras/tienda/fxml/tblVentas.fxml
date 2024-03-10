@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane stylesheets="@../styles/tableStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.HistorialVentasController">
+<BorderPane style="-fx-background-color: white;" stylesheets="@../styles/tableStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.HistorialVentasController">
    <center>
-      <TableView fx:id="tblVentas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/essentialstyle.css">
+      <TableView fx:id="tblVentas" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/essentialstyle.css">
         <columns>
           <TableColumn fx:id="colProducto" prefWidth="75.0" text="Producto" />
           <TableColumn fx:id="colFecha" prefWidth="75.0" text="Fecha" />
@@ -18,4 +19,7 @@
          </columnResizePolicy>
       </TableView>
    </center>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
 </BorderPane>

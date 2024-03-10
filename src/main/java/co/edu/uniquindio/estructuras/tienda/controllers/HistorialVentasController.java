@@ -27,7 +27,7 @@ public class HistorialVentasController implements Initializable {
 		colFecha.setCellValueFactory(e -> new ReadOnlyStringWrapper(
 				e.getValue().getFechaVenta().toLocalDate().format(DateTimeFormatter.ISO_LOCAL_DATE)));
 		colHora.setCellValueFactory(e -> new ReadOnlyStringWrapper(
-				e.getValue().getFechaVenta().toLocalTime().format(DateTimeFormatter.ISO_TIME)));
+				e.getValue().getFechaVenta().toLocalTime().format(DateTimeFormatter.ofPattern("hh:mm:ss"))));
 		colTotal.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getTotal() + ""));
 		tblVentas.setItems(FXCollections.observableList(ModelFactoryController.getInstance().getVentas()));
 	}

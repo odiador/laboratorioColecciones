@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -67,16 +68,18 @@
          <center>
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center>
-      </BorderPane>
-      <BorderPane fx:id="loadingLayer" disable="true" opacity="0.0" style="-fx-background-color: #00000040;">
-         <center>
-            <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="35.0" prefWidth="35.0" BorderPane.alignment="CENTER">
-               <children>
-                  <SVGPath fx:id="svg2" content="M36 24C36 17.3726 30.6274 12 24 12C17.3726 12 12 17.3726 12 24C12 30.6274 17.3726 36 24 36V36" fill="TRANSPARENT" fillRule="EVEN_ODD" scaleX="0.7" scaleY="0.7" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="4.0" />
-                  <SVGPath fx:id="svg1" content="M4 24C4 35.0457 12.9543 44 24 44V44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4" fill="TRANSPARENT" fillRule="EVEN_ODD" scaleX="0.7" scaleY="0.7" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="4.0" />
-               </children>
-            </StackPane>
-         </center>
+         <bottom>
+            <ScrollPane fx:id="scrollLoading" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="0.0" prefHeight="0.0" prefWidth="695.0" styleClass="invisible" stylesheets="@../styles/scrollinvis.css" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+               <content>
+                  <StackPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="29.0" style="-fx-background-color: d0d9df;">
+                     <children>
+                        <SVGPath fx:id="svg2" content="M36 24C36 17.3726 30.6274 12 24 12C17.3726 12 12 17.3726 12 24C12 30.6274 17.3726 36 24 36V36" fill="TRANSPARENT" fillRule="EVEN_ODD" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeLineCap="ROUND" strokeWidth="4.0" />
+                        <SVGPath fx:id="svg1" content="M4 24C4 35.0457 12.9543 44 24 44V44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4" fill="TRANSPARENT" fillRule="EVEN_ODD" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeLineCap="ROUND" strokeWidth="4.0" />
+                     </children>
+                  </StackPane>
+               </content>
+            </ScrollPane>
+         </bottom>
       </BorderPane>
       <BorderPane fx:id="searchLayer" disable="true" layoutX="10.0" layoutY="10.0" opacity="0.0" style="-fx-background-color: #00000060;">
          <center>

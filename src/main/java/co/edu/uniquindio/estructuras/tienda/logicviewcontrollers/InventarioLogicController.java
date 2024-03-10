@@ -36,21 +36,19 @@ public class InventarioLogicController {
 	}
 
 	public void cargarDatos(Collection<Producto> productos) {
-		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
 
-			Platform.runLater(() -> vboxInventario.getChildren().clear());
-			productos.forEach(producto -> {
-				try {
-					FxmlPerspective perspDetail = FxmlPerspective.loadPerspective("product");
-					IProductoController controller = (IProductoController) perspDetail.getController();
-					controller.setProducto(producto);
-					Platform.runLater(() -> {
-						vboxInventario.getChildren().add(perspDetail.getPerspective());
-					});
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			});
+		Platform.runLater(() -> vboxInventario.getChildren().clear());
+		productos.forEach(producto -> {
+			try {
+				FxmlPerspective perspDetail = FxmlPerspective.loadPerspective("product");
+				IProductoController controller = (IProductoController) perspDetail.getController();
+				controller.setProducto(producto);
+				Platform.runLater(() -> {
+					vboxInventario.getChildren().add(perspDetail.getPerspective());
+				});
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		});
 	}
 
