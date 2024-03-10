@@ -28,7 +28,7 @@ public class CarritoCompras implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@NonNull
 	@EqualsAndHashCode.Include
 	private String codigo;
@@ -61,15 +61,26 @@ public class CarritoCompras implements Serializable {
 	public boolean estaVacio() {
 		return lstDetalleCarritos.isEmpty();
 	}
-	
-	
-	public double  obtenerSubtotal() {
-		double sub=0.0;
+
+	public double obtenerSubtotal() {
+		double sub = 0.0;
 		Iterator<DetalleCarrito> iterator = lstDetalleCarritos.iterator();
-		while(iterator.hasNext()) {
-			DetalleCarrito detalleAux= iterator.next();
-			sub+= (detalleAux.getCantSeleccionada()*detalleAux.getProducto().getPrecio());
+		while (iterator.hasNext()) {
+			DetalleCarrito detalleAux = iterator.next();
+			sub += (detalleAux.getCantSeleccionada() * detalleAux.getProducto().getPrecio());
 		}
 		return sub;
+	}
+
+	public String obtenerProductosString() {
+		Iterator<DetalleCarrito> it = lstDetalleCarritos.iterator();
+		StringBuilder sb = new StringBuilder();
+		while (it.hasNext()) {
+			DetalleCarrito detalle = it.next();
+			sb.append(detalle.getProducto().getNombre());
+			if (it.hasNext())
+				sb.append(", ");
+		}
+		return sb.toString();
 	}
 }

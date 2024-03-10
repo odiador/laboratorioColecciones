@@ -149,6 +149,24 @@ public class GestionClientesLogicController {
 	}
 
 	public void regenerarLista() {
-		regenerarLista(null);		
+		regenerarLista(null);
+	}
+
+	public void irAEditarCliente(Cliente value) {
+		Node center = root.getCenter();
+		Node left = root.getLeft();
+		try {
+			FxmlPerspective perspective = FxmlPerspective.loadPerspective("actualizarCliente");
+			IClienteViewDetalle clienteView = (IClienteViewDetalle) perspective.getController();
+			clienteView.setCliente(value);
+			clienteView.setCloseMethod(() -> {
+				root.setCenter(center);
+				root.setLeft(left);
+			});
+			root.setCenter(perspective.getPerspective());
+			root.setLeft(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

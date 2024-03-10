@@ -56,7 +56,7 @@ public class ClienteViewDetalleController implements IClienteViewDetalle, Initia
 
 	@FXML
 	void editarEvent(ActionEvent event) {
-
+		ClienteViewDetalleLogicController.getInstance().editarAction();
 	}
 
 	@FXML

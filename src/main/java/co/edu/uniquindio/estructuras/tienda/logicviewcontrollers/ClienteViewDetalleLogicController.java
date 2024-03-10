@@ -121,4 +121,8 @@ public class ClienteViewDetalleLogicController {
 			new Alert(AlertType.WARNING, e.getMessage()).show();
 		}
 	}
+
+	public void editarAction() {
+		GestionClientesLogicController.getInstance().irAEditarCliente(clientProperty.getValue());
+	}
 }

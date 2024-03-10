@@ -248,4 +248,10 @@ public class ModelFactoryController {
 				.collect(Collectors.toCollection(TreeSet::new));
 	}
 
+	public void actualizarCliente(String identificacion, String direccion, String nombre, Image image)
+			throws ElementoNuloException, ElementoNoEncontradoException, IOException {
+		actualizarCliente(Cliente.builder().nombre(nombre).identificacion(identificacion).direccion(direccion)
+				.imgBytes(Imagenable.getImageBytes(image)).build());
+	}
+
 }
