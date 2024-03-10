@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<StackPane fx:id="mainRoot" onMouseClicked="#mouseClickedEvent" onMouseEntered="#mouseEnteredEvent" onMouseExited="#mouseExitedEvent" prefHeight="100.0" prefWidth="367.0" style="-fx-background-color: white; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.ProductViewController">
+<StackPane fx:id="mainRoot" minHeight="-Infinity" onMouseClicked="#mouseClickedEvent" onMouseEntered="#mouseEnteredEvent" onMouseExited="#mouseExitedEvent" prefHeight="100.0" prefWidth="367.0" style="-fx-background-color: white; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.ProductViewController">
    <children>
       <BorderPane fx:id="grayLayer" layoutX="10.0" layoutY="10.0" opacity="0.0" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #f1f4f5; -fx-background-radius: 10;" stylesheets="@../styles/essentialstyle.css">
          <padding>
