@@ -32,7 +32,7 @@ public class ActualizarClienteController implements IClienteViewDetalle, Initial
 	@FXML
 	void actualizarEvent(ActionEvent event) {
 		ActualizarClienteLogicController.getInstance().actualizarAction(lblIdentificacion.getText(),
-				tfDireccion.getText(), tfNombre.getText());
+				tfDireccion.getText(), tfNombre.getText(), r);
 	}
 
 	@FXML

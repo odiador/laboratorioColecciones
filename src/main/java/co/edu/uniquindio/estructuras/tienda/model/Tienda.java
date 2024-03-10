@@ -180,14 +180,13 @@ public class Tienda {
 
 	private void actualizarClienteAux(Cliente cliente) throws ElementoNoEncontradoException {
 		Cliente clienteAux = mapClientes.get(cliente.getIdentificacion());
-		if (clienteAux != null) {
-			clienteAux.setDireccion(cliente.getDireccion());
-			clienteAux.setNombre(cliente.getNombre());
-			clienteAux.setImgBytes(cliente.getImgBytes());
-			mapClientes.put(cliente.getIdentificacion(), clienteAux);
-			return;
-		}
-		throw new ElementoNoEncontradoException("No se ha encontrado el cliente a actualizar");
+		if (clienteAux == null)
+			throw new ElementoNoEncontradoException("No se ha encontrado el cliente a actualizar");
+		clienteAux.setDireccion(cliente.getDireccion());
+		clienteAux.setNombre(cliente.getNombre());
+		clienteAux.setImgBytes(cliente.getImgBytes());
+		mapClientes.put(cliente.getIdentificacion(), clienteAux);
+		return;
 
 	}
 

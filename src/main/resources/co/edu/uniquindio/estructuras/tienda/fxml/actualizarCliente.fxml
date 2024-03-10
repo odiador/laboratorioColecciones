@@ -16,8 +16,12 @@
          <content>
             <VBox alignment="CENTER_LEFT" spacing="3.0">
                <children>
-                  <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="bigtext" text="Identifiacion" />
-                  <Label fx:id="lblIdentificacion" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="text" />
+                  <HBox>
+                     <children>
+                        <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="bigtext" text="Identificación del Cliente: " />
+                        <Label fx:id="lblIdentificacion" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="text" />
+                     </children>
+                  </HBox>
                   <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="bigtext" text="Nombre del Cliente">
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -45,13 +49,13 @@
       </ScrollPane>
    </center>
    <top>
-      <Label id="bigtitle" styleClass="title" text="Actulaizar de un Cliente" BorderPane.alignment="CENTER" />
+      <Label id="bigtitle" styleClass="title" text="Actualización de un Cliente" BorderPane.alignment="CENTER" />
    </top>
    <bottom>
       <HBox alignment="TOP_RIGHT" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Button id="boton-cancelar" mnemonicParsing="false" onAction="#volverEvent" styleClass="boton-cancelar" text="Volver" />
-            <Button mnemonicParsing="false" onAction="#actulizarEvent" text="Actualizar" />
+            <Button mnemonicParsing="false" onAction="#actualizarEvent" text="Actualizar" />
          </children>
       </HBox>
    </bottom>

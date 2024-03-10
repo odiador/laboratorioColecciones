@@ -30,9 +30,10 @@ public class ActualizarClienteLogicController {
 
 	public void setCliente(Cliente c, Label lblIdentificacion, TextField tfDireccion, TextField tfNombre,
 			ImageView imgviewCliente) {
-		lblIdentificacion.setText(String.format("Identificacion: %s", c.getIdentificacion()));
+		lblIdentificacion.setText(c.getIdentificacion());
 		tfDireccion.setText(c.getDireccion());
 		tfNombre.setText(c.getNombre());
+		this.image = c.getImage();
 		imgviewCliente.setImage(c.getImage());
 	}
 
@@ -56,9 +57,12 @@ public class ActualizarClienteLogicController {
 		this.image = null;
 	}
 
-	public void actualizarAction(String identificacion, String direccion, String nombre) {
+	public void actualizarAction(String identificacion, String direccion, String nombre, Runnable runnableCerrar) {
 		try {
 			ModelFactoryController.getInstance().actualizarCliente(identificacion, direccion, nombre, image);
+			runnableCerrar.run();
+			GestionClientesLogicController.getInstance().regenerarLista();
+			new Alert(AlertType.INFORMATION, "El cliente se ha actualizado con éxito").show();
 		} catch (Exception e) {
 			new Alert(AlertType.WARNING, e.getMessage()).show();
 		}
