@@ -2,6 +2,7 @@ package co.edu.uniquindio.estructuras.tienda.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Iterator;
 
 import co.edu.uniquindio.estructuras.tienda.exceptions.CantidadSeleccionadaNoEncajaException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNoEncontradoException;
@@ -59,5 +60,16 @@ public class CarritoCompras implements Serializable {
 
 	public boolean estaVacio() {
 		return lstDetalleCarritos.isEmpty();
+	}
+	
+	
+	public double  obtenerSubtotal() {
+		double sub=0.0;
+		Iterator<DetalleCarrito> iterator = lstDetalleCarritos.iterator();
+		while(iterator.hasNext()) {
+			DetalleCarrito detalleAux= iterator.next();
+			sub+= (detalleAux.getCantSeleccionada()*detalleAux.getProducto().getPrecio());
+		}
+		return sub;
 	}
 }
