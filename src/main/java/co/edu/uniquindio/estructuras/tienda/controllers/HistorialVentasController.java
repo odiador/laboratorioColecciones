@@ -16,14 +16,14 @@ import javafx.scene.control.TableView;
 public class HistorialVentasController implements Initializable {
 
 	@FXML
-	private TableColumn<Venta, String> colCodigo, colFecha, colHora, colTotal;
+	private TableColumn<Venta, String> colProducto, colFecha, colHora, colTotal;
 
 	@FXML
 	private TableView<Venta> tblVentas;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		colCodigo.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getCodigo()));
+		colProducto.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().obtenerProductosVendidosString()));
 		colFecha.setCellValueFactory(e -> new ReadOnlyStringWrapper(
 				e.getValue().getFechaVenta().toLocalDate().format(DateTimeFormatter.ISO_LOCAL_DATE)));
 		colHora.setCellValueFactory(e -> new ReadOnlyStringWrapper(

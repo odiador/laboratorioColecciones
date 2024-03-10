@@ -4,12 +4,11 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-
 <BorderPane stylesheets="@../styles/tableStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.HistorialVentasController">
    <center>
       <TableView fx:id="tblVentas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/essentialstyle.css">
         <columns>
-          <TableColumn fx:id="colCodigo" prefWidth="75.0" text="Codigo" />
+          <TableColumn fx:id="colProducto" prefWidth="75.0" text="Producto" />
           <TableColumn fx:id="colFecha" prefWidth="75.0" text="Fecha" />
             <TableColumn fx:id="colHora" prefWidth="75.0" text="Hora" />
             <TableColumn fx:id="colTotal" prefWidth="75.0" text="Total" />
