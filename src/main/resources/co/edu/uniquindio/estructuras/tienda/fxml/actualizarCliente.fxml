@@ -3,37 +3,59 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="300.0" prefWidth="400.0" spacing="10.0" style="-fx-background-color: white;" stylesheets="@../styles/essentialstyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.ActualizarClienteController">
-   <children>
-      <Label id="bigtitle" styleClass="title" text="Detalles del Cliente">
-         <VBox.margin>
-            <Insets bottom="10.0" />
-         </VBox.margin>
-      </Label>
-      <VBox>
+<BorderPane prefHeight="651.0" prefWidth="539.0" style="-fx-background-color: white;" stylesheets="@../styles/essentialstyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.ActualizarClienteController">
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="invisible" stylesheets="@../styles/scrollinvis.css">
+         <content>
+            <VBox alignment="CENTER_LEFT" spacing="3.0">
+               <children>
+                  <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="bigtext" text="Identifiacion" />
+                  <Label fx:id="lblIdentificacion" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="text" />
+                  <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="bigtext" text="Nombre del Cliente">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="tfNombre" maxHeight="-Infinity" maxWidth="600.0" minHeight="-Infinity" prefHeight="50.0" promptText="Ingresa el nombre del Cliente" />
+                  <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="bigtext" text="Dirección del Cliente">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="tfDireccion" maxHeight="-Infinity" maxWidth="600.0" minHeight="-Infinity" prefHeight="50.0" promptText="Ingresa la dirección del Cliente" />
+                  <Button fx:id="btnSeleccionar" mnemonicParsing="false" onAction="#seleccionarImgEvent" text="Seleccionar Imagen">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <ImageView fx:id="imgviewCliente" fitHeight="150.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+               <padding>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </center>
+   <top>
+      <Label id="bigtitle" styleClass="title" text="Actulaizar de un Cliente" BorderPane.alignment="CENTER" />
+   </top>
+   <bottom>
+      <HBox alignment="TOP_RIGHT" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Label styleClass="bigtext" text="Identificación del Cliente" />
-            <TextField fx:id="tfNombre" maxWidth="600.0" promptText="Nombre del Cliente" />
+            <Button id="boton-cancelar" mnemonicParsing="false" onAction="#volverEvent" styleClass="boton-cancelar" text="Volver" />
+            <Button mnemonicParsing="false" onAction="#actulizarEvent" text="Actualizar" />
          </children>
-      </VBox>
-      <VBox>
-         <children>
-            <Label styleClass="bigtext" text="Ingresa el nuevo nombre del Cliente" />
-            <TextField fx:id="tfIdentificacion" maxWidth="600.0" promptText="Identificación del Cliente" />
-         </children>
-      </VBox>
-      <VBox>
-         <children>
-            <Label styleClass="bigtext" text="Ingresa la nueva dirección del Cliente" />
-            <TextField fx:id="tfDireccion" maxWidth="600.0" promptText="Dirección del Cliente" />
-         </children>
-      </VBox>
-      <Button fx:id="btnActualizar" mnemonicParsing="false" onAction="#actualizarEvent" text="Actualizar" />
-   </children>
+      </HBox>
+   </bottom>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
-</VBox>
+</BorderPane>
