@@ -37,19 +37,21 @@ public class ClienteViewDetalleLogicController {
 
 	public void configValues(Label lblDireccion, Label lblIdentificacion, Label lblNombre,
 			TableColumn<CarritoCompras, String> colProductosCarrito,
-			TableColumn<CarritoCompras, String> colSubtotalProductoCarrito, TableColumn<Venta, String> colProductosVentas,
-			TableColumn<Venta, String> colFechaVentas, TableColumn<Venta, String> colHoraVentas,
-			TableColumn<Venta, String> colTotalVentas, TableView<Venta> tableVentas,
-			TableView<CarritoCompras> tableCarritos, ImageView imgCliente) {
+			TableColumn<CarritoCompras, String> colSubtotalProductoCarrito,
+			TableColumn<Venta, String> colProductosVentas, TableColumn<Venta, String> colFechaVentas,
+			TableColumn<Venta, String> colHoraVentas, TableColumn<Venta, String> colTotalVentas,
+			TableView<Venta> tableVentas, TableView<CarritoCompras> tableCarritos, ImageView imgCliente) {
 		configCliente(lblIdentificacion, lblNombre, lblDireccion, imgCliente, tableCarritos, tableVentas);
 		configColCarrito(colProductosCarrito, colSubtotalProductoCarrito);
 		configColVentas(colProductosVentas, colFechaVentas, colHoraVentas, colTotalVentas);
 
 	}
 
-	private void configColVentas(TableColumn<Venta, String> colProductosVentas, TableColumn<Venta, String> colFechaVentas,
-			TableColumn<Venta, String> colHoraVentas, TableColumn<Venta, String> colTotalVentas) {
-		colProductosVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().obtenerProductosVendidosString()));
+	private void configColVentas(TableColumn<Venta, String> colProductosVentas,
+			TableColumn<Venta, String> colFechaVentas, TableColumn<Venta, String> colHoraVentas,
+			TableColumn<Venta, String> colTotalVentas) {
+		colProductosVentas
+				.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().obtenerProductosVendidosString()));
 		colFechaVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(
 				e.getValue().getFechaVenta().toLocalDate().format(DateTimeFormatter.ISO_LOCAL_DATE)));
 		colHoraVentas.setCellValueFactory(e -> new ReadOnlyStringWrapper(
@@ -60,7 +62,8 @@ public class ClienteViewDetalleLogicController {
 	private void configColCarrito(TableColumn<CarritoCompras, String> colProductosCarrito,
 			TableColumn<CarritoCompras, String> colSubtotalProductoCarrito) {
 		colProductosCarrito.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().obtenerProductosString()));
-		colSubtotalProductoCarrito.setCellValueFactory(e -> new ReadOnlyStringWrapper((e.getValue().obtenerSubtotal()+"")));
+		colSubtotalProductoCarrito
+				.setCellValueFactory(e -> new ReadOnlyStringWrapper((e.getValue().obtenerSubtotal() + "")));
 	}
 
 	private void configCliente(Label lblIdentificacion, Label lblNombre, Label lblDireccion, ImageView imgCliente,
@@ -124,5 +127,15 @@ public class ClienteViewDetalleLogicController {
 
 	public void editarAction() {
 		GestionClientesLogicController.getInstance().irAEditarCliente(clientProperty.getValue());
+	}
+
+	public void eliminarAction() {
+		try {
+			ModelFactoryController.getInstance().eliminarCliente(clientProperty.getValue());
+			MenuPrincipalLogicController.getInstance().limpiarCentro();
+			new Alert(AlertType.INFORMATION, "El cliente se ha eliminado con exito").show();
+		} catch (ElementoNuloException | ElementoNoEncontradoException e) {
+			new Alert(AlertType.WARNING, e.getMessage()).show();
+		}
 	}
 }

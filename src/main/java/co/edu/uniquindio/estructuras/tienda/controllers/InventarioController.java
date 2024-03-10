@@ -33,6 +33,11 @@ public class InventarioController implements Initializable {
 		InventarioLogicController.getInstance().ordenarCantidadAction();
 	}
 
+	@FXML
+	void agregarEvent(ActionEvent event) {
+		InventarioLogicController.getInstance().irAAgregarEvent();
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		InventarioLogicController.getInstance().configLista(vboxInventario, root);

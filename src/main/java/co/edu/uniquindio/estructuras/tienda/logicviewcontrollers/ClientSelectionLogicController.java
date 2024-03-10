@@ -103,29 +103,36 @@ public class ClientSelectionLogicController {
 		}
 		switch (tipoMetodo) {
 		case COMPRAR:
-			try {
-				ModelFactoryController.getInstance().agregarVenta(ModelFactoryController.getInstance().getCarrito(),
-						clienteSeleccionado);
-				MenuPrincipalLogicController.getInstance().limpiarCentro();
-				new Alert(AlertType.INFORMATION,
-						String.format("La venta se ha agregado con exito a %s", clienteSeleccionado.getNombre()))
-						.show();
-			} catch (Exception e) {
-				new Alert(AlertType.WARNING, e.getMessage()).show();
-			}
+			comprarProductos();
 			break;
 		case GUARDAR_CARRITO:
-			try {
-				ModelFactoryController.getInstance()
-						.agregarCarritoCliente(ModelFactoryController.getInstance().getCarrito(), clienteSeleccionado);
-				MenuPrincipalLogicController.getInstance().limpiarCentro();
-				new Alert(AlertType.INFORMATION, String.format("El carrito se ha guardado con exito en el cliente %s",
-						clienteSeleccionado.getNombre())).show();
-
-			} catch (Exception e) {
-				new Alert(AlertType.WARNING, e.getMessage()).show();
-			}
+			guardarCarrito();
 			break;
+		}
+	}
+
+	private void comprarProductos() {
+		try {
+			ModelFactoryController.getInstance().agregarVenta(ModelFactoryController.getInstance().getCarrito(),
+					clienteSeleccionado);
+			MenuPrincipalLogicController.getInstance().limpiarCentro();
+			new Alert(AlertType.INFORMATION,
+					String.format("La venta se ha agregado con exito a %s", clienteSeleccionado.getNombre())).show();
+		} catch (Exception e) {
+			new Alert(AlertType.WARNING, e.getMessage()).show();
+		}
+	}
+
+	private void guardarCarrito() {
+		try {
+			ModelFactoryController.getInstance()
+					.agregarCarritoCliente(ModelFactoryController.getInstance().getCarrito(), clienteSeleccionado);
+			MenuPrincipalLogicController.getInstance().limpiarCentro();
+			new Alert(AlertType.INFORMATION, String.format("El carrito se ha guardado con exito en el cliente %s",
+					clienteSeleccionado.getNombre())).show();
+
+		} catch (Exception e) {
+			new Alert(AlertType.WARNING, e.getMessage()).show();
 		}
 	}
 

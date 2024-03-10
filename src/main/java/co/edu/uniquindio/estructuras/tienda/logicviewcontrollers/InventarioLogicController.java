@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import co.edu.uniquindio.estructuras.tienda.logiccontrollers.ModelFactoryController;
 import co.edu.uniquindio.estructuras.tienda.model.Producto;
+import co.edu.uniquindio.estructuras.tienda.services.ICloseableController;
 import co.edu.uniquindio.estructuras.tienda.services.IProductoController;
 import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
 import javafx.application.Platform;
@@ -79,5 +80,18 @@ public class InventarioLogicController {
 
 	public void irAInventario() {
 		MenuPrincipalLogicController.getInstance().cambiarPerspectiva(root);
+	}
+
+	public void irAAgregarEvent() {
+		try {
+			FxmlPerspective perspective = FxmlPerspective.loadPerspective("addProducto");
+			ICloseableController controller = (ICloseableController) perspective.getController();
+			controller.setCloseMethod(() -> {
+				MenuPrincipalLogicController.getInstance().cambiarPerspectiva(root);
+			});
+			MenuPrincipalLogicController.getInstance().cambiarPerspectiva(perspective);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

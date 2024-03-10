@@ -60,6 +60,11 @@ public class ClienteViewDetalleController implements IClienteViewDetalle, Initia
 	}
 
 	@FXML
+	void eliminarEvent(ActionEvent event) {
+		ClienteViewDetalleLogicController.getInstance().eliminarAction();
+	}
+
+	@FXML
 	void eliminarCarritoEvent(ActionEvent event) {
 		ClienteViewDetalleLogicController.getInstance().eliminarCarritoAction(tableCarritos);
 	}

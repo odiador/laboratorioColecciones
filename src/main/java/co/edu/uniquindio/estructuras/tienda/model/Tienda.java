@@ -149,10 +149,9 @@ public class Tienda {
 	}
 
 	public void eliminarCliente(Cliente cliente) throws ElementoNuloException, ElementoNoEncontradoException {
-		if (cliente != null) {
-			eliminarClienteAux(cliente);
-		}
-		throw new ElementoNuloException("El cliente a eliminar es nulo");
+		if (cliente == null)
+			throw new ElementoNuloException("Recuerda seleccionar un cliente");
+		eliminarClienteAux(cliente);
 	}
 
 	private void eliminarClienteAux(Cliente cliente) throws ElementoNoEncontradoException {

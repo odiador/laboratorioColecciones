@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<BorderPane fx:id="root" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../styles/essentialstyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.InventarioController">
+<BorderPane fx:id="root" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../styles/essentialstyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.InventarioController">
    <left>
       <VBox spacing="20.0" BorderPane.alignment="CENTER">
          <children>
@@ -37,6 +37,11 @@
                      </children>
                   </StackPane>
                </graphic></Button>
+            <Button graphicTextGap="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#agregarEvent" styleClass="boton-gris" text="Agregar">
+               <graphic>
+                  <SVGPath content="m 0 0 l 10 0 m -5 -5 l 0 10" fillRule="EVEN_ODD" scaleX="1.5" scaleY="1.5" stroke="BLACK" strokeLineCap="ROUND" />
+               </graphic>
+            </Button>
          </children>
          <BorderPane.margin>
             <Insets right="20.0" />
