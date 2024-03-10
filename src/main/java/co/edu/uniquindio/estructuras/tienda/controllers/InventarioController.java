@@ -36,6 +36,5 @@ public class InventarioController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		InventarioLogicController.getInstance().configLista(vboxInventario, root);
-		InventarioLogicController.getInstance().cargarDatos();
 	}
 }

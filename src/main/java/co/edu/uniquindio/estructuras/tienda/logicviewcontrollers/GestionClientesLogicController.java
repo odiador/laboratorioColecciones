@@ -96,9 +96,13 @@ public class GestionClientesLogicController {
 		}
 	}
 
-	public void regenerarLista() {
-		listaClientesModel = ModelFactoryController.getInstance().getListClientes();
+	public void regenerarLista(String filtro) {
+		if (filtro == null)
+			listaClientesModel = ModelFactoryController.getInstance().getListClientes();
+		else
+			listaClientesModel = ModelFactoryController.getInstance().getListClientesFiltro(filtro);
 		listaClientesModel.sort((c1, c2) -> c1.getNombre().compareTo(c2.getNombre()));
+		actualizarPagina();
 	}
 
 	public void moverAtras() {
@@ -142,5 +146,9 @@ public class GestionClientesLogicController {
 				e.printStackTrace();
 			}
 		});
+	}
+
+	public void regenerarLista() {
+		regenerarLista(null);		
 	}
 }

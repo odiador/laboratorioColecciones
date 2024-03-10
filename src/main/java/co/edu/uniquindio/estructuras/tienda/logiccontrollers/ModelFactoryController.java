@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -231,6 +232,18 @@ public class ModelFactoryController {
 
 	public boolean carritoEstaVacio() {
 		return DataService.getInstance().leerCarrito().estaVacio();
+	}
+
+	public List<Cliente> getListClientesFiltro(String filtro) {
+		return getListClientes().stream()
+				.filter(cliente -> cliente.getIdentificacion().toLowerCase().contains(filtro.toLowerCase()))
+				.collect(Collectors.toCollection(ArrayList::new));
+	}
+
+	public TreeSet<Producto> getProductosFiltro(String filtro) {
+		return getProductos().stream()
+				.filter(producto -> producto.getNombre().toLowerCase().contains(filtro.toLowerCase()))
+				.collect(Collectors.toCollection(TreeSet::new));
 	}
 
 }

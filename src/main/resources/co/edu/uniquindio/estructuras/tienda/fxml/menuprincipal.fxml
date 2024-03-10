@@ -4,15 +4,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<StackPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.MenuPrincipalController">
+<StackPane stylesheets="@../styles/essentialstyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estructuras.tienda.controllers.MenuPrincipalController">
    <children>
-      <BorderPane fx:id="mainLayer" prefHeight="492.0" prefWidth="695.0" style="-fx-background-color: white;" stylesheets="@../styles/essentialstyle.css">
+      <BorderPane fx:id="mainLayer" prefHeight="492.0" prefWidth="695.0" style="-fx-background-color: white;">
          <top>
             <VBox BorderPane.alignment="CENTER">
                <children>
@@ -66,7 +68,7 @@
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
-      <BorderPane fx:id="loadingLayer" disable="true" opacity="0.0" style="-fx-background-color: #00000030;">
+      <BorderPane fx:id="loadingLayer" disable="true" opacity="0.0" style="-fx-background-color: #00000040;">
          <center>
             <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="35.0" prefWidth="35.0" BorderPane.alignment="CENTER">
                <children>
@@ -75,6 +77,42 @@
                </children>
             </StackPane>
          </center>
+      </BorderPane>
+      <BorderPane fx:id="searchLayer" disable="true" layoutX="10.0" layoutY="10.0" opacity="0.0" style="-fx-background-color: #00000060;">
+         <center>
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <children>
+                  <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                     <children>
+                        <TextField fx:id="tfBusqueda" promptText="Buscar" />
+                        <VBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <HBox alignment="CENTER" spacing="10.0">
+                                 <children>
+                                    <Button layoutX="313.0" layoutY="10.0" mnemonicParsing="false" onAction="#buscarProcuctoEvent" prefWidth="220.0" text="Buscar producto por Nombre" />
+                                    <Button layoutX="332.0" layoutY="10.0" mnemonicParsing="false" onAction="#buscarClienteEvent" prefWidth="220.0" text="Buscar Cliente por Identificacion" />
+                                 </children>
+                              </HBox>
+                              <Button mnemonicParsing="false" onAction="#cancelarEvent" prefWidth="350.0" styleClass="boton-cancelar" text="Cancelar" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+            </VBox>
+         </center>
+         <top>
+            <Pane prefHeight="60.0" BorderPane.alignment="CENTER" />
+         </top>
       </BorderPane>
    </children>
 </StackPane>

@@ -2,6 +2,7 @@ package co.edu.uniquindio.estructuras.tienda.logicviewcontrollers;
 
 import java.io.IOException;
 
+import co.edu.uniquindio.estructuras.tienda.logiccontrollers.ModelFactoryController;
 import co.edu.uniquindio.estructuras.tienda.logiccontrollers.RAMController;
 import co.edu.uniquindio.estructuras.tienda.services.ICloseableController;
 import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
@@ -15,6 +16,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -139,6 +141,7 @@ public class MenuPrincipalLogicController {
 		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
 			try {
 				cambiarPerspectiva(FxmlPerspective.loadPerspective("gestionClientes"));
+				GestionClientesLogicController.getInstance().regenerarLista();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -158,6 +161,7 @@ public class MenuPrincipalLogicController {
 		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
 			try {
 				cambiarPerspectiva(FxmlPerspective.loadPerspective("inventario"));
+				InventarioLogicController.getInstance().cargarDatos();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -198,6 +202,42 @@ public class MenuPrincipalLogicController {
 			cambiarPerspectiva(FxmlPerspective.loadPerspective("tblVentas"));
 		} catch (IOException e) {
 		}
+	}
+
+	public void mostrarCapaBuscar(BorderPane searchLayer, TextField tfBusqueda) {
+		showPane(searchLayer);
+		tfBusqueda.setText("");
+		tfBusqueda.requestFocus();
+	}
+
+	public void cancelarAction(BorderPane searchLayer, TextField tfBusqueda) {
+		hidePane(searchLayer);
+		tfBusqueda.setText("");
+	}
+
+	public void buscarProductoAction(BorderPane searchLayer, TextField tfBusqueda) {
+		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
+			try {
+				cambiarPerspectiva(FxmlPerspective.loadPerspective("inventario"));
+				InventarioLogicController.getInstance().cargarDatos(
+						ModelFactoryController.getInstance().getProductosFiltro(tfBusqueda.getText().trim()));
+				cancelarAction(searchLayer, tfBusqueda);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	public void buscarClienteAction(BorderPane searchLayer, TextField tfBusqueda) {
+		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
+			try {
+				cambiarPerspectiva(FxmlPerspective.loadPerspective("gestionClientes"));
+				GestionClientesLogicController.getInstance().regenerarLista(tfBusqueda.getText().trim());
+				cancelarAction(searchLayer, tfBusqueda);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 }

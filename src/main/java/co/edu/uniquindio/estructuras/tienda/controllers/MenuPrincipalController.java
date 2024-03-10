@@ -8,6 +8,7 @@ import co.edu.uniquindio.estructuras.tienda.logicviewcontrollers.MenuPrincipalLo
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.SVGPath;
 
@@ -15,11 +16,15 @@ public class MenuPrincipalController implements Initializable {
 
 	@FXML
 	private SVGPath svgShoppingCard;
+
 	@FXML
 	private SVGPath svg1, svg2;
 
 	@FXML
-	private BorderPane loadingLayer, mainLayer;
+	private BorderPane loadingLayer, mainLayer, searchLayer;
+
+	@FXML
+	private TextField tfBusqueda;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -67,11 +72,27 @@ public class MenuPrincipalController implements Initializable {
 		ventasAction();
 	}
 
+	@FXML
+	void cancelarEvent(ActionEvent event) {
+		MenuPrincipalLogicController.getInstance().cancelarAction(searchLayer, tfBusqueda);
+	}
+
+	@FXML
+	void buscarProcuctoEvent(ActionEvent event) {
+		MenuPrincipalLogicController.getInstance().buscarProductoAction(searchLayer, tfBusqueda);
+	}
+
+	@FXML
+	void buscarClienteEvent(ActionEvent event) {
+		MenuPrincipalLogicController.getInstance().buscarClienteAction(searchLayer, tfBusqueda);
+	}
+
 	private void clientesAction() {
 		MenuPrincipalLogicController.getInstance().irAClientes();
 	}
 
 	private void buscarAction() {
+		MenuPrincipalLogicController.getInstance().mostrarCapaBuscar(searchLayer, tfBusqueda);
 	}
 
 	private void helpAction() {
