@@ -113,7 +113,7 @@ public class ModelFactoryController {
 		Venta venta = Venta.builder().carrito(carrito).cliente(cliente).build();
 		DataService.getInstance().agregarVenta(venta);
 		clienteBuscado.agregarVenta(venta);
-		actualizarCliente(clienteBuscado);
+		actualizarClienteCompleto(clienteBuscado);
 		vaciarCarrito();
 	}
 
@@ -215,8 +215,14 @@ public class ModelFactoryController {
 			throws ElementoNuloException, ElementoNoEncontradoException {
 		Cliente clienteBuscado = buscarCliente(cliente.getIdentificacion());
 		clienteBuscado.agregarCarrito(carrito);
-		actualizarCliente(clienteBuscado);
+		actualizarClienteCompleto(clienteBuscado);
 		vaciarCarrito();
+	}
+
+	private void actualizarClienteCompleto(Cliente cliente)
+			throws ElementoNoEncontradoException, ElementoNuloException {
+		DataService.getInstance().actualizarClienteCompleto(cliente);
+
 	}
 
 	public void setCarrito(CarritoCompras carritoCompras) {
@@ -228,7 +234,7 @@ public class ModelFactoryController {
 			throws ElementoNuloException, ElementoNoEncontradoException {
 		Cliente buscarCliente = buscarCliente(cliente.getIdentificacion());
 		buscarCliente.borrarCarrito(carrito);
-		actualizarCliente(buscarCliente);
+		actualizarClienteCompleto(buscarCliente);
 		return buscarCliente;
 	}
 

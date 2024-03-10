@@ -173,4 +173,10 @@ public class DataService {
 		tienda.verificarCarrito(carrito);
 	}
 
+	public void actualizarClienteCompleto(Cliente cliente) throws ElementoNoEncontradoException, ElementoNuloException {
+		leerMapClientes();
+		tienda.actualizarClienteCompleto(cliente);
+		ClienteDao.getIntance().saveData(tienda.getMapClientes());
+	}
+
 }

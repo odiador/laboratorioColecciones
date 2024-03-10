@@ -174,11 +174,6 @@ public class Tienda {
 	public void actualizarCliente(Cliente cliente) throws ElementoNuloException, ElementoNoEncontradoException {
 		if (cliente == null)
 			throw new ElementoNuloException("El cliente a actualizar es nulo");
-		actualizarClienteAux(cliente);
-
-	}
-
-	private void actualizarClienteAux(Cliente cliente) throws ElementoNoEncontradoException {
 		Cliente clienteAux = mapClientes.get(cliente.getIdentificacion());
 		if (clienteAux == null)
 			throw new ElementoNoEncontradoException("No se ha encontrado el cliente a actualizar");
@@ -186,6 +181,17 @@ public class Tienda {
 		clienteAux.setNombre(cliente.getNombre());
 		clienteAux.setImgBytes(cliente.getImgBytes());
 		mapClientes.put(cliente.getIdentificacion(), clienteAux);
+		return;
+
+	}
+
+	public void actualizarClienteCompleto(Cliente cliente) throws ElementoNoEncontradoException, ElementoNuloException {
+		if (cliente == null)
+			throw new ElementoNuloException("El cliente a actualizar es nulo");
+		Cliente clienteAux = mapClientes.get(cliente.getIdentificacion());
+		if (clienteAux == null)
+			throw new ElementoNoEncontradoException("No se ha encontrado el cliente a actualizar");
+		mapClientes.put(cliente.getIdentificacion(), cliente);
 		return;
 
 	}
