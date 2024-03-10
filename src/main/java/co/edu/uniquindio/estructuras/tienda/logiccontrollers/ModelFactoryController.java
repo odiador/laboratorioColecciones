@@ -55,10 +55,12 @@ public class ModelFactoryController {
 		return instance;
 	}
 
-	public void agregarCliente(String id, String direccion, String nombre, @NonNull Image image)
+	public void agregarCliente(String id, String direccion, String nombre, Image image)
 			throws CampoVacioException, ElementoNuloException, ElementoDuplicadoException, CampoInvalidoException {
 		if (id.trim().isBlank() || direccion.trim().isBlank() || nombre.trim().isBlank())
 			throw new CampoVacioException("Rellena todos los campos");
+		if (image == null)
+			throw new CampoVacioException("Recuerda seleccionar la imagen");
 		try {
 			Cliente cliente = Cliente.builder().direccion(direccion).identificacion(id).nombre(nombre)
 					.imgBytes(Imagenable.getImageBytes(image)).build();

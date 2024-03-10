@@ -6,30 +6,32 @@ import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  * JavaFX App
  */
 public class TiendaMain extends Application {
 
-	private static Scene scene;
+	private static Stage stage;
 
 	@Override
 	public void start(Stage stage) throws IOException {
+		TiendaMain.stage = stage;
 		FxmlPerspective perspective = FxmlPerspective.loadPerspective("menuprincipal");
-		scene = new Scene(perspective.getPerspective());
+		Scene scene = new Scene(perspective.getPerspective());
 		stage.setMinWidth(720);
 		stage.setMinHeight(405);
 		stage.setScene(scene);
 		stage.show();
 	}
 
-	static void setRoot(String fxml) throws IOException {
-		scene.setRoot(FxmlPerspective.loadPerspective(fxml).getPerspective());
-	}
-
 	public static void main(String[] args) {
 		launch();
+	}
+
+	public static Window getCurrentStage() {
+		return stage;
 	}
 
 }
