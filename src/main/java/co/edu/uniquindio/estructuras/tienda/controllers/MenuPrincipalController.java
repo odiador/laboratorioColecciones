@@ -3,6 +3,7 @@ package co.edu.uniquindio.estructuras.tienda.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import co.edu.uniquindio.estructuras.tienda.logiccontrollers.ModelFactoryController;
 import co.edu.uniquindio.estructuras.tienda.logicviewcontrollers.MenuPrincipalLogicController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,11 +24,12 @@ public class MenuPrincipalController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		MenuPrincipalLogicController.getInstance().inicializarPerspectivas();
+		MenuPrincipalLogicController.getInstance().inicializarListeners(svgShoppingCard);
+		ModelFactoryController.getInstance().cargarCarrito();
 		MenuPrincipalLogicController.getInstance().cargarTransicionCargando(svg1, svg2);
 		MenuPrincipalLogicController.getInstance().cargarMenuCargando(loadingLayer);
 		MenuPrincipalLogicController.getInstance().cargarMenuCentral(mainLayer);
-		MenuPrincipalLogicController.getInstance().inicializarListeners(svgShoppingCard);
-		
+
 	}
 
 	@FXML
@@ -73,6 +75,7 @@ public class MenuPrincipalController implements Initializable {
 	}
 
 	private void helpAction() {
+		MenuPrincipalLogicController.getInstance().mostrarInfo();
 	}
 
 	private void productsAction() {

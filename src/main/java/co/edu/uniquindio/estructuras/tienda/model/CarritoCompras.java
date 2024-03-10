@@ -1,11 +1,13 @@
 package co.edu.uniquindio.estructuras.tienda.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
 import co.edu.uniquindio.estructuras.tienda.exceptions.CantidadSeleccionadaNoEncajaException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNoEncontradoException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,12 +22,18 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class CarritoCompras {
+public class CarritoCompras implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@NonNull
 	@EqualsAndHashCode.Include
 	private String codigo;
 	@NonNull
-	private HashSet<DetalleCarrito> lstDetalleCarritos;
+	@Default
+	private HashSet<DetalleCarrito> lstDetalleCarritos = new HashSet<DetalleCarrito>();
 
 	public void agregarDetalleCarrito(DetalleCarrito detalleCarrito) throws CantidadSeleccionadaNoEncajaException {
 
@@ -44,11 +52,9 @@ public class CarritoCompras {
 	}
 
 	public void eliminarDetalleCarrito(DetalleCarrito detallerCarrito) throws ElementoNoEncontradoException {
-		if (lstDetalleCarritos.remove(detallerCarrito)) {
+		if (lstDetalleCarritos.remove(detallerCarrito))
 			return;
-		} else {
-			throw new ElementoNoEncontradoException("No se ha encontrado el detalle a eliminar");
-		}
+		throw new ElementoNoEncontradoException("No se ha encontrado el detalle a eliminar");
 	}
 
 	public boolean estaVacio() {

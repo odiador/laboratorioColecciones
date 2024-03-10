@@ -2,10 +2,8 @@ package co.edu.uniquindio.estructuras.tienda.logiccontrollers;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.TreeSet;
-import java.util.UUID;
 
 import co.edu.uniquindio.estructuras.tienda.exceptions.CampoInvalidoException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.CampoVacioException;
@@ -29,7 +27,6 @@ import lombok.NonNull;
 public class ModelFactoryController {
 
 	private static ModelFactoryController instance;
-	private CarritoCompras carritoCompras;
 
 	public TreeSet<Producto> getProductos() {
 		return DataService.getInstance().listarProductos();
@@ -49,26 +46,38 @@ public class ModelFactoryController {
 		return instance;
 	}
 
-	public void agregarCliente(String id, String direccion, String nombre) throws CampoVacioException {
+	public void agregarCliente(String id, String direccion, String nombre, @NonNull Image image)
+			throws CampoVacioException, ElementoNuloException, ElementoDuplicadoException, CampoInvalidoException {
 		if (id.trim().isBlank() || direccion.trim().isBlank() || nombre.trim().isBlank())
 			throw new CampoVacioException("Rellena todos los campos");
+		try {
+			Cliente cliente = Cliente.builder().direccion(direccion).identificacion(id).nombre(nombre)
+					.imgBytes(Imagenable.getImageBytes(image)).build();
+			DataService.getInstance().agregarCliente(cliente);
+		} catch (IOException e) {
+			throw new CampoInvalidoException("Recuerda seleccionar la imagen");
+		}
+
 	}
 
-	public void agregarCarrito(int cant, @NonNull Producto producto) throws CantidadSeleccionadaNoEncajaException {
-		cargarCarrito();
+	public void agregarDetalleCarrito(int cant, @NonNull Producto producto)
+			throws CantidadSeleccionadaNoEncajaException, ElementoNuloException {
 		DetalleCarrito detalleCarrito = DetalleCarrito.builder().cantSeleccionada(cant).producto(producto).build();
-		carritoCompras.agregarDetalleCarrito(detalleCarrito);
-		RAMController.getInstance().actualizarCarrito(carritoCompras);
-		System.out.println(carritoCompras.getLstDetalleCarritos().toString());
+		CarritoCompras carrito = DataService.getInstance().agregarDetalleCarrito(detalleCarrito);
+		RAMController.getInstance().actualizarCarrito(carrito);
 	}
 
-	public CarritoCompras cargarCarrito() {
-		if (carritoCompras != null)
-			return carritoCompras;
-		HashSet<DetalleCarrito> setDetalles = new HashSet<DetalleCarrito>();
-		carritoCompras = CarritoCompras.builder().codigo(UUID.randomUUID().toString()).lstDetalleCarritos(setDetalles)
-				.build();
-		return carritoCompras;
+	public void eliminarDetalleCarrito(DetalleCarrito detalleCarrito) throws ElementoNoEncontradoException {
+		CarritoCompras carrito = DataService.getInstance().eliminarDetalleCarrito(detalleCarrito);
+		RAMController.getInstance().actualizarCarrito(carrito);
+	}
+
+	public void vaciarCarrito() {
+		RAMController.getInstance().actualizarCarrito(DataService.getInstance().vaciarCarrito());
+	}
+
+	public void cargarCarrito() {
+		RAMController.getInstance().actualizarCarrito(DataService.getInstance().leerCarrito());
 	}
 
 	public void agregarProducto(@NonNull String codigo, @NonNull String nombre, @NonNull String precio,
@@ -83,19 +92,6 @@ public class ModelFactoryController {
 		Producto producto = Producto.builder().codigo(codigo).nombre(nombre).precio(precioAux).cantidad(cantidadAux)
 				.imgBytes(Imagenable.getImageBytes(imagen)).build();
 		DataService.getInstance().agregarProducto(producto);
-	}
-
-	public void agregarCliente(@NonNull String identificacion, @NonNull String nombre, @NonNull String direccion,
-			@NonNull Image image)
-			throws CampoInvalidoException, IOException, ElementoNuloException, ElementoDuplicadoException {
-		StringBuilder sb = new StringBuilder();
-		requerirCampoString(sb, identificacion, "La identificacion no puede estar vacia");
-		requerirCampoString(sb, nombre, "El nombre no puede estar vacio");
-		requerirCampoString(sb, direccion, "La direccion no puede estar vacia");
-		lanzarCamposInvalidosException(sb);
-		Cliente cliente = Cliente.builder().identificacion(identificacion).nombre(nombre).direccion(direccion)
-				.imgBytes(Imagenable.getImageBytes(image)).build();
-		DataService.getInstance().agregarCliente(cliente);
 	}
 
 	public void agregarVenta(@NonNull CarritoCompras carrito, @NonNull Cliente cliente)
@@ -193,15 +189,6 @@ public class ModelFactoryController {
 			sb.deleteCharAt(sb.length() - 1);
 			throw new CampoInvalidoException(sb.toString());
 		}
-	}
-
-	public CarritoCompras agregarDetalleCarrito(@NonNull Producto producto, @NonNull String cantidad)
-			throws CantidadSeleccionadaNoEncajaException, ElementoNuloException, CampoInvalidoException {
-		StringBuilder sb = new StringBuilder();
-		int cantidadAux = requerirCampoInt(sb, cantidad, "La cantidad no es valida");
-		lanzarCamposInvalidosException(sb);
-		DetalleCarrito detalle = DetalleCarrito.builder().producto(producto).cantSeleccionada(cantidadAux).build();
-		return DataService.getInstance().agregarDetalleCarrito(detalle);
 	}
 
 }

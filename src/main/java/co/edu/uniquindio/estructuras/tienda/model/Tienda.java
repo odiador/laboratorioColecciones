@@ -154,10 +154,10 @@ public class Tienda {
 	}
 
 	public void agregarCliente(Cliente cliente) throws ElementoNuloException, ElementoDuplicadoException {
-		if (cliente != null) {
-			agregarClienteAux(cliente);
-		}
-		throw new ElementoNuloException("El cliente es nulo");
+		if (cliente == null)
+			throw new ElementoNuloException("El cliente es nulo");
+		agregarClienteAux(cliente);
+
 	}
 
 	private void agregarClienteAux(Cliente cliente) throws ElementoDuplicadoException {

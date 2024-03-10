@@ -1,5 +1,7 @@
 package co.edu.uniquindio.estructuras.tienda.model;
 
+import java.io.Serializable;
+
 import co.edu.uniquindio.estructuras.tienda.exceptions.CantidadSeleccionadaNoEncajaException;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -14,7 +16,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class DetalleCarrito {
+public class DetalleCarrito implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@EqualsAndHashCode.Include
 	@NonNull

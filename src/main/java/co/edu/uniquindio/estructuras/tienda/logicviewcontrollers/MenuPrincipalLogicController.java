@@ -13,6 +13,8 @@ import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -34,7 +36,7 @@ public class MenuPrincipalLogicController {
 
 	private SVGPath svgShoppingCard;
 
-	private FxmlPerspective perspective;
+	private FxmlPerspective perspectiveCarrito;
 
 	public static MenuPrincipalLogicController getInstance() {
 		if (instance == null)
@@ -117,7 +119,7 @@ public class MenuPrincipalLogicController {
 	public void mostrarCarrito() {
 		MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
 			Platform.runLater(() -> {
-				mainLayer.setRight(mainLayer.getRight() == null ? perspective.getPerspective() : null);
+				mainLayer.setRight(mainLayer.getRight() == null ? perspectiveCarrito.getPerspective() : null);
 			});
 		});
 	}
@@ -157,7 +159,7 @@ public class MenuPrincipalLogicController {
 
 	public void inicializarListeners(SVGPath svgShoppingCard) {
 		RAMController.getInstance().addCarritoListener(carrito -> {
-			if (carrito != null)
+			if (carrito != null && !carrito.estaVacio())
 				svgShoppingCard.setFill(Color.BLACK);
 			else
 				svgShoppingCard.setFill(Color.TRANSPARENT);
@@ -167,12 +169,17 @@ public class MenuPrincipalLogicController {
 
 	public void inicializarPerspectivas() {
 		try {
-			perspective = FxmlPerspective.loadPerspective("carritoCompras");
-			ICloseableController controller = (ICloseableController) perspective.getController();
+			perspectiveCarrito = FxmlPerspective.loadPerspective("carritoCompras");
+			ICloseableController controller = (ICloseableController) perspectiveCarrito.getController();
 			controller.setCloseMethod(this::cerrarCarrito);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void mostrarInfo() {
+		new Alert(AlertType.INFORMATION, "Laboratorio de Colecciones creado por Juan Manuel Amador y Santiago Quintero")
+				.show();
 	}
 
 }

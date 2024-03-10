@@ -1,16 +1,10 @@
 package co.edu.uniquindio.estructuras.tienda.controllers;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import co.edu.uniquindio.estructuras.tienda.logiccontrollers.RAMController;
-import co.edu.uniquindio.estructuras.tienda.logicviewcontrollers.MenuPrincipalLogicController;
-import co.edu.uniquindio.estructuras.tienda.model.CarritoCompras;
+import co.edu.uniquindio.estructuras.tienda.logicviewcontrollers.CarritoLogicController;
 import co.edu.uniquindio.estructuras.tienda.services.ICloseableController;
-import co.edu.uniquindio.estructuras.tienda.services.IDetalleCarritoController;
-import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -47,12 +41,7 @@ public class CarritoController implements ICloseableController, Initializable {
 
 	@FXML
 	void vaciarCarritoEvent(ActionEvent event) {
-		vaciarCarritoAction();
-	}
-
-	private void vaciarCarritoAction() {
-		lblCarritoVacio.setDisable(true);
-		lblCarritoVacio.setOpacity(0);
+		CarritoLogicController.getInstance().vaciarCarrito();
 	}
 
 	private void cerrarAction() {
@@ -66,32 +55,7 @@ public class CarritoController implements ICloseableController, Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		RAMController.getInstance().addCarritoListener(carrito -> {
-			MenuPrincipalLogicController.getInstance().ejecutarProceso(() -> {
-				Platform.runLater(() -> vboxCarrito.getChildren().clear());
-				if (carrito != null && !carrito.estaVacio()) {
-					vaciarCarritoAction();
-					agregarDetalles(carrito);
-				} else {
-					lblCarritoVacio.setDisable(false);
-					lblCarritoVacio.setOpacity(1);
-				}
-			});
-		});
+		CarritoLogicController.getInstance().agregarListenerCarrito(vboxCarrito, lblCarritoVacio);
 	}
 
-	private void agregarDetalles(CarritoCompras carrito) {
-		carrito.getLstDetalleCarritos().forEach(detalleCarrito -> {
-			try {
-				FxmlPerspective perspDetail = FxmlPerspective.loadPerspective("product");
-				IDetalleCarritoController controller = (IDetalleCarritoController) perspDetail.getController();
-				controller.setDetalleCarrito(detalleCarrito);
-				Platform.runLater(() -> {
-					vboxCarrito.getChildren().add(perspDetail.getPerspective());
-				});
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
-	}
 }

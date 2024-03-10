@@ -3,6 +3,7 @@ package co.edu.uniquindio.estructuras.tienda.services;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeSet;
+import java.util.UUID;
 
 import co.edu.uniquindio.estructuras.tienda.exceptions.CantidadSeleccionadaNoEncajaException;
 import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoDuplicadoException;
@@ -14,14 +15,11 @@ import co.edu.uniquindio.estructuras.tienda.model.DetalleCarrito;
 import co.edu.uniquindio.estructuras.tienda.model.Producto;
 import co.edu.uniquindio.estructuras.tienda.model.Tienda;
 import co.edu.uniquindio.estructuras.tienda.model.Venta;
-import lombok.Getter;
-import lombok.Setter;
 
 public class DataService {
 
 	private static DataService instance;
 	private Tienda tienda;
-	private CarritoCompras carrito;
 
 	public static DataService getInstance() {
 		if (instance == null)
@@ -85,8 +83,8 @@ public class DataService {
 
 	public void actualizarProducto(Producto producto) throws ElementoNuloException, ElementoNoEncontradoException {
 		leerProductos();
-			tienda.actualizarProducto(producto);
-			ProductoDao.getInstance().saveData(tienda.getTreeProductos());
+		tienda.actualizarProducto(producto);
+		ProductoDao.getInstance().saveData(tienda.getTreeProductos());
 	}
 
 	public void actualizarVenta(Venta venta) {
@@ -134,22 +132,32 @@ public class DataService {
 		leerMapClientes();
 		return tienda.getMapClientes();
 	}
-	
-	//TODO Agregar detalle a carrito, eliminar detalle (Aca y en dataservice)
-	
-	public void leerCarrito() {
-		carrito= CarritoDao.getInstance().loadData();
+
+	public CarritoCompras leerCarrito() {
+		return CarritoDao.getInstance().loadData();
 	}
-	
-	public CarritoCompras agregarDetalleCarrito(DetalleCarrito detalleCarrito) throws CantidadSeleccionadaNoEncajaException, ElementoNuloException {
-		leerCarrito();
-		if(detalleCarrito!=null) {
-			carrito.agregarDetalleCarrito(detalleCarrito);
-			CarritoDao.getInstance().saveData(carrito);
-			return carrito;
-		}
-		throw new ElementoNuloException("El detalle carrito es nulo");
+
+	public CarritoCompras agregarDetalleCarrito(DetalleCarrito detalleCarrito)
+			throws CantidadSeleccionadaNoEncajaException, ElementoNuloException {
+		if (detalleCarrito == null)
+			throw new ElementoNuloException("El detalle carrito es nulo");
+		CarritoCompras carrito = leerCarrito();
+		carrito.agregarDetalleCarrito(detalleCarrito);
+		CarritoDao.getInstance().saveData(carrito);
+		return carrito;
 	}
-	
+
+	public CarritoCompras vaciarCarrito() {
+		CarritoCompras carrito = CarritoCompras.builder().codigo(UUID.randomUUID().toString()).build();
+		CarritoDao.getInstance().saveData(carrito);
+		return carrito;
+	}
+
+	public CarritoCompras eliminarDetalleCarrito(DetalleCarrito detalleCarrito) throws ElementoNoEncontradoException {
+		CarritoCompras carrito = leerCarrito();
+		carrito.eliminarDetalleCarrito(detalleCarrito);
+		CarritoDao.getInstance().saveData(carrito);
+		return carrito;
+	}
 
 }

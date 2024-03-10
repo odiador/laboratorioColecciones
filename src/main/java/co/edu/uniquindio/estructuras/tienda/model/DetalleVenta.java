@@ -1,5 +1,7 @@
 package co.edu.uniquindio.estructuras.tienda.model;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -16,7 +18,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class DetalleVenta {
+public class DetalleVenta implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@EqualsAndHashCode.Include
 	@NonNull

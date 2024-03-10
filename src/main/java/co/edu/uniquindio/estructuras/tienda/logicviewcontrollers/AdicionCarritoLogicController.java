@@ -1,6 +1,7 @@
 package co.edu.uniquindio.estructuras.tienda.logicviewcontrollers;
 
 import co.edu.uniquindio.estructuras.tienda.exceptions.CantidadSeleccionadaNoEncajaException;
+import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNuloException;
 import co.edu.uniquindio.estructuras.tienda.logiccontrollers.ModelFactoryController;
 import co.edu.uniquindio.estructuras.tienda.model.Producto;
 import javafx.beans.value.ChangeListener;
@@ -54,8 +55,8 @@ public class AdicionCarritoLogicController {
 		} catch (NumberFormatException e) {
 		}
 		try {
-			ModelFactoryController.getInstance().agregarCarrito(num, producto);
-		} catch (CantidadSeleccionadaNoEncajaException e) {
+			ModelFactoryController.getInstance().agregarDetalleCarrito(num, producto);
+		} catch (CantidadSeleccionadaNoEncajaException | ElementoNuloException e) {
 			new Alert(AlertType.WARNING, e.getMessage()).show();
 		}
 

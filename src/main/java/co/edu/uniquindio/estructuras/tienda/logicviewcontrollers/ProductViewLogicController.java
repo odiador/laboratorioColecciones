@@ -2,6 +2,8 @@ package co.edu.uniquindio.estructuras.tienda.logicviewcontrollers;
 
 import java.io.IOException;
 
+import co.edu.uniquindio.estructuras.tienda.exceptions.ElementoNoEncontradoException;
+import co.edu.uniquindio.estructuras.tienda.logiccontrollers.ModelFactoryController;
 import co.edu.uniquindio.estructuras.tienda.model.DetalleCarrito;
 import co.edu.uniquindio.estructuras.tienda.model.Producto;
 import co.edu.uniquindio.estructuras.tienda.services.ICloseableController;
@@ -12,6 +14,8 @@ import co.edu.uniquindio.estructuras.tienda.utils.ImgUtils;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -59,7 +63,7 @@ public class ProductViewLogicController {
 	public void cargarDetailLabels(Label lblNombre, Label lblPrecio, Label lblStock, BorderPane root, Label lblHover,
 			SVGPath svgHover) {
 		normalUse = false;
-		lblHover.setText("Eliminar del Carrito");
+		lblHover.setText("Eliminar");
 		svgHover.setContent(Constants.RECYCLE_BIN_CONTENT);
 		detalleCarritoProperty.addListener((observable, oldValue, newValue) -> {
 			if (newValue != null)
@@ -111,6 +115,11 @@ public class ProductViewLogicController {
 				});
 				MenuPrincipalLogicController.getInstance().cambiarPerspectiva(perspective);
 			} else {
+				try {
+					ModelFactoryController.getInstance().eliminarDetalleCarrito(detalleCarritoProperty.getValue());
+				} catch (ElementoNoEncontradoException e) {
+					new Alert(AlertType.WARNING, e.getMessage()).show();
+				}
 			}
 		} catch (IOException e) {
 		}

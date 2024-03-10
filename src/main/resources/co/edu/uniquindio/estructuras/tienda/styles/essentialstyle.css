@@ -4,6 +4,11 @@
     -fx-border-color: null;
 }
 
+#btn-seleccion:disabled {
+    -fx-background-color: #84bbf2;
+    -fx-opacity: 1;
+}
+
 #buscar {
     -fx-background-color: #f1f4f5;
     -fx-text-fill: #606c74;
@@ -12,7 +17,11 @@
     -fx-max-height: 1;
 }
 #nopadding {
-	-fx-padding: 0;
+    -fx-padding: 0;
+}
+
+#btn-seleccion {
+    -fx-padding: 0;
 }
 
 #buscar:hover {
