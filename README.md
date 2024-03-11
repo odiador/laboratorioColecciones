@@ -17,6 +17,17 @@ El proyecto consiste en desarrollar un sistema de gestión de inventario para un
 El diagrama de clases del proyecto se puede ver en la siguiente imagen
 ![diagrama de clases](model/diagrama%2001.png "Diagrama de clases")
 
+### Video Showcase
+
+Para entregar este seguimiento, se hizo un video explicativo tipo __showcase__ que muestra el funcionamiento de la aplicación, el video se puede ver [aquí](https://www.youtube.com/watch?v=ZPb68SpvyqY)
+
+### Snapshots
+
+- Inventario
+- Clientes
+- Carrito
+- Busqueda de Clientes y Productos
+
 > [!IMPORTANT]
 > La información del proyecto y sus requisitos se pueden ver en el [PDF ubicado en la carpeta info](info/Laboratorio%20de%20colecciones.pdf "Diagrama de clases").
 
