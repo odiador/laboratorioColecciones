@@ -24,9 +24,26 @@ Para entregar este seguimiento, se hizo un video explicativo tipo __showcase__ q
 ### Snapshots
 
 - Inventario
+
+![img-inventario](info/imgInventario.png "Inventario")
+
+--------------
+
 - Clientes
+
+![img-clientes](info/imgClientes.png "Clientes")
+
+--------------
+
 - Carrito
+
+![img-carrito](info/imgCarrito.png "Carrito")
+
+--------------
+
 - Busqueda de Clientes y Productos
+
+![img-busqueda](info/imgBusqueda.png "Busqueda")
 
 > [!IMPORTANT]
 > La información del proyecto y sus requisitos se pueden ver en el [PDF ubicado en la carpeta info](info/Laboratorio%20de%20colecciones.pdf "Diagrama de clases").
