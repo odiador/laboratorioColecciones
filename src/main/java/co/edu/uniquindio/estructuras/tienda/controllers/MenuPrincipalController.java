@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.SVGPath;
 
 public class MenuPrincipalController implements Initializable {
@@ -19,10 +20,13 @@ public class MenuPrincipalController implements Initializable {
 	private SVGPath svgShoppingCard;
 
 	@FXML
-	private SVGPath svg1, svg2;
+	private SVGPath svg1, svg2, svgTienda;
 
 	@FXML
 	private BorderPane loadingLayer, mainLayer, searchLayer;
+
+	@FXML
+	private StackPane panelCenter;
 
 	@FXML
 	private TextField tfBusqueda;
@@ -34,7 +38,8 @@ public class MenuPrincipalController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		MenuPrincipalLogicController.getInstance().cargarTransicionCargando(svg1, svg2);
 		MenuPrincipalLogicController.getInstance().cargarAnimacionCargando(scrollLoading);
-		MenuPrincipalLogicController.getInstance().cargarMenuCentral(mainLayer);
+		MenuPrincipalLogicController.getInstance().cargarMenuCentral(mainLayer, panelCenter);
+		MenuPrincipalLogicController.getInstance().cargarAnimacion(svgTienda);
 		MenuPrincipalLogicController.getInstance().inicializarPerspectivas();
 		MenuPrincipalLogicController.getInstance().inicializarListeners(svgShoppingCard);
 		ModelFactoryController.getInstance().cargarCarrito();

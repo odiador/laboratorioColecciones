@@ -12,6 +12,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.Parent;
@@ -24,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
@@ -43,6 +45,8 @@ public class MenuPrincipalLogicController {
 	private FxmlPerspective perspectiveCarrito;
 
 	private Timeline timelineCargando;
+
+	private StackPane panelCenter;
 
 	public static MenuPrincipalLogicController getInstance() {
 		if (instance == null)
@@ -123,8 +127,9 @@ public class MenuPrincipalLogicController {
 		anim.play();
 	}
 
-	public void cargarMenuCentral(BorderPane mainLayer) {
+	public void cargarMenuCentral(BorderPane mainLayer, StackPane panelCenter) {
 		this.mainLayer = mainLayer;
+		this.panelCenter = panelCenter;
 	}
 
 	public void mostrarOcultarCarrito() {
@@ -205,7 +210,7 @@ public class MenuPrincipalLogicController {
 	}
 
 	public void limpiarCentro() {
-		mainLayer.setCenter(null);
+		mainLayer.setCenter(panelCenter);
 	}
 
 	public void irAVentas() {
@@ -252,6 +257,18 @@ public class MenuPrincipalLogicController {
 				e.printStackTrace();
 			}
 		});
+	}
+
+	public void cargarAnimacion(SVGPath svgTienda) {
+		ScaleTransition scale = new ScaleTransition(Duration.millis(5000), svgTienda);
+		scale.setCycleCount(-1);
+		scale.setAutoReverse(true);
+		scale.setFromX(2);
+		scale.setFromY(2);
+		scale.setToX(3);
+		scale.setToY(3);
+		scale.setInterpolator(getInterpolator());
+		scale.playFromStart();
 	}
 
 }

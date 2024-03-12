@@ -5,6 +5,7 @@ import java.io.IOException;
 import co.edu.uniquindio.estructuras.tienda.utils.FxmlPerspective;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -20,6 +21,8 @@ public class TiendaMain extends Application {
 		TiendaMain.stage = stage;
 		FxmlPerspective perspective = FxmlPerspective.loadPerspective("menuprincipal");
 		Scene scene = new Scene(perspective.getPerspective());
+		stage.setTitle("RobiTienda");
+		stage.getIcons().add(new Image("logo.png"));
 		stage.setMinWidth(720);
 		stage.setMinHeight(405);
 		stage.setScene(scene);
